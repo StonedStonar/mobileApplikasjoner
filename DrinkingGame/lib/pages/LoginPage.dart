@@ -2,7 +2,12 @@ import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/SignInButton.dart';
 import 'package:drinkinggame/components/buttons/SocialSignInButton.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../components/Dialogs.dart';
+import '../services/Authentication.dart';
+
+///Represents a login page.
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -51,7 +56,21 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _loginWithGoogle(BuildContext context) {
+  void _loginWithGoogle(BuildContext context) async {
+    Authentication authentication = Provider.of<Authentication>(context, listen: false);
+    try {
+      _setLoadingState(true);
+      await authentication.signInToGoogle();
+      //print("${userCredentials.user?.uid}");
+    } on Exception catch (e) {
+      _showSignInError(context, e);
+    }finally{
+      _setLoadingState(false);
+    }
+  }
+
+  void _loginWithEmail(BuildContext context) async {
+    Authentication authentication = Provider.of<Authentication>(context, listen: false);
     try {
       _isLoading = true;
     } on Exception catch (e) {
@@ -61,9 +80,11 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _loginWithEmail(BuildContext context) {
+  void _loginWithAnonymous(BuildContext context) async {
+    Authentication authentication = Provider.of<Authentication>(context, listen: false);
     try {
       _isLoading = true;
+      authentication.signInAnonymously();
     } on Exception catch (e) {
       print(e.toString());
     } finally {
@@ -71,14 +92,11 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _loginWithAnonymous(BuildContext context) {
-    try {
-      _isLoading = true;
-    } on Exception catch (e) {
-      print(e.toString());
-    } finally {
-      _setLoadingState(false);
-    }
+  ///Shows a sign in error.
+  ///[context] the build context
+  ///[exception] the exception.
+  void _showSignInError(BuildContext context, Exception exception){
+    showExceptionAlertDialog(context, title: "Sign in failed", exception: exception);
   }
 
   ///Sets the loading state to a new value.

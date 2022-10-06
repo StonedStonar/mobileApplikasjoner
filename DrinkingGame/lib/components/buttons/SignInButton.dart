@@ -11,7 +11,7 @@ class SignInButton extends CustomElevatedButton {
   /// [onPressed] the on pressed function.
   SignInButton({required String text, Color backgroundColor = Colors.white, Color textColor = Colors.black, required VoidCallback onPressed, Key? key})
       : super(
-            Row(
+            widget: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
@@ -25,10 +25,10 @@ class SignInButton extends CustomElevatedButton {
                 ),
               ],
             ),
-            4,
-            onPressed,
-            backgroundColor,
+            borderRadius: 4,
+            onPressed: onPressed,
+            color: backgroundColor,
             height: 80,
-            key: key
+            key: key,
   );
 }

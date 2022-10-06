@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "736689188872",
+    "project_id": "drinkinggame-d44ee",
+    "storage_bucket": "drinkinggame-d44ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736689188872:android:b099d78d8c057553b9e1bd",
+        "android_client_info": {
+          "package_name": "no.ntnu.idata2503.drinkinggame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736689188872-cufraqij2jb5pg3j1j5r38u2mggoptdt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.ntnu.idata2503.drinkinggame",
+            "certificate_hash": "67206c00e28446a3989fb9f1bd93738538970ccf"
+          }
+        },
+        {
+          "client_id": "736689188872-dcdfrcf9jcs8ms82d465tj1s6kenn343.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPqLfzpLdWZg-al50BBUlD-3B5d2STbRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736689188872-dcdfrcf9jcs8ms82d465tj1s6kenn343.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
