@@ -3,9 +3,10 @@ import '../pages/GamePage.dart';
 
 ///Makes the login app bar.
 ///Returns the appbar.
+
 AppBar makeLoginAppBar() {
   return AppBar(
-    title: Text(
+    title: const Text(
       "Sign in",
       style: TextStyle(
         fontSize: 30,
@@ -20,7 +21,6 @@ enum MenuItem { firstItem, secondItem }
 
 AppBar gamePageAppBar(BuildContext context) {
   return AppBar(
-
     actions: [
       PopupMenuButton<MenuItem>(
         onSelected: (value) {
@@ -33,23 +33,23 @@ AppBar gamePageAppBar(BuildContext context) {
             // Second item you can click on
           } else if (value == MenuItem.secondItem) {}
         },
-        offset: Offset(0.0, 80.0),
+        offset: const Offset(0.0, 80.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
-        itemBuilder: (context) => const [
+        itemBuilder: (context) => [
           // First Item in the popup menu
-          PopupMenuItem(
+          const PopupMenuItem(
             value: MenuItem.firstItem,
             child: Text('About game'),
           ),
           // Second Item in the popup menu
-          PopupMenuItem(
+          const PopupMenuItem(
             value: MenuItem.secondItem,
             child: Text('Exit game'),
           ),
         ],
       ),
     ],
-    title: Text(
+    title: const Text(
       "Drinking games",
       style: TextStyle(
         fontSize: 30,

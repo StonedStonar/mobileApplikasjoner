@@ -5,7 +5,11 @@ enum MenuItem {firstItem, secondItem}
 
 class PopUpMenu extends StatelessWidget {
 
-  const PopUpMenu({Key? key}) : super(key: key);
+  PopUpMenu({required this.offset, required this.menuItems, Key? key}) : super(key: key);
+
+  Offset offset;
+
+  List<PopupMenuItem> menuItems;
 
   @override
   Widget build(BuildContext context) =>
