@@ -2,6 +2,8 @@ import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:flutter/material.dart';
 
+import '../components/overlays/SideMenu.dart';
+
 enum MenuItem {firstItem, secondItem, thirdItem}
 
 class GamePage extends StatelessWidget {
@@ -10,8 +12,9 @@ class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: gamePageAppBar(context),
+      appBar: makeNormalAppBar("Games", context),
       body: _contentOfGamePage(context),
+      drawer: SideMenu(),
     );
   }
 

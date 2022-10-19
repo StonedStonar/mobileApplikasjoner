@@ -17,14 +17,26 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
+
+  Drawer? drawer;
+
   @override
   Widget build(BuildContext context) {
+    drawer = Drawer(child: Text("suck my dick"),);
     return Scaffold(
-      appBar: makeLoginAppBar(),
+      appBar: makeNormalAppBar("Games", context),
       backgroundColor: Colors.grey.shade100,
       body: makePageContent(context),
+      drawer: drawer,
     );
   }
+
+  void openDrawer(BuildContext context){
+    Scaffold.of(context).openDrawer();
+    //ScaffoldState.openDrawer();
+  }
+
+
 
   ///Makes the main content of the page.
   /// [context] the build context
