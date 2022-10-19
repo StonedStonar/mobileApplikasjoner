@@ -8,7 +8,7 @@ class ElevatedIconButton extends StatelessWidget {
   ///[iconSize] the size of the icon.
   ///[iconData] the type of icon.
   ///[onPressed] the function the icon should have.
-  ElevatedIconButton({Key? key, this.iconSize = 24, required this.iconData, required this.onPressed}) : super(key: key);
+  ElevatedIconButton({Key? key, this.iconSize = 30, required this.iconData, required this.onPressed}) : super(key: key);
 
   double iconSize;
 

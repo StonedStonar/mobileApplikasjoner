@@ -1,14 +1,28 @@
 import 'package:drinkinggame/components/AppBars.dart';
+import 'package:drinkinggame/components/buttons/MenuButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SideMenu extends StatelessWidget {
-  SideMenu({Key? key}) : super(key: key);
+
+  ///Makes an insance of the side menu.
+  ///[child] the content of the menu.
+  SideMenu({required this.child, this.title, Key? key}) : super(key: key);
+
+  final String? title;
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: makeMenuAppBar(context),
+    return SizedBox(
+      width: 300,
+      child: Scaffold(
+          appBar: makeMenuAppBar(context, title),
+          body: child,
+        ),
     );
   }
+
+
 }

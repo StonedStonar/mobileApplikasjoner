@@ -1,6 +1,7 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/SignInButton.dart';
 import 'package:drinkinggame/components/buttons/SocialSignInButton.dart';
+import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,15 +23,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    drawer = Drawer(child: Text("suck my dick"),);
     return Scaffold(
-      appBar: makeNormalAppBar("Games", context),
+      appBar: makeLoginAppBar(),
       backgroundColor: Colors.grey.shade100,
       body: makePageContent(context),
-      drawer: drawer,
     );
   }
 
+  ///Opens the drawer.
   void openDrawer(BuildContext context){
     Scaffold.of(context).openDrawer();
     //ScaffoldState.openDrawer();
@@ -68,6 +68,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  ///Logs the user in with google.
+  ///[context] the build context
   void _loginWithGoogle(BuildContext context) async {
     Authentication authentication = Provider.of<Authentication>(context, listen: false);
     try {
@@ -81,6 +83,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  ///Logs the user in with email
+  ///[context] the build context
   void _loginWithEmail(BuildContext context) async {
     Authentication authentication = Provider.of<Authentication>(context, listen: false);
     try {
