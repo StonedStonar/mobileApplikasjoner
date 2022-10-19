@@ -1,5 +1,10 @@
+import 'package:drinkinggame/App.dart';
+import 'package:drinkinggame/pages/AboutApplicationPage.dart';
+import 'package:drinkinggame/pages/GamePage.dart';
+import 'package:drinkinggame/pages/SettingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/Authentication.dart';
@@ -8,7 +13,9 @@ import '../buttons/MenuButton.dart';
 import 'SideMenu.dart';
 
 ///Represents a main menu.
-class MainMenu extends StatelessWidget {
+class MainMenu extends ConsumerWidget {
+
+  Authentication? _authentication;
 
   ///Makes an instance of the main menu.
   MainMenu({super.key});
@@ -18,13 +25,17 @@ class MainMenu extends StatelessWidget {
   Widget buildContent(BuildContext context){
     return Column(
       children: [
-        MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: (){}),
-        MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: (){}),
-        MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: (){}),
-        MenuButton(buttonText: "About app", icon: Icons.info, onPressed: (){}),
+        MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage(GamePage(), context)),
+        MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: () => _openPage(SettingsPage(), context)),
+        MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: ()),
+        MenuButton(buttonText: "About app", icon: Icons.info, onPressed: () => _openPage(AboutApplicationPage(), context)),
         MenuButton(buttonText: "Logout", icon: Icons.logout, onPressed: () => _confirmSignOut(context)),
       ],
     );
+  }
+
+  void _openPage(Widget widget, BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
   }
 
 
@@ -45,14 +56,15 @@ class MainMenu extends StatelessWidget {
   ///Signs the person out of the application.
   Future<void> _signOut(BuildContext context) async{
     try{
-      await Provider.of<Authentication>(context, listen: false).signOut();
-    }catch(e){
-      print(e.toString());
+      await _authentication?.signOut();
+    }on Exception catch(e){
+      showExceptionAlertDialog(context, title: "Could not sign out", exception: e);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    _authentication = ref.watch(authProvider);
     return SideMenu(child: buildContent(context));
   }
 }

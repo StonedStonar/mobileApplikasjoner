@@ -6,6 +6,7 @@ import 'buttons/ElevatedIconButton.dart';
 
 ///Makes the login app bar.
 ///Returns the appbar.
+
 AppBar makeLoginAppBar() {
   return AppBar(
     title: makeAppbarText("Sign in"),
@@ -66,22 +67,23 @@ AppBar makeGameAppBar(BuildContext context){
             // Second item you can click on
           } else if (value == MenuItem.secondItem) {}
         },
-        offset: Offset(0.0, 80.0),
+        offset: const Offset(0.0, 80.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
-        itemBuilder: (context) => const [
+        itemBuilder: (context) => [
           // First Item in the popup menu
-          PopupMenuItem(
+          const PopupMenuItem(
             value: MenuItem.firstItem,
             child: Text('About game'),
           ),
           // Second Item in the popup menu
-          PopupMenuItem(
+          const PopupMenuItem(
             value: MenuItem.secondItem,
             child: Text('Exit game'),
           ),
         ],
       ),
     ],
+
     title: makeAppbarText("Drinking games"),
     toolbarHeight: 80,
     centerTitle: true,

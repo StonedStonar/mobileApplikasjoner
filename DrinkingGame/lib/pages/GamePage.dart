@@ -1,5 +1,5 @@
 import 'package:drinkinggame/components/AppBars.dart';
-import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
+import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:flutter/material.dart';
 
 import '../components/overlays/MainMenu.dart';
@@ -26,76 +26,22 @@ class GamePage extends StatelessWidget {
     return Column(
       children: <Widget>[
         const SizedBox(height: 16.0),
-        CustomElevatedButton(
-          widget: const ListTile(
-            title: Text(
-              "Never have i ever",
-              style: TextStyle(
-                  fontSize: 26.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-            ),
-            subtitle: Text(
-              "Players 1-100",
-              style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black54
-              ),
-            ),
-          ),
+        GameButton(
+          text: "Never have i ever",
+          subtext: "Players 1-100",
           onPressed: () {},
-          borderRadius: 8.0,
-          color: Color(0xFFD9D9D9),
-          height: 70.0,
         ),
         const SizedBox(height: 16.0),
-        CustomElevatedButton(
-          widget: const ListTile(
-            title: Text(
-              "Ring of Fire rules",
-              style: TextStyle(
-                  fontSize: 26.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-            ),
-            subtitle: Text(
-              "Only rules",
-              style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black54
-              ),
-            ),
-          ),
+        GameButton(
+          text: "Ring of Fire rules",
+          subtext: "Only rules",
           onPressed: () {},
-          borderRadius: 8.0,
-          color: Color(0xFFD9D9D9),
-          height: 70.0,
         ),
         const SizedBox(height: 16.0),
-        CustomElevatedButton(
-          widget: const ListTile(
-            title: Text(
-              "Truth or dare",
-              style: TextStyle(
-                  fontSize: 26.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-            ),
-            subtitle: Text(
-              "Players 1-10",
-              style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black54
-              ),
-            ),
-          ),
+        GameButton(
+          text: "Truth or dare",
+          subtext: "Players 1-10",
           onPressed: () {},
-          borderRadius: 8.0,
-          color: Color(0xFFD9D9D9),
-          height: 70.0,
         ),
       ],
     );
