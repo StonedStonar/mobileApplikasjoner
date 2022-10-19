@@ -27,7 +27,7 @@ class MainMenu extends ConsumerWidget {
       children: [
         MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage(GamePage(), context)),
         MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: () => _openPage(SettingsPage(), context)),
-        MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: ()),
+        MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: (){}),
         MenuButton(buttonText: "About app", icon: Icons.info, onPressed: () => _openPage(AboutApplicationPage(), context)),
         MenuButton(buttonText: "Logout", icon: Icons.logout, onPressed: () => _confirmSignOut(context)),
       ],
