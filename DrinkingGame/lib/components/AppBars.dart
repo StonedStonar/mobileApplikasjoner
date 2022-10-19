@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-
-import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
-import 'package:drinkinggame/components/overlays/NormalMenu.dart';
-import 'package:drinkinggame/components/overlays/SideMenu.dart';
-=======
->>>>>>> 938623f9069a75e2be566439f14699ed3c1755cf
 import 'package:flutter/material.dart';
+
 import '../pages/GamePage.dart';
+import 'buttons/ElevatedIconButton.dart';
 
 ///Makes the login app bar.
 ///Returns the appbar.
@@ -25,7 +20,37 @@ AppBar makeLoginAppBar() {
 
 enum MenuItem { firstItem, secondItem }
 
-AppBar gamePageAppBar(BuildContext context) {
+///Makes the normal app bar for the pages.
+///[title] the title of the page.
+///[context] the build context
+///returns the wanted appbar.
+AppBar makeNormalAppBar(String title, BuildContext context){
+  return AppBar(
+    title: makeAppbarText(title),
+    centerTitle: true,
+    leading: ElevatedIconButton(
+      onPressed: (context) {Scaffold.of(context).openDrawer();},
+      iconData: Icons.menu,
+    )
+  );
+}
+
+AppBar makeMenuAppBar(BuildContext context){
+  return AppBar(
+    title: makeAppbarText("Menu"),
+    centerTitle: true,
+    leading: ElevatedIconButton(
+      onPressed: (context) {Navigator.pop(context);},
+      iconData: Icons.arrow_back,
+    ),
+  );
+}
+
+//Todo: Denne må implementeres.
+///Makes the app bar that is used in games.
+///[context] the build context
+///returns the wanted appbar.
+AppBar makeGameAppBar(BuildContext context){
   return AppBar(
     actions: [
       PopupMenuButton<MenuItem>(
@@ -34,7 +59,7 @@ AppBar gamePageAppBar(BuildContext context) {
           if (value == MenuItem.firstItem) {
             // Where to navigate to if clicked on
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const GamePage(),
+              builder: (context) => GamePage(),
             ));
             // Second item you can click on
           } else if (value == MenuItem.secondItem) {}
@@ -61,28 +86,6 @@ AppBar gamePageAppBar(BuildContext context) {
   );
 }
 
-///Makes the normal app bar for the pages.
-///[title] the title of the page.
-///[context] the build context
-///returns the wanted appbar.
-AppBar makeNormalAppBar(String title, BuildContext context, Function(BuildContext) callback){
-  return AppBar(
-    title: makeAppbarText(title),
-    centerTitle: true,
-    leading: ElevatedIconButton(
-      onPressed: callback,
-      iconData: Icons.menu,
-    )
-  );
-}
-
-//Todo: Denne må implementeres.
-///Makes the app bar that is used in games.
-///returns the wanted appbar.
-AppBar makeGameAppBar(){
-  return AppBar();
-}
-
 Text makeAppbarText(String text){
   return Text(
     text,
@@ -91,5 +94,3 @@ Text makeAppbarText(String text){
     ),
   );
 }
-=======
->>>>>>> 938623f9069a75e2be566439f14699ed3c1755cf

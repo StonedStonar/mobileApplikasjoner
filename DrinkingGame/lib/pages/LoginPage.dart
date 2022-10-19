@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     drawer = Drawer(child: Text("suck my dick"),);
     return Scaffold(
-      appBar: makeNormalAppBar("Games", context, openDrawer),
+      appBar: makeNormalAppBar("Games", context),
       backgroundColor: Colors.grey.shade100,
       body: makePageContent(context),
       drawer: drawer,
