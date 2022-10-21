@@ -1,4 +1,6 @@
 import 'package:drinkinggame/pages/AboutApplicationPage.dart';
+import 'package:drinkinggame/pages/LoginPage.dart';
+import 'package:drinkinggame/pages/SignUpPage.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/FirebaseAuthenication.dart';
 import 'package:flutter/cupertino.dart';
