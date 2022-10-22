@@ -1,5 +1,6 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
+import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
 import '../components/overlays/SideMenu.dart';
 
@@ -11,7 +12,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: makeNormalAppBar("Settings", context),
       body: _contentOfSettingsPage(),
-      drawer: SideMenu(),
+      drawer: MainMenu(),
     );
   }
 

@@ -1,36 +1,38 @@
+import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/SignInButton.dart';
 import 'package:drinkinggame/components/buttons/SocialSignInButton.dart';
+import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../components/Dialogs.dart';
 import '../services/Authentication.dart';
 
 ///Represents a login page.
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   bool _isLoading = false;
 
   Drawer? drawer;
 
   @override
   Widget build(BuildContext context) {
-    drawer = Drawer(child: Text("suck my dick"),);
     return Scaffold(
-      appBar: makeNormalAppBar("Games", context),
+      appBar: makeLoginAppBar(),
       backgroundColor: Colors.grey.shade100,
       body: makePageContent(context),
-      drawer: drawer,
     );
   }
 
+  ///Opens the drawer.
   void openDrawer(BuildContext context){
     Scaffold.of(context).openDrawer();
     //ScaffoldState.openDrawer();
@@ -68,8 +70,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  ///Logs the user in with google.
+  ///[context] the build context
   void _loginWithGoogle(BuildContext context) async {
-    Authentication authentication = Provider.of<Authentication>(context, listen: false);
+    Authentication authentication = ref.watch(authProvider);
     try {
       _setLoadingState(true);
       await authentication.signInToGoogle();
@@ -81,8 +85,10 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  ///Logs the user in with email
+  ///[context] the build context
   void _loginWithEmail(BuildContext context) async {
-    Authentication authentication = Provider.of<Authentication>(context, listen: false);
+    Authentication authentication = ref.watch(authProvider);
     try {
       _isLoading = true;
     } on Exception catch (e) {
@@ -93,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _loginWithAnonymous(BuildContext context) async {
-    Authentication authentication = Provider.of<Authentication>(context, listen: false);
+    Authentication authentication = ref.watch(authProvider);
     try {
       _isLoading = true;
       authentication.signInAnonymously();

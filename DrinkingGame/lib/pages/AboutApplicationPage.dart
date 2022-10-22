@@ -1,6 +1,7 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:flutter/material.dart';
 
+import '../components/overlays/MainMenu.dart';
 import '../components/overlays/SideMenu.dart';
 
 class AboutApplicationPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class AboutApplicationPage extends StatelessWidget {
     return Scaffold(
       appBar: makeNormalAppBar("About application", context),
       body: _aboutApplicationContent(),
-      drawer: SideMenu(),
+      drawer: MainMenu(),
     );
   }
 

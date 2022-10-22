@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import '../pages/GamePage.dart';
 import 'buttons/ElevatedIconButton.dart';
 
@@ -7,12 +9,7 @@ import 'buttons/ElevatedIconButton.dart';
 
 AppBar makeLoginAppBar() {
   return AppBar(
-    title: const Text(
-      "Sign in",
-      style: TextStyle(
-        fontSize: 30,
-      ),
-    ),
+    title: makeAppbarText("Sign in"),
     toolbarHeight: 80,
     centerTitle: true,
   );
@@ -31,22 +28,28 @@ AppBar makeNormalAppBar(String title, BuildContext context){
     leading: ElevatedIconButton(
       onPressed: (context) {Scaffold.of(context).openDrawer();},
       iconData: Icons.menu,
-    )
+    ),
+    toolbarHeight: 80,
   );
 }
 
-AppBar makeMenuAppBar(BuildContext context){
+
+///Makes the menus appbar.
+///[context] the build context
+///[title] the title of the appbar.
+AppBar makeMenuAppBar(BuildContext context, String? title){
   return AppBar(
-    title: makeAppbarText("Menu"),
+    title: makeAppbarText(title == null ? "Menu" : title),
     centerTitle: true,
     leading: ElevatedIconButton(
       onPressed: (context) {Navigator.pop(context);},
       iconData: Icons.arrow_back,
     ),
+    toolbarHeight: 80,
+    shadowColor: Colors.white,
   );
 }
 
-//Todo: Denne må implementeres.
 ///Makes the app bar that is used in games.
 ///[context] the build context
 ///returns the wanted appbar.
@@ -87,11 +90,13 @@ AppBar makeGameAppBar(BuildContext context){
   );
 }
 
+///Makes the heading for the appbar.
+///[text] the text to make into a heading.
 Text makeAppbarText(String text){
   return Text(
     text,
     style: TextStyle(
-      fontSize: 24,
+      fontSize: 26,
     ),
   );
 }
