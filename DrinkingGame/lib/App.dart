@@ -1,6 +1,7 @@
 
 
 import 'package:drinkinggame/pages/LandingPage.dart';
+import 'package:drinkinggame/pages/SignUpPage.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/FirebaseAuthenication.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         ///Used a library to generate the material color since it was a pain.
         primarySwatch: generateMaterialColor(color: Color(0xFF000434)),
       ),
-      home: LandingPage(),
+      home: SignUpPage(),
     );
     return ProviderScope(child: materialApp);
   }
