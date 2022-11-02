@@ -1,4 +1,3 @@
-import 'package:drinkinggame/components/AppBars.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionPage extends StatelessWidget {

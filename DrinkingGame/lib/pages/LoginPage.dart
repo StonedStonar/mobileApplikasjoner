@@ -2,10 +2,8 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/SignInButton.dart';
 import 'package:drinkinggame/components/buttons/SocialSignInButton.dart';
-import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 
 import '../components/Dialogs.dart';
 import '../services/Authentication.dart';

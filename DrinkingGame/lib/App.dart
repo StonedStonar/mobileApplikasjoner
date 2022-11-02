@@ -1,4 +1,4 @@
-import 'package:drinkinggame/pages/SettingsPage.dart';
+import 'package:drinkinggame/pages/AboutApplicationPage.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/FirebaseAuthenication.dart';
 import 'package:flutter/material.dart';
@@ -22,17 +22,13 @@ class MyApp extends ConsumerWidget {
     MaterialApp materialApp = MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Drinking Games',
-      darkTheme: ThemeData(
-        scaffoldBackgroundColor: Colors.black38,
-        primarySwatch: generateMaterialColor(color: const Color(0xFF203342)),
-      ),
+      darkTheme: ThemeData.dark(),
       theme: ThemeData(
         ///Used a library to generate the material color since it was a pain.
         primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
-        scaffoldBackgroundColor: Colors.white,
       ),
       themeMode: ref.watch(themeProvider),
-      home: const SettingsPage(),
+      home: const AboutApplicationPage(),
       );
     return materialApp;
   }
