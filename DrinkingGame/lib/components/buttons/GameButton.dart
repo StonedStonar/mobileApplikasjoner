@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 
 class GameButton extends CustomElevatedButton {
 
+  ///Makes an instance of the GameButton.
+  ///[subtext] gives information about total players able to play the game or
+  ///informs if the button only holds info on rules.
+  ///[textColor] used to describe the color of the text used.
+  ///[secondTextColor] for the color of subtext.
+
   GameButton({required String text, required String subtext, Color textColor = Colors.black, Color secondTextColor = Colors.black54,
     required VoidCallback onPressed, Key? key})
       : super(

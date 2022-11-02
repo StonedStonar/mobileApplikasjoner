@@ -1,22 +1,23 @@
+import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
-import '../components/overlays/SideMenu.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: makeNormalAppBar("Settings", context),
-      body: _contentOfSettingsPage(),
+      body: _contentOfSettingsPage(ref),
       drawer: MainMenu(),
     );
   }
 
-  Widget _contentOfSettingsPage() {
+  Widget _contentOfSettingsPage(WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -45,11 +46,14 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             borderRadius: 4.0,
-            onPressed: () {},
+            onPressed: () => ChangeTheme(ref),
             color: const Color(0xFF000434),
           ),
         ),
       ],
     );
+    }
+  void ChangeTheme(WidgetRef ref) {
+    ref.read(themeProvider.notifier).state = ref.watch(themeProvider) == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
   }
 }

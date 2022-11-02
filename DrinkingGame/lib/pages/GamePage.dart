@@ -1,9 +1,8 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:flutter/material.dart';
-
 import '../components/overlays/MainMenu.dart';
-import '../components/overlays/SideMenu.dart';
+
 
 enum MenuItem {firstItem, secondItem, thirdItem}
 
@@ -29,18 +28,21 @@ class GamePage extends StatelessWidget {
         GameButton(
           text: "Never have i ever",
           subtext: "Players 1-100",
+          //TODO should re-direct the player to the game when pressed.
           onPressed: () {},
         ),
         const SizedBox(height: 16.0),
         GameButton(
           text: "Ring of Fire rules",
           subtext: "Only rules",
+          //TODO should re-direct the player to the game when pressed.
           onPressed: () {},
         ),
         const SizedBox(height: 16.0),
         GameButton(
           text: "Truth or dare",
           subtext: "Players 1-10",
+          //TODO should re-direct the player to the game when pressed.
           onPressed: () {},
         ),
       ],
