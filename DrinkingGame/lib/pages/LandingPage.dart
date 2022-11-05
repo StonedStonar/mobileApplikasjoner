@@ -10,6 +10,7 @@ import '../services/Authentication.dart';
 
 ///Is the first page that the user gets put into. Changes based on if the user is logged in or not.
 class LandingPage extends ConsumerWidget {
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Authentication authentication = ref.watch(authProvider);

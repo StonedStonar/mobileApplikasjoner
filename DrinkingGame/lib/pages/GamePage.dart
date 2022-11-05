@@ -3,7 +3,7 @@ import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:flutter/material.dart';
 import '../components/overlays/MainMenu.dart';
 
-
+///TODO: Hører ikke hjemme her. Putt i egen fil.
 enum MenuItem {firstItem, secondItem, thirdItem}
 
 class GamePage extends StatelessWidget {
@@ -25,6 +25,7 @@ class GamePage extends StatelessWidget {
     return Column(
       children: <Widget>[
         const SizedBox(height: 16.0),
+        ///Todo: Make a method that makes buttons m8. Alle har samme input parametere.
         GameButton(
           text: "Never have i ever",
           subtext: "Players 1-100",

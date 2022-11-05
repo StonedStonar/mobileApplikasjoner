@@ -53,7 +53,8 @@ class SettingsPage extends ConsumerWidget {
       ],
     );
     }
-  void ChangeTheme(WidgetRef ref) {
+
+    void ChangeTheme(WidgetRef ref) {
     ref.read(themeProvider.notifier).state = ref.watch(themeProvider) == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
-  }
+    }
 }

@@ -1,10 +1,15 @@
-import 'package:drinkinggame/model/PlayerQuestion.dart';
+import 'package:drinkinggame/model/Player.dart';
+import 'package:drinkinggame/model/QuestionRegister.dart';
+import 'package:drinkinggame/model/questions/PlayerQuestion.dart';
 
 ///Representes a register of questions made by player.
-class PlayerQuestionRegister {
-  List<PlayerQuestion>? playerQuestions;
+class PlayerQuestionRegister extends QuestionRegister {
 
-  PlayerQuestion? getRandomQuestionForPlayer(player) {}
+  @override
+  bool hasQuestions() {
+    // TODO: implement hasQuestions
+    throw UnimplementedError();
+  }
 
-
+  //PlayerQuestion getRandomQuestionForPlayer(player)
 }

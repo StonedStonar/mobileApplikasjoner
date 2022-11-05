@@ -40,6 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
+
   bool _comparePasswords() {
     if(_password == _confirmationPassword) {
       return true;
