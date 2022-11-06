@@ -34,7 +34,6 @@ AppBar makeNormalAppBar(String title, BuildContext context){
   );
 }
 
-
 ///Makes the menus appbar.
 ///[context] the build context
 ///[title] the title of the appbar.
@@ -88,6 +87,15 @@ AppBar makeGameAppBar(BuildContext context, Game game){
     ],
     toolbarHeight: 80,
     centerTitle: true,
+  );
+}
+
+///Makes a basic appbar only containing a title
+AppBar makeBasicAppbar(String title) {
+  return AppBar(
+    title: makeAppbarText(title),
+    centerTitle: true,
+    toolbarHeight: 80,
   );
 }
 
