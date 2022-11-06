@@ -1,15 +1,18 @@
+import 'dart:ui';
+
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../model/Game.dart';
 
 class GameButton extends CustomElevatedButton {
 
   ///Makes an instance of the GameButton.
-  ///[subtext] gives information about total players able to play the game or
-  ///informs if the button only holds info on rules.
+  ///[game] the game
   ///[textColor] used to describe the color of the text used.
   ///[secondTextColor] for the color of subtext.
-
-  GameButton({required String text, required String subtext, Color textColor = Colors.black, Color secondTextColor = Colors.black54,
+  GameButton({required Game game, Color textColor = Colors.black, Color secondTextColor = Colors.black54,
     required VoidCallback onPressed, Key? key})
       : super(
         widget: Padding(
@@ -19,7 +22,7 @@ class GameButton extends CustomElevatedButton {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                text,
+                game.getGameName(),
                 style: TextStyle(
                   color: textColor,
                   fontSize: 26,
@@ -27,7 +30,7 @@ class GameButton extends CustomElevatedButton {
                 ),
               ),
               Text(
-                subtext,
+                game.getShortDescription(),
                 style: TextStyle(
                   color: secondTextColor,
                   fontSize: 18,

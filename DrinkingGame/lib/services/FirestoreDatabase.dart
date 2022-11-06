@@ -7,7 +7,7 @@ import 'package:drinkinggame/model/InfoContainerRegister.dart';
 import 'package:drinkinggame/model/StoreableItem.dart';
 
 import 'APIPath.dart';
-import 'database.dart';
+import 'Database.dart';
 
 class FirestoreDatabase implements Database{
 
@@ -19,8 +19,7 @@ class FirestoreDatabase implements Database{
 
   @override
   Future<void> setInfoContainer(InfoContainer infoContainer) {
-    // TODO: implement setInfoContainer
-    throw UnimplementedError();
+    _storeItem(infoContainer, path)
   }
 
   @override

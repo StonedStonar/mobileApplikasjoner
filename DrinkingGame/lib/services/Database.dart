@@ -11,6 +11,6 @@ abstract class Database{
   Future<void> setInfoContainer(InfoContainer infoContainer);
 
   ///Reads all the info containers form the database.
-  ///Returns a stream with jobs.
+  ///Returns a stream with InfoContainerRegister.
   Stream<InfoContainerRegister> readInfoContainer();
 }

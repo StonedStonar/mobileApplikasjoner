@@ -1,4 +1,5 @@
 import 'package:drinkinggame/pages/AboutApplicationPage.dart';
+import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/FirebaseAuthenication.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class MyApp extends ConsumerWidget {
         primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
       ),
       themeMode: ref.watch(themeProvider),
-      home: const AboutApplicationPage(),
+      home: LandingPage(),
       );
     return materialApp;
   }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../pages/GamePage.dart';
+import '../model/Game.dart';
+import '../pages/GameSelectionPage.dart';
 import 'buttons/ElevatedIconButton.dart';
 
 ///Makes the login app bar.
@@ -52,9 +53,11 @@ AppBar makeMenuAppBar(BuildContext context, String? title){
 
 ///Makes the app bar that is used in games.
 ///[context] the build context
+///[game] the game.
 ///returns the wanted appbar.
-AppBar makeGameAppBar(BuildContext context){
+AppBar makeGameAppBar(BuildContext context, Game game){
   return AppBar(
+    title: makeAppbarText(game.getGameName()),
     actions: [
       PopupMenuButton<MenuItem>(
         onSelected: (value) {
@@ -62,7 +65,7 @@ AppBar makeGameAppBar(BuildContext context){
           if (value == MenuItem.firstItem) {
             // Where to navigate to if clicked on
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => GamePage(),
+              builder: (context) => GameSelectionPage(),
             ));
             // Second item you can click on
           } else if (value == MenuItem.secondItem) {}
@@ -83,8 +86,6 @@ AppBar makeGameAppBar(BuildContext context){
         ],
       ),
     ],
-
-    title: makeAppbarText("Drinking games"),
     toolbarHeight: 80,
     centerTitle: true,
   );

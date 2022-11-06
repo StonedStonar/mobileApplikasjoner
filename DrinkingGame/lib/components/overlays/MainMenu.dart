@@ -1,6 +1,6 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/pages/AboutApplicationPage.dart';
-import 'package:drinkinggame/pages/GamePage.dart';
+import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/pages/SettingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class MainMenu extends ConsumerWidget {
   Widget buildContent(BuildContext context){
     return Column(
       children: [
-        MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage(GamePage(), context)),
+        MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage(GameSelectionPage(), context)),
         MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: () => _openPage(SettingsPage(), context)),
         MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: (){}),
         MenuButton(buttonText: "About app", icon: Icons.info, onPressed: () => _openPage(AboutApplicationPage(), context)),
@@ -33,6 +33,9 @@ class MainMenu extends ConsumerWidget {
     );
   }
 
+  ///Opens a new page.
+  ///[widget] widget to open on a new page.
+  ///[context] the build context.
   void _openPage(Widget widget, BuildContext context){
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
   }
