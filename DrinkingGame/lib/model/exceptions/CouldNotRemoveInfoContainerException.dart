@@ -1,9 +1,9 @@
-///Represents a exception that is thrown when a question could not be removed.
-class CouldNotRemoveQuestionException implements Exception{
+///Represents a exception that is thrown when a info container could not be removed.
+class CouldNotRemoveInfoContainerException implements Exception{
 
   ///Makes an instance of the exception.
   ///[_message] the message
-  CouldNotRemoveQuestionException(this._message);
+  CouldNotRemoveInfoContainerException(this._message);
 
   final String _message;
 
