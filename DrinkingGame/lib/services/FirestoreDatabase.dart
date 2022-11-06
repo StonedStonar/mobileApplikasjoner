@@ -17,9 +17,10 @@ class FirestoreDatabase implements Database{
   ///[uid] the id of the user.
   FirestoreDatabase({required String uId}) : _uId = uId;
 
+
   @override
-  Future<void> setInfoContainer(InfoContainer infoContainer) {
-    _storeItem(infoContainer, path)
+  Future<void> setInfoContainer(InfoContainer infoContainer) async {
+    _storeItem(infoContainer, "pepe");
   }
 
   @override

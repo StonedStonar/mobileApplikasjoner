@@ -1,4 +1,5 @@
 import 'package:drinkinggame/model/Game.dart';
+import 'package:drinkinggame/model/InfoContainerRegister.dart';
 
 class InfoGame extends Game{
 
@@ -7,6 +8,8 @@ class InfoGame extends Game{
   ///[gameName] the name of the game.
   ///[shortDescription] the short description of the game.
   InfoGame({required super.rules, required super.gameName, required super.shortDescription});
+
+  //InfoContainerRegister _infoContainerRegister;
 
   @override
   Map<String, dynamic> toMap() {

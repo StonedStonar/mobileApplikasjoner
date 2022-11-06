@@ -23,7 +23,9 @@ class InfoGamePage extends ConsumerWidget{
 
   Widget _makeContent(){
     return Column(
+      children: [
 
+      ],
     );
   }
 
