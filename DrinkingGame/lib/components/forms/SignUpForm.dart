@@ -3,17 +3,19 @@ import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../providers/signup_login_provider.dart';
 import '../AppBars.dart';
 
-class SignUpForm extends StatefulWidget with UsernamePasswordAndEmailValidators{
+class SignUpForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators{
   SignUpForm({Key? key}) : super(key: key);
 
   @override
-  State<SignUpForm> createState() => _SignUpFormState();
+  ConsumerState<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _SignUpFormState extends ConsumerState<SignUpForm> {
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -77,7 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   ///Creates and returns a widget list of the
   ///textfields for input and the submit button
-  List<Widget> _buildChildren() {
+  List<Widget> _buildChildren(WidgetRef ref) {
     bool usernameErrorText = _submitted && !widget.usernameValidator.isValid(_username);
     bool emailErrorText = _submitted && !widget.emailValidator.isValid(_email);
     bool passwordErrorText = _submitted && !widget.passwordValidator.isValid(_password);
@@ -114,6 +116,15 @@ class _SignUpFormState extends State<SignUpForm> {
                                     _isLoading,
                                     _submit),
       const SizedBox(height: 25.0),
+
+      TextButton(onPressed: () => _switchPage(ref), child: Text(
+        "Already have an account?",
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+      ),
+      const SizedBox(height: 8.0),
       CustomElevatedButton(widget: const Text(
         "Register User",
         style: TextStyle(fontSize: 22),
@@ -125,13 +136,17 @@ class _SignUpFormState extends State<SignUpForm> {
     ];
   }
 
+  bool _switchPage(WidgetRef ref) {
+    return ref.read(signUpOrLoginProvider.notifier).state = !ref.read(signUpOrLoginProvider.notifier).state;
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
               padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: _buildChildren(),
+                children: _buildChildren(ref),
               )
     );
   }

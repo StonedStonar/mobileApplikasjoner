@@ -1,19 +1,21 @@
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
+import 'package:drinkinggame/providers/signup_login_provider.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../AppBars.dart';
 
-class LoginForm extends StatefulWidget with UsernamePasswordAndEmailValidators{
+class LoginForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators{
   LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -51,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
 
   ///Creates and returns a widget list of the
   ///textfields for input and the submit button
-  List<Widget> _buildChildren() {
+  List<Widget> _buildChildren(WidgetRef ref) {
     bool emailErrorText = _submitted && !widget.emailValidator.isValid(_email);
     bool passwordErrorText = _submitted && !widget.passwordValidator.isValid(_password);
     return [
@@ -72,6 +74,16 @@ class _LoginFormState extends State<LoginForm> {
           _submit),
 
       const SizedBox(height: 25.0),
+
+      TextButton(onPressed: () => _switchPage(ref),
+        child: Text(
+        "Don't have an account?",
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+    ),
+      const SizedBox(height: 8.0),
       CustomElevatedButton(widget: const Text(
         "Login",
         style: TextStyle(fontSize: 22),
@@ -83,13 +95,17 @@ class _LoginFormState extends State<LoginForm> {
     ];
   }
 
+  bool _switchPage(WidgetRef ref) {
+    return ref.read(signUpOrLoginProvider.notifier).state = !ref.read(signUpOrLoginProvider.notifier).state;
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
         padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: _buildChildren(),
+          children: _buildChildren(ref),
         )
     );
   }
