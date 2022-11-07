@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../model/games/Game.dart';
-import '../pages/GameSelectionPage.dart';
 import 'buttons/ElevatedIconButton.dart';
 
 ///Makes the login app bar.
@@ -34,7 +33,6 @@ AppBar makeNormalAppBar(String title, BuildContext context){
     toolbarHeight: 80,
   );
 }
-
 
 ///Makes the menus appbar.
 ///[context] the build context
@@ -93,6 +91,15 @@ AppBar makeGameAppBar(BuildContext context, Game game){
     ],
     toolbarHeight: 80,
     centerTitle: true,
+  );
+}
+
+///Makes a basic appbar only containing a title
+AppBar makeBasicAppbar(String title) {
+  return AppBar(
+    title: makeAppbarText(title),
+    centerTitle: true,
+    toolbarHeight: 80,
   );
 }
 

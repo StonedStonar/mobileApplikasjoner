@@ -2,11 +2,14 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/SignInButton.dart';
 import 'package:drinkinggame/components/buttons/SocialSignInButton.dart';
+import 'package:drinkinggame/pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../components/Dialogs.dart';
 import '../services/Authentication.dart';
+import '../components/forms/SignUpForm.dart';
+import 'SignUpPage.dart';
 
 ///Represents a login page.
 class LoginPage extends ConsumerStatefulWidget {
@@ -36,7 +39,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     Scaffold.of(context).openDrawer();
     //ScaffoldState.openDrawer();
   }
-
 
 
   ///Makes the main content of the page.
@@ -87,6 +89,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   ///Logs the user in with email
   ///[context] the build context
   void _loginWithEmail(BuildContext context) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SignUpPage())
+    );
+  }
+
+  ///Logs the user in with email
+  ///[context] the build context
+  void _loginWithEmail2(BuildContext context) async {
     Authentication authentication = ref.watch(authProvider);
     try {
       _isLoading = true;
