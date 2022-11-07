@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../App.dart';
-import '../components/AppBars.dart';
-import '../components/InfoGameCard.dart';
-import '../model/StoreableItem.dart';
-import '../model/questions/InfoContainer.dart';
-import '../model/registers/InfoContainerRegister.dart';
-import '../model/games/InfoGame.dart';
-import '../services/database/Database.dart';
+import '../../App.dart';
+import '../../components/AppBars.dart';
+import '../../components/InfoGameCard.dart';
+import '../../model/StoreableItem.dart';
+import '../../model/questions/InfoContainer.dart';
+import '../../model/registers/InfoContainerRegister.dart';
+import '../../model/games/InfoGame.dart';
+import '../../services/database/Database.dart';
 
 ///Represents a info game that is shown.
 class InfoGamePage extends ConsumerWidget {

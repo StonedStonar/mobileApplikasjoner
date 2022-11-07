@@ -1,8 +1,8 @@
 import 'package:drinkinggame/App.dart';
-import 'package:drinkinggame/pages/AboutApplicationPage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
-import 'package:drinkinggame/pages/SettingsPage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

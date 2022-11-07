@@ -1,6 +1,6 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
-import 'package:drinkinggame/pages/LoginPage.dart';
+import 'package:drinkinggame/pages/login/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

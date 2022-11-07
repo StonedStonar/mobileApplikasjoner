@@ -1,6 +1,6 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:flutter/material.dart';
-import '../components/overlays/MainMenu.dart';
+import '../../components/overlays/MainMenu.dart';
 
 class AboutApplicationPage extends StatelessWidget {
   const AboutApplicationPage({Key? key}) : super(key: key);

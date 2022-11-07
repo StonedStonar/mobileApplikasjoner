@@ -6,7 +6,7 @@ import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
-import 'package:drinkinggame/pages/InfoGamePage.dart';
+import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
 import 'package:drinkinggame/services/database/Database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

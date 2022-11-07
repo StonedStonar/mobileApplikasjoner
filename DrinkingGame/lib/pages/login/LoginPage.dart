@@ -2,13 +2,11 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/SignInButton.dart';
 import 'package:drinkinggame/components/buttons/SocialSignInButton.dart';
-import 'package:drinkinggame/pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../components/Dialogs.dart';
-import '../services/auth/Authentication.dart';
-import '../components/forms/SignUpForm.dart';
+import '../../components/Dialogs.dart';
+import '../../services/auth/Authentication.dart';
 import 'SignUpPage.dart';
 
 ///Represents a login page.
