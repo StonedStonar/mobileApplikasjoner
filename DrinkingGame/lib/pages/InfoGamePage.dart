@@ -7,12 +7,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../App.dart';
 import '../components/AppBars.dart';
 import '../components/InfoGameCard.dart';
+import '../model/StoreableItem.dart';
 import '../model/questions/InfoContainer.dart';
 import '../model/registers/InfoContainerRegister.dart';
 import '../model/games/InfoGame.dart';
-import '../services/Database.dart';
+import '../services/database/Database.dart';
 
+///Represents a info game that is shown.
 class InfoGamePage extends ConsumerWidget {
+
   ///Makes an instance of the game page.
   ///[infoGame] the game.
   InfoGamePage({required this.infoGame});
@@ -24,43 +27,47 @@ class InfoGamePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     database = ref.watch(databaseProvider);
-    return Scaffold(
-      appBar: makeGameAppBar(context, infoGame),
-      body: _makeContent(),
+    InfoContainerRegister infoContainerRegister = infoGame.getGameRegister();
+    return StreamBuilder<List<DatabaseItem>>(
+        stream: database?.getContentsOfGame(infoGame),
+        builder: (context, snapshot){
+          List<InfoContainer>? containers = snapshot.data?.map((item) => item as InfoContainer).toList();
+          List<Widget> cards = [];
+          containers?.forEach((item) {
+            InfoGameCard card = InfoGameCard(infoContainer: item);
+            cards.add(card);
+            cards.add(SizedBox(height: 10));
+            infoContainerRegister.addInfoContainer(item);
+            print(infoContainerRegister.getRegisterItems().length);
+          });
+          if(cards.isEmpty){
+            cards.add(Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator()
+              ],
+            ));
+          }
+          return Scaffold(
+            appBar: makeGameAppBar(context, infoGame),
+            body: _makeContent(cards),
+          );
+        }
     );
+
   }
 
-  Widget _makeContent() {
-    InfoContainerRegister register = infoGame.getInfoContainerRegister();
-    database?.getContentsOfGame(infoGame.getItemId());
-    register.addInfoContainer(InfoContainer(
-        containerId: "2",
-        title: "`1 - Peppa",
-        description:
-            "Peppa is a pig in a childish that scars the viewers in disturbing ways."));
-    register.addInfoContainer(InfoContainer(containerId: "1", title: "Pepe", description: "meme"));
-
-
+  ///Makes the content for the info game page.
+  ///[infoCards] is the widgets needed
+  Widget _makeContent(List<Widget> infoCards) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: getInfoCards(),
+          children: infoCards,
         ),
       ),
     );
-  }
-
-  ///Makes the info cards.
-  ///Returns the info cards.
-  List<Widget> getInfoCards(){
-    InfoContainerRegister register = infoGame.getInfoContainerRegister();
-    List<Widget> cards = [];
-    register.getRegisterItems().forEach((infoContainer) {
-      cards.add(InfoGameCard(infoContainer: infoContainer));
-      cards.add(SizedBox(height: 10,));
-    });
-    return cards;
   }
 }

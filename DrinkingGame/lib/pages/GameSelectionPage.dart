@@ -7,7 +7,7 @@ import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
 import 'package:drinkinggame/pages/InfoGamePage.dart';
-import 'package:drinkinggame/services/Database.dart';
+import 'package:drinkinggame/services/database/Database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +15,7 @@ import '../components/overlays/MainMenu.dart';
 
 ///TODO: Hører ikke hjemme her. Putt i egen fil.
 enum MenuItem {firstItem, secondItem, thirdItem}
+
 
 class GameSelectionPage extends ConsumerWidget {
 
@@ -98,9 +99,12 @@ class GameSelectionPage extends ConsumerWidget {
         });
   }
 
+  ///Adds a game to the list.
+  ///[game] the game to add.
+  ///[games] the games.
+  ///[context] the build context.
   void addGameToList(Game game, List<Widget> games, BuildContext context){
     Widget gamePage = InfoGamePage(infoGame: game as InfoGame);
-
     games.add(SizedBox(height: 16.0));
     games.add(GameButton(
       game: game,
@@ -124,11 +128,5 @@ class GameSelectionPage extends ConsumerWidget {
   ///[context] the build context.
   void _openPage(Widget widget, BuildContext context){
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget));
-  }
-
-  InfoGame makeDefaultGame(){
-    List<String> peppa = [];
-    peppa.add("Lol");
-    return InfoGame(rules: peppa, gameName: "Ring of fire", shortDescription: "Information game");
   }
 }

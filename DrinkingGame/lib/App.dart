@@ -1,11 +1,8 @@
-
-
-
 import 'package:drinkinggame/pages/LandingPage.dart';
-import 'package:drinkinggame/services/Authentication.dart';
-import 'package:drinkinggame/services/Database.dart';
-import 'package:drinkinggame/services/FirebaseAuthenication.dart';
-import 'package:drinkinggame/services/FirestoreDatabase.dart';
+import 'package:drinkinggame/services/auth/Authentication.dart';
+import 'package:drinkinggame/services/auth/FirebaseAuthenication.dart';
+import 'package:drinkinggame/services/database/Database.dart';
+import 'package:drinkinggame/services/database/FirestoreDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_color_generator/material_color_generator.dart';
@@ -15,7 +12,6 @@ final authProvider = StateProvider<Authentication>((ref) {
 });
 
 final themeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
-
 
 final databaseProvider = StateProvider<Database?>((ref){
   return null;
@@ -32,6 +28,7 @@ class App extends ConsumerWidget {
     Authentication auth = ref.watch(authProvider);
     auth.authStateChanges().listen((event) {
       ref.read(databaseProvider.notifier).state = event != null ? FirestoreDatabase(uId: event.uid) : null;
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
     });
 
     MaterialApp materialApp = MaterialApp(

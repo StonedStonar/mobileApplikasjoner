@@ -15,23 +15,18 @@ class InfoGame extends Game{
 
   InfoContainerRegister _infoContainerRegister = InfoContainerRegister();
 
-  ///Gets the info game register.
-  ///Returns the info game register.
-  InfoContainerRegister getInfoContainerRegister(){
-    return _infoContainerRegister;
-  }
-
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = getGameDetails();
     _infoContainerRegister.addInfoContainer(
         InfoContainer(containerId: "1", title: "pepe", description: "From DB"));
+    _infoContainerRegister.addInfoContainer(InfoContainer(containerId: "2", title: "LUL", description: "slap"));
     //map.addAll({"contents" : _infoContainerRegister.getRegisterAsMap(
     return map;
   }
 
   @override
-  Register getGameRegister() {
+  InfoContainerRegister getGameRegister() {
     return _infoContainerRegister;
   }
 }

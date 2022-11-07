@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 import 'Authentication.dart';
+
+
+
 
 ///Represents the basic methods of authentication in the application.
 ///Used instead of calling the firebase authentication everywhere.

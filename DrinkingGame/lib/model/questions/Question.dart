@@ -19,6 +19,15 @@ abstract class Question extends DatabaseItem{
     return _questionText;
   }
 
+  ///Gets the question as a map.
+  ///Returns a map of the question.
+  Map<String, dynamic> getQuestionMap(){
+    return {
+      "questionText":_questionText,
+      "questionId" : _questionId,
+    };
+  }
+
   ///Check to see if the question is used or not.
   bool isUsed();
 

@@ -7,9 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class InfoGameCard extends ConsumerWidget {
   ///Makes an instance of the info game card.
   ///[infoContainer] the info container.
-  InfoGameCard({
-    required this.infoContainer,
-  });
+  InfoGameCard({required this.infoContainer,});
 
   final InfoContainer infoContainer;
 

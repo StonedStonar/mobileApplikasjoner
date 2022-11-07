@@ -1,12 +1,13 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/pages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
+import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/pages/SettingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../services/Authentication.dart';
+import '../../services/auth/Authentication.dart';
 import '../Dialogs.dart';
 import '../buttons/MenuButton.dart';
 import 'SideMenu.dart';
@@ -62,6 +63,7 @@ class MainMenu extends ConsumerWidget {
     }on Exception catch(e){
       showExceptionAlertDialog(context, title: "Could not sign out", exception: e);
     }
+
   }
 
   @override
