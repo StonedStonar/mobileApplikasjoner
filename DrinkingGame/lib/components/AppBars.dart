@@ -1,7 +1,8 @@
+import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../model/Game.dart';
+import '../model/games/Game.dart';
 import '../pages/GameSelectionPage.dart';
 import 'buttons/ElevatedIconButton.dart';
 
@@ -64,11 +65,15 @@ AppBar makeGameAppBar(BuildContext context, Game game){
           // First item you can click on
           if (value == MenuItem.firstItem) {
             // Where to navigate to if clicked on
+            /*
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => GameSelectionPage(),
             ));
+             */
             // Second item you can click on
-          } else if (value == MenuItem.secondItem) {}
+          } else if (value == MenuItem.secondItem) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
+          }
         },
         offset: const Offset(0.0, 80.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),

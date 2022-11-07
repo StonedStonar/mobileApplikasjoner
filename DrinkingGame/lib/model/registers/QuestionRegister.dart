@@ -1,9 +1,12 @@
 import 'package:drinkinggame/model/exceptions/CouldNotAddQuestionException.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotRemoveQuestionException.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
+import 'package:drinkinggame/model/registers/Register.dart';
+
+import '../StoreableItem.dart';
 
 ///Represents a question register.
-abstract class QuestionRegister{
+abstract class QuestionRegister extends Register{
 
   final List<Question> _questions = [];
 
@@ -31,9 +34,8 @@ abstract class QuestionRegister{
   ///Returns true if the register has questions.
   bool hasQuestions();
 
-  ///Gets all the questions of this register.
-  ///Returns all the questions.
-  List<Question> getAllQuestions(){
+  @override
+  List<Question> getRegisterItems() {
     return _questions;
   }
 }

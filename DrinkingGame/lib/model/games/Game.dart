@@ -1,4 +1,6 @@
-import 'StoreableItem.dart';
+import 'package:drinkinggame/model/registers/Register.dart';
+
+import '../StoreableItem.dart';
 
 abstract class Game extends DatabaseItem {
 
@@ -14,6 +16,7 @@ abstract class Game extends DatabaseItem {
   final String _gameName;
 
   final String _shortDescription;
+
 
   ///Gets the name of the game.
   ///Returns the game name.
@@ -46,4 +49,7 @@ abstract class Game extends DatabaseItem {
       "shortDescription" : _shortDescription,
     };
   }
+
+  ///Gets the game register.
+  Register getGameRegister();
 }

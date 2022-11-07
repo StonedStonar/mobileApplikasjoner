@@ -7,5 +7,5 @@ import 'App.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();   
   await Firebase.initializeApp();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: App()));
 }

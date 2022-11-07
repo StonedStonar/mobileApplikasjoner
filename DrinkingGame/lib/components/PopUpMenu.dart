@@ -20,6 +20,7 @@ class PopUpMenu extends StatelessWidget {
             PopupMenuButton<MenuItem>(
               onSelected: (value) {
                 // First item you can click on
+                print("Tap");
                 if (value == MenuItem.firstItem) {
                   // Where to navigate to if clicked on
                   /*
@@ -29,7 +30,10 @@ class PopUpMenu extends StatelessWidget {
                   ));
                    */
                   // Second item you can click on
-                } else if (value == MenuItem.secondItem) {}
+                } else if (value == MenuItem.secondItem) {
+                  print("exit");
+                  Navigator.pop(context);
+                }
               },
               itemBuilder: (context) =>
               const [

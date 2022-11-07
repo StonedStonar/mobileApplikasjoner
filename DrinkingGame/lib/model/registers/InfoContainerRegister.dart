@@ -1,10 +1,12 @@
+import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotAddInfoContainerException.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotRemoveInfoContainerException.dart';
+import 'package:drinkinggame/model/registers/Register.dart';
 
-import 'InfoContainer.dart';
+import '../questions/InfoContainer.dart';
 
 ///Represents a register where info containers can be added and removed.
-class InfoContainerRegister {
+class InfoContainerRegister extends Register {
 
   final List<InfoContainer> _infoContainers = [];
 
@@ -28,9 +30,8 @@ class InfoContainerRegister {
     }
   }
 
-  ///Gets all the infocontainers.
-  ///Returns the list with all infocontainers.
-  List<InfoContainer> getAllInfoContainers(){
+  @override
+  List<InfoContainer> getRegisterItems() {
     return _infoContainers;
   }
 }

@@ -6,12 +6,12 @@ class InfoContainer extends DatabaseItem{
   ///Makes an instance of info container.
   ///[containerId] is the id of the container.
   ///[title] the title if the container.
-  ///[description] the description
+  ///[description] the description.
   InfoContainer({required String containerId, required String title, required String description}) : _title = title, _description = description, _containerId = containerId;
 
-  String _title;
-  String _containerId;
-  String _description;
+  final String _title;
+  final String _containerId;
+  final String _description;
 
   ///Gets the title
   ///Returns the title
