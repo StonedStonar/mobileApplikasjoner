@@ -2,9 +2,11 @@ import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/Validators.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../App.dart';
 import '../../providers/signup_login_provider.dart';
 import '../AppBars.dart';
 
@@ -33,16 +35,29 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
   String get _confirmationPassword => _confirmationPasswordController.text;
 
   bool _submitted = false;
+  ///True when the application is loading
   bool _isLoading = false;
 
-  void _submit() {
+  void _submit() async{
     setState(() {
       _submitted = true;
-      if(allFieldsValid()) {
-
-        _isLoading = true;
-      }
     });
+    if(allFieldsValid()) {
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        Authentication authentication = ref.watch(authProvider);
+        await authentication.createUserWithEmailAndPassword(_email, _password);
+        _onSuccessfulSignUp();
+      } on FirebaseAuthException catch(e) {
+        print(e.toString());
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   bool _comparePasswords() {
@@ -65,6 +80,9 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
     FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
   }
 
+  void _onSuccessfulSignUp() {
+    Navigator.of(context).pop();
+  }
 
   bool allFieldsValid() {
     if(widget.usernameValidator.isValid(_username)
@@ -117,7 +135,7 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                                     _submit),
       const SizedBox(height: 25.0),
 
-      TextButton(onPressed: () => _switchPage(ref), child: Text(
+      TextButton(onPressed: _isLoading ? null : () => _switchPage(ref), child: Text(
         "Already have an account?",
         style: TextStyle(
           fontSize: 17,

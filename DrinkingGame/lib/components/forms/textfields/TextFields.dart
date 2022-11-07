@@ -98,8 +98,8 @@ TextField buildConfirmPasswordTextField(
       ),
       enabled: !isLoading,
       autocorrect: false,
-      textInputAction: TextInputAction.done,
-      onEditingComplete: () => submit,
+      textInputAction: TextInputAction.go,
+      onEditingComplete: () => submit(),
       obscureText: true,
       key: const Key("confirmPassword_input")
   );

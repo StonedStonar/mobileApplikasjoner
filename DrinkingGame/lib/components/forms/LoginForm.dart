@@ -3,9 +3,11 @@ import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
 import 'package:drinkinggame/providers/signup_login_provider.dart';
 import 'package:drinkinggame/services/Authentication.dart';
 import 'package:drinkinggame/services/Validators.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../App.dart';
 import '../AppBars.dart';
 
 class LoginForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators{
@@ -29,17 +31,36 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   bool _submitted = false;
   bool _isLoading = false;
 
-  void _submit() {
+  void _submit() async{
     setState(() {
       _submitted = true;
-      if(allFieldsValid()) {
-        _isLoading = true;
-      }
     });
+    if(allFieldsValid()) {
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        Authentication authentication = ref.watch(authProvider);
+        await authentication.signInWithEmailAndPassword(_email, _password);
+        _onSuccessfulLogin();
+      }
+      on FirebaseAuthException catch(e) {
+        print(e.toString());
+      } finally {
+
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   void _emailEditingComplete() {
     FocusScope.of(context).requestFocus(_passwordFocusNode);
+  }
+
+  void _onSuccessfulLogin() {
+    Navigator.of(context).pop();
   }
 
   bool allFieldsValid() {
@@ -75,7 +96,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
       const SizedBox(height: 25.0),
 
-      TextButton(onPressed: () => _switchPage(ref),
+      TextButton(onPressed: _isLoading ? null : () => _switchPage(ref),
         child: Text(
         "Don't have an account?",
         style: TextStyle(
