@@ -12,27 +12,23 @@ class PlayerQuestionRegister extends QuestionRegister {
   PlayerQuestionRegister({required List<PlayerQuestion> playerQuestions}) : this.playerQuestions = playerQuestions;
 
   List<PlayerQuestion> playerQuestions;
-  bool isRegisterEmpty = false;
 
 
   ///Check to see if there are questions in the register or not.
   ///Returns true if register has questions.
-
   @override
   bool hasQuestions() {
-    // TODO: implement hasQuestions
-    throw UnimplementedError();
+    return playerQuestions.isNotEmpty;
   }
 
 
 
   ///Returns a random question for a specified player
-  ///TODO fix this: only generates a random question, not for a specified user.
   Question getRandomQuestionForPlayer(player) {
     if (hasQuestions()) {
-      return (getRegisterItems().toList()..shuffle()).first;
+      return (playerQuestions.toList()).first;
     } else {
-      throw Exception("There is no elements in the list"); //prob npt necessary, since "first" throws an exception if list is empty.
+      throw Exception("There is no elements in the list"); //prob not necessary, since "first" throws an exception if list is empty.
     }
   }
 }
