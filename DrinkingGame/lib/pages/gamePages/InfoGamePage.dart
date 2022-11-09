@@ -67,9 +67,10 @@ class InfoGamePage extends ConsumerWidget {
   Future<void> addCustomInfoContainer(BuildContext context) async {
     TextEditingController controller = TextEditingController();
     TextEditingController descriptionController = TextEditingController();
-    await makeAlertDialog(controller,descriptionController, context);
+    TextEditingController value = TextEditingController();
+    await makeAlertDialog(controller,descriptionController, value,context);
     if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
-      InfoContainer infoContainer = InfoContainer(containerId: controller.text, title: controller.text, description: descriptionController.text);
+      InfoContainer infoContainer = InfoContainer(containerId: value.text, title: controller.text, description: descriptionController.text);
       await database?.setItemForGame(infoGame,infoContainer);
     }
   }
@@ -77,15 +78,16 @@ class InfoGamePage extends ConsumerWidget {
   ///Makes an alert dialog and shows it.
   ///[controller] the controller of the game name.
   ///[description] the controller for description.
+  ///[value] the value controller.
   ///[context] the build context.
-  Future<void> makeAlertDialog(TextEditingController contoller, TextEditingController description, BuildContext context) async{
+  Future<void> makeAlertDialog(TextEditingController contoller, TextEditingController description, TextEditingController value, BuildContext context) async{
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text("Make custom game"),
             content: SizedBox(
-              height: 100,
+              height: 150,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,6 +103,12 @@ class InfoGamePage extends ConsumerWidget {
                     controller: description,
                     decoration: InputDecoration(
                         hintText: "Input "
+                    ),
+                  ),
+                  TextField(
+                    controller: value,
+                    decoration: InputDecoration(
+                        hintText: "Value "
                     ),
                   ),
                 ],
