@@ -7,32 +7,34 @@ import '../enums/Response.dart';
 
 class PlayerQuestion extends Question {
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Response? response;
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Player? madeBy;
+  ///Makes an instance of the questions
+  ///[questionText] the question text.
+  ///[questionId] the id of the question.
 
-  Player? respondant;
+  PlayerQuestion({required super.questionText, required super.questionId, required response, required madeBy, required respondant})
+      : response = response, madeBy = madeBy, respondant = respondant;
+
+  Response response;
+  Player madeBy;
+  Player respondant;
 
 
-  PlayerQuestion({required super.questionText, required super.questionId});
-
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Response? getResponse() {
+  ///Gets response
+  Response getResponse() {
     return response;
   }
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Player? getMadeBy() {
+  ///Gets who made the question
+  Player getMadeBy() {
     return madeBy;
   }
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Player? getRespondant() {
+  ///Gets respondant
+  Player getRespondant() {
     return respondant;
   }
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
+  ///Prints an answer to a question made by player.
   void answerQuestion(Response response, Player player) {
     this.response = response;
     this.madeBy = player;
