@@ -13,7 +13,7 @@ class InfoGameCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String id = "";
+    String id = int.tryParse(infoContainer.getItemId()) != null ? "${infoContainer.getItemId()} - ${infoContainer.getTitle()}" : infoContainer.getTitle();
     return Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),

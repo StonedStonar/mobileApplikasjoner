@@ -71,6 +71,7 @@ class InfoGamePage extends ConsumerWidget {
     await makeAlertDialog(controller,descriptionController, value,context);
     if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
       InfoContainer infoContainer = InfoContainer(containerId: value.text, title: controller.text, description: descriptionController.text);
+      print(infoContainer.toMap());
       await database?.setItemForGame(infoGame,infoContainer);
     }
   }
@@ -117,7 +118,7 @@ class InfoGamePage extends ConsumerWidget {
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: Text("Add"))
+                  child: Text("Add")),
             ],
           );
         });
