@@ -43,7 +43,7 @@ class FirestoreDatabase implements Database{
   @override
   Future<void> setCustomGame(Game game) async {
     ///Todo: Change this back later
-    String path = APIPath.getGamePath(game.getGameName());///APIPath.getCustomGamePath(game.getGameName(), _uId);
+    String path = APIPath.getGamePath(game.getGameName());///APIPath.getCustomGamePath(game.getGameName(), _uId); <- for custom games
     _storeItem(game, path);
   }
 
@@ -81,6 +81,12 @@ class FirestoreDatabase implements Database{
       }
       return databaseItem;
     }).toList());
+  }
+
+  @override
+  Future<void> setItemForGame(Game game, DatabaseItem databaseItem) async {
+    String path = APIPath.getGameContents(game.getGameName());
+    await _firestore.collection(path).add(databaseItem.toMap());
   }
   
 }

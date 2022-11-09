@@ -12,6 +12,11 @@ abstract class Database{
   ///[game] the new game.
   Future<void> setCustomGame(Game game);
 
+  ///Sets an item for the game.
+  ///[game] the game.
+  ///[databaseItem] the database item.
+  Future<void> setItemForGame(Game game, DatabaseItem databaseItem);
+
   ///Gets all the games
   ///Returns a stream with all the games.
   Stream<List<Game>> getGames();

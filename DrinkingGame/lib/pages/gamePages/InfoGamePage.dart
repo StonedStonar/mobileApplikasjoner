@@ -8,6 +8,7 @@ import '../../App.dart';
 import '../../components/AppBars.dart';
 import '../../components/InfoGameCard.dart';
 import '../../model/StoreableItem.dart';
+import '../../model/games/Game.dart';
 import '../../model/questions/InfoContainer.dart';
 import '../../model/registers/InfoContainerRegister.dart';
 import '../../model/games/InfoGame.dart';
@@ -51,10 +52,67 @@ class InfoGamePage extends ConsumerWidget {
           return Scaffold(
             appBar: makeGameAppBar(context, infoGame),
             body: _makeContent(cards),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => addCustomInfoContainer(context),
+            ),
           );
         }
     );
 
+  }
+
+  ///Adds a custom info container so that the "store in database" is valid.
+  ///[context] the build context.
+  Future<void> addCustomInfoContainer(BuildContext context) async {
+    TextEditingController controller = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
+    await makeAlertDialog(controller,descriptionController, context);
+    if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
+      InfoContainer infoContainer = InfoContainer(containerId: controller.text, title: controller.text, description: descriptionController.text);
+      await database?.setItemForGame(infoGame,infoContainer);
+    }
+  }
+
+  ///Makes an alert dialog and shows it.
+  ///[controller] the controller of the game name.
+  ///[description] the controller for description.
+  ///[context] the build context.
+  Future<void> makeAlertDialog(TextEditingController contoller, TextEditingController description, BuildContext context) async{
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Make custom game"),
+            content: SizedBox(
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+
+                children: [
+                  TextField(
+                    controller: contoller,
+                    decoration: InputDecoration(
+                        hintText: "Input title",
+                    ),
+                  ),
+                  TextField(
+                    controller: description,
+                    decoration: InputDecoration(
+                        hintText: "Input "
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text("Add"))
+            ],
+          );
+        });
   }
 
   ///Makes the content for the info game page.
