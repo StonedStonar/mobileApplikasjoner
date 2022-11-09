@@ -10,7 +10,6 @@ abstract class Question extends DatabaseItem{
   Question({required String questionText, required String questionId}) : _questionId = questionId, _questionText = questionText;
 
   String _questionText;
-
   String _questionId;
 
   ///Gets the questions as a string.
