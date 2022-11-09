@@ -35,7 +35,6 @@ class InfoContainer extends DatabaseItem{
     return {
       "title": _title,
       "description": _description,
-      "containerId": _containerId,
     };
   }
 }
