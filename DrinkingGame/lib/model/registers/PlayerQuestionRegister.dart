@@ -7,8 +7,7 @@ import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 class PlayerQuestionRegister extends QuestionRegister {
 
 
-  ///Makes an instance of playerQuestions.
-  ///[playerQuestions] the playerQuestions.
+  ///Makes an instance of playerQuestionsRegister.
   PlayerQuestionRegister({required List<PlayerQuestion> playerQuestions}) : this.playerQuestions = playerQuestions;
 
   List<PlayerQuestion> playerQuestions;

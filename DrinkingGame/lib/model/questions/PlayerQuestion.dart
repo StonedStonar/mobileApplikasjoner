@@ -7,32 +7,32 @@ import '../enums/Response.dart';
 
 class PlayerQuestion extends Question {
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Response? response;
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Player? madeBy;
+  ///Makes an instance of playerQuestions.
+  ///[playerQuestions] the playerQuestions.
+  PlayerQuestion({required super.questionText, required super.questionId, required response, required madeBy, required respondant})
+  : response = response, madeBy = madeBy, respondant = respondant;
 
-  Player? respondant;
+  Response response;
+  Player madeBy;
+  Player respondant;
 
 
-  PlayerQuestion({required super.questionText, required super.questionId});
-
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Response? getResponse() {
+  ///Gets response
+  Response getResponse() {
     return response;
   }
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Player? getMadeBy() {
+  ///Gets made by
+  Player getMadeBy() {
     return madeBy;
   }
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
-  Player? getRespondant() {
+  ///Gets respondant
+  Player getRespondant() {
     return respondant;
   }
 
-  ///Ikke bruk spørsmålstegn i koden når du ikke skal ha null verider der.
+  ///Prints the answer to a question
   void answerQuestion(Response response, Player player) {
     this.response = response;
     this.madeBy = player;
@@ -47,7 +47,7 @@ class PlayerQuestion extends Question {
 
   @override
   Map<String, dynamic> toMap() {
-    // TODO: implement toMap
-    throw UnimplementedError();
+    Map<String, dynamic> map = getQuestionMap();
+    return map;
   }
 }
