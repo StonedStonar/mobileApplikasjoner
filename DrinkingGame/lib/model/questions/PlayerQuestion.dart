@@ -14,12 +14,12 @@ class PlayerQuestion extends Question {
 
   ///Makes an instance of playerQuestions.
   ///[playerQuestions] the playerQuestions.
-  PlayerQuestion({required super.questionText, required super.questionId, required response, required madeBy, required respondant})
+  PlayerQuestion({required super.questionText, required super.questionId, required response, required madeBy, respondant})
   : response = response, madeBy = madeBy, respondant = respondant;
 
   Response response;
   Player madeBy;
-  Player respondant;
+  Player? respondant;
 
 
   ///Gets response
@@ -33,7 +33,7 @@ class PlayerQuestion extends Question {
   }
 
   ///Gets respondant
-  Player getRespondant() {
+  Player? getRespondant() {
     return respondant;
   }
 
@@ -47,11 +47,10 @@ class PlayerQuestion extends Question {
 
   ///Checks if a question is already used.
   ///Returns true if the question is used.
-  ///TODO needs to be modified, contains a bug. What should be used as key, my brain if fried. Is there a better way to do this?
   @override
   bool isUsed() {
     bool value = false;
-    if (toMap().containsKey(Question)){
+    if (respondant != null){
       value = true;
     }
     return value;
