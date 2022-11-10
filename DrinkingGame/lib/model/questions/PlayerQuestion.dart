@@ -1,10 +1,15 @@
 
+import 'dart:js_util';
+
 
 import 'package:drinkinggame/model/questions/Question.dart';
-
+import 'package:drinkinggame/model/registers/PlayerQuestionRegister.dart';
+import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 import '../Player.dart';
 import '../enums/Response.dart';
 
+
+///Represents a questions made by a player.
 class PlayerQuestion extends Question {
 
   ///Makes an instance of playerQuestions.
@@ -39,10 +44,17 @@ class PlayerQuestion extends Question {
     print("Answer to question: " + response.toString(), );
   }
 
+
+  ///Checks if a question is already used.
+  ///Returns true if the question is used.
+  ///TODO needs to be modified, contains a bug. What should be used as key, my brain if fried. Is there a better way to do this?
   @override
   bool isUsed() {
-    // TODO: implement isUsed
-    throw UnimplementedError();
+    bool value = false;
+    if (toMap().containsKey(Question)){
+      value = true;
+    }
+    return value;
   }
 
   @override
