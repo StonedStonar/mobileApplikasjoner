@@ -6,10 +6,13 @@ class OpenQuestion extends Question {
 
   bool used = false;
 
+
   @override
   bool isUsed() {
+    //TODO implement method
     return used;
   }
+
 
   @override
   Map<String, dynamic> toMap() {

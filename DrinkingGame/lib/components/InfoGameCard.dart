@@ -13,7 +13,6 @@ class InfoGameCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String id = int.tryParse(infoContainer.getItemId()) != null ? "${infoContainer.getItemId()} - ${infoContainer.getTitle()}" : infoContainer.getTitle();
     return Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -27,7 +26,7 @@ class InfoGameCard extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 5),
                 child: Text(
-                  id,
+                  infoContainer.getTitle(),
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

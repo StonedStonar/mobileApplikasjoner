@@ -1,14 +1,16 @@
+import 'package:drinkinggame/App.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../pages/GameSelectionPage.dart';
 
 enum MenuItem {firstItem, secondItem}
 
-class GamePopUpMenu extends StatelessWidget {
+class GamePopUpMenu extends ConsumerWidget {
 
   const GamePopUpMenu({ Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PopupMenuButton<MenuItem>(
       onSelected: (value) {
         // First item you can click on
@@ -17,7 +19,7 @@ class GamePopUpMenu extends StatelessWidget {
             Scaffold.of(context).openDrawer();
             break;
           case MenuItem.secondItem:
-            Navigator.pushNamed(context, "/landingPage");
+            ref.read(gameProvider.notifier).state = null;
             break;
         }
       },

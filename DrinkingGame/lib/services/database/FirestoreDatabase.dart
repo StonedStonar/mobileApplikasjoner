@@ -83,7 +83,7 @@ class FirestoreDatabase implements Database{
     final snapshots = reference.snapshots();
     return snapshots.map((snapshot) => snapshot.docs.map((snap) {
       final data = snap.data();
-      DatabaseItem databaseItem = InfoContainer(containerId: data["containerId"], title: data["title"], description: data["description"]);
+      DatabaseItem databaseItem = InfoContainer(containerId: data["title"], title: data["title"], description: data["description"]);
       if(gameType == GameType.OPEN){
 
       }else if(gameType == GameType.PLAYER){

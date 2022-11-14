@@ -21,7 +21,7 @@ abstract class QuestionRegister extends Register{
     }
   }
 
-  ///Removes a question from the register.
+  ///Removes a question from the register, and adds it to askedQuestions list.
   ///[question] the question to remove.
   ///Throws [CouldNotRemoveQuestionException] if the question is not in the register.
   void remove(Question question){

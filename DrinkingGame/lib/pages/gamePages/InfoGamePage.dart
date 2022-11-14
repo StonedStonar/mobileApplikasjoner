@@ -8,7 +8,6 @@ import '../../App.dart';
 import '../../components/AppBars.dart';
 import '../../components/InfoGameCard.dart';
 import '../../model/StoreableItem.dart';
-import '../../model/games/Game.dart';
 import '../../model/questions/InfoContainer.dart';
 import '../../model/registers/InfoContainerRegister.dart';
 import '../../model/games/InfoGame.dart';
@@ -52,10 +51,6 @@ class InfoGamePage extends ConsumerWidget {
           return Scaffold(
             appBar: makeGameAppBar(context, infoGame),
             body: _makeContent(cards),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => addCustomInfoContainer(context),
-            ),
           );
         }
     );
