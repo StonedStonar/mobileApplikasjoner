@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotAddInfoContainerException.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotRemoveInfoContainerException.dart';
@@ -9,6 +11,8 @@ import '../questions/InfoContainer.dart';
 class InfoContainerRegister extends Register {
 
   final List<InfoContainer> _infoContainers = [];
+
+  StreamController<List<InfoContainer>> _streamController = StreamController();
 
   ///Adds an info container.
   ///[infoContainer] the info container to add.
@@ -33,5 +37,14 @@ class InfoContainerRegister extends Register {
   @override
   List<InfoContainer> getRegisterItems() {
     return _infoContainers;
+  }
+
+  void updateStream(){
+    _streamController.add(_infoContainers);
+  }
+
+  ///Gets the stream.
+  Stream<List<InfoContainer>> getStream(){
+    return _streamController.stream;
   }
 }

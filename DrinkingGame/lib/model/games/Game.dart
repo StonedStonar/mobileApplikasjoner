@@ -1,4 +1,5 @@
 import 'package:drinkinggame/model/registers/Register.dart';
+import 'package:drinkinggame/model/registers/RuleRegister.dart';
 
 import '../Rule.dart';
 import '../StoreableItem.dart';
@@ -6,13 +7,11 @@ import '../StoreableItem.dart';
 abstract class Game extends DatabaseItem {
 
   ///Makes an instance of the game.
-  ///[rules] the list of rules for the game.
   ///[gameName] the game name.
   ///[shortDescription] the short description.
-  Game({required List<Rule> rules, required String gameName, required String shortDescription}) : _rules = rules,
-        _gameName = gameName, _shortDescription = shortDescription;
+  Game({required String gameName, required String shortDescription}) : _gameName = gameName, _shortDescription = shortDescription;
 
-  final List<Rule> _rules;
+  final RuleRegister _ruleRegister = RuleRegister();
 
   final String _gameName;
 
@@ -33,17 +32,9 @@ abstract class Game extends DatabaseItem {
 
   ///Gets the rules of the game.
   ///return a list with the rules.
-  List<Rule> getRules(){
-    return _rules;
+  RuleRegister getRules(){
+    return _ruleRegister;
   }
-
-  ///Gets the rules as a map.
-  ///Returns a list with all the rules as a map.
-  List<Map<String, dynamic>> getRulesAsMap(){
-    List<Map<String, dynamic>> rulesAsDatabaseItems = [];
-    _rules.forEach((rule) => rulesAsDatabaseItems.add(rule.toMap()));
-    return rulesAsDatabaseItems;
-}
 
   @override
   String getItemId() {

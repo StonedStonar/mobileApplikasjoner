@@ -22,37 +22,38 @@ class InfoGamePage extends ConsumerWidget {
 
   Database? _database;
 
+  bool recivedItem = true;
+
   final InfoGame infoGame;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _database = ref.watch(databaseProvider);
     InfoContainerRegister infoContainerRegister = infoGame.getGameRegister();
-    return StreamBuilder<List<DatabaseItem>>(
-        stream: _database?.getContentsOfGame(infoGame),
-        builder: (context, snapshot){
-          List<InfoContainer>? containers = snapshot.data?.map((item) => item as InfoContainer).toList();
-          List<Widget> cards = [];
-          containers?.forEach((item) {
-            InfoGameCard card = InfoGameCard(infoContainer: item);
-            cards.add(card);
-            cards.add(SizedBox(height: 10));
-            infoContainerRegister.addInfoContainer(item);
-            print(infoContainerRegister.getRegisterItems().length);
-          });
-          if(cards.isEmpty){
-            cards.add(Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator()
-              ],
-            ));
+    _database?.getContentsOfGame(infoGame);
+    return StreamBuilder<List<InfoContainer>?>(
+        stream: infoContainerRegister.getStream(),
+        builder: (context, container){
+          List<Widget> widgets = [];
+          if(container.hasData){
+            container.data!.forEach((container) {
+              widgets.add(InfoGameCard(infoContainer: container));
+              widgets.add(SizedBox(height: 10));
+            });
+          }else{
+            widgets.add(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [CircularProgressIndicator()],
+                )
+            );
           }
           return Scaffold(
             appBar: makeGameAppBar(context, infoGame),
-            body: _makeContent(cards),
+            body: _makeContent(widgets),
           );
         }
+
     );
 
   }

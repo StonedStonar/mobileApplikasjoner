@@ -9,6 +9,10 @@ class InfoContainer extends DatabaseItem{
   ///[description] the description.
   InfoContainer({required String containerId, required String title, required String description}) : _title = title, _description = description, _containerId = containerId;
 
+  ///Makes a InfoContainer from a map.
+  ///[map] the map.
+  InfoContainer.fromMap({required Map<String, dynamic> map}) : assert(map.length == 3), _title = map["title"], _containerId = map["containerId"], _description = map["description"];
+
   final String _title;
   final String _containerId;
   final String _description;

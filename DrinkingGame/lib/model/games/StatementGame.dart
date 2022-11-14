@@ -10,7 +10,7 @@ import 'package:drinkinggame/model/registers/Register.dart';
 class StatementGame extends Game {
 
   ///Makes an instance of
-  StatementGame({required super.rules, required super.gameName, required super.shortDescription});
+  StatementGame({required super.gameName, required super.shortDescription});
 
   OpenQuestionRegister _openQuestionRegister = OpenQuestionRegister();
 

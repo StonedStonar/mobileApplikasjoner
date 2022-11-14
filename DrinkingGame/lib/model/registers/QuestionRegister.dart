@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drinkinggame/model/exceptions/CouldNotAddQuestionException.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotRemoveQuestionException.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
@@ -9,6 +11,8 @@ import '../StoreableItem.dart';
 abstract class QuestionRegister extends Register{
 
   final List<Question> _questions = [];
+
+  StreamController<Question> _stream = StreamController();
 
   ///Adds a question to the question register.
   ///[question] the question to add.

@@ -1,8 +1,6 @@
 
 
 import 'package:drinkinggame/model/StoreableItem.dart';
-import 'package:drinkinggame/model/questions/InfoContainer.dart';
-import 'package:drinkinggame/model/registers/InfoContainerRegister.dart';
 
 import '../../model/games/Game.dart';
 
@@ -16,13 +14,12 @@ abstract class Database{
   ///Returns a stream with all the games.
   Stream<List<Game>> getGames();
 
-  ///Gets the items of the game.
-  ///[game] the game.
-  ///Returns a stream that is the content of the game, that can be questions.
-  Stream<List<DatabaseItem>> getContentsOfGame(Game game);
-
   ///Sets an item for a game.
   ///[game] the game to set
   ///[databaseItem] the item
   Future<void> setItemForGame(Game game, DatabaseItem databaseItem);
+
+  ///Gets the items of the game.
+  ///[game] the game.
+  Future<void> getContentsOfGame(Game game);
 }

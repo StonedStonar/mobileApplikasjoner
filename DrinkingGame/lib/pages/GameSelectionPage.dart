@@ -4,6 +4,7 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
+import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
 import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
@@ -33,7 +34,6 @@ class GameSelectionPage extends ConsumerWidget {
     return StreamBuilder<Game?>(
         stream: ref.watch(gameProvider.notifier).stream,
         builder: (context, game) {
-          print("build");
           Widget widget = new CircularProgressIndicator();
           if(game.hasData){
             switch(game.data.runtimeType){
@@ -76,7 +76,7 @@ class GameSelectionPage extends ConsumerWidget {
     TextEditingController descriptionController = TextEditingController();
     await makeAlertDialog(controller,descriptionController, context);
     if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
-      Game game = InfoGame(rules: [], gameName: controller.text, shortDescription: descriptionController.text);
+      Game game = InfoGame(gameName: controller.text, shortDescription: descriptionController.text);
       await database?.setCustomGame(game);
     }
   }
@@ -132,7 +132,6 @@ class GameSelectionPage extends ConsumerWidget {
     games.add(GameButton(
       game: game,
       onPressed: () {
-        print("Changed game");
         widgetRef?.read(gameProvider.notifier).state = game;
       },
     ),
