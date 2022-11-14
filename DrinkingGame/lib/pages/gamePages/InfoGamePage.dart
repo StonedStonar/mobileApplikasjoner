@@ -21,16 +21,16 @@ class InfoGamePage extends ConsumerWidget {
   ///[infoGame] the game.
   InfoGamePage({required this.infoGame});
 
-  Database? database;
+  Database? _database;
 
   final InfoGame infoGame;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    database = ref.watch(databaseProvider);
+    _database = ref.watch(databaseProvider);
     InfoContainerRegister infoContainerRegister = infoGame.getGameRegister();
     return StreamBuilder<List<DatabaseItem>>(
-        stream: database?.getContentsOfGame(infoGame),
+        stream: _database?.getContentsOfGame(infoGame),
         builder: (context, snapshot){
           List<InfoContainer>? containers = snapshot.data?.map((item) => item as InfoContainer).toList();
           List<Widget> cards = [];
@@ -72,7 +72,7 @@ class InfoGamePage extends ConsumerWidget {
     if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
       InfoContainer infoContainer = InfoContainer(containerId: value.text, title: controller.text, description: descriptionController.text);
       print(infoContainer.toMap());
-      await database?.setItemForGame(infoGame,infoContainer);
+      await _database?.setItemForGame(infoGame,infoContainer);
     }
   }
 

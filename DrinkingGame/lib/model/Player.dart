@@ -1,7 +1,5 @@
 import 'package:drinkinggame/model/StoreableItem.dart';
-
 class Player extends DatabaseItem {
-
   @override
   String getItemId() {
     // TODO: implement getItemId

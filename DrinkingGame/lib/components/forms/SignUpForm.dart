@@ -1,6 +1,7 @@
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
 import 'package:drinkinggame/services/Validators.dart';
+import 'package:drinkinggame/services/database/Database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -80,6 +81,7 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
   }
 
   void _onSuccessfulSignUp() {
+    ref.watch(authProvider).currentUser!.updateDisplayName(_username);
     Navigator.of(context).pop();
   }
 

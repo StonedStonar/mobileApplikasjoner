@@ -24,9 +24,32 @@ class GameSelectionPage extends ConsumerWidget {
 
   Database? database;
 
+  WidgetRef? widgetRef;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     database = ref.watch(databaseProvider);
+    widgetRef = ref;
+    return StreamBuilder<Game?>(
+        stream: ref.watch(gameProvider.notifier).stream,
+        builder: (context, game) {
+          print("build");
+          Widget widget = new CircularProgressIndicator();
+          if(game.hasData){
+            switch(game.data.runtimeType){
+              case InfoGame:
+                widget = InfoGamePage(infoGame: game.data as InfoGame);
+                break;
+            }
+          }else{
+            widget = getSelectionWidget();
+          }
+          return widget;
+        }
+    );
+  }
+
+  Widget getSelectionWidget(){
     return StreamBuilder<List<Game>>(
         stream: database?.getGames(),
         builder: (context, snapshot){
@@ -108,7 +131,10 @@ class GameSelectionPage extends ConsumerWidget {
     games.add(SizedBox(height: 16.0));
     games.add(GameButton(
       game: game,
-      onPressed: () => _openPage(gamePage, context),
+      onPressed: () {
+        print("Changed game");
+        widgetRef?.read(gameProvider.notifier).state = game;
+      },
     ),
     );
 

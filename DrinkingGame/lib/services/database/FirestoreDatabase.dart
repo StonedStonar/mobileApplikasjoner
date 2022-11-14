@@ -8,7 +8,6 @@ import 'package:drinkinggame/model/games/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
 
 import '../../model/questions/InfoContainer.dart';
-import '../../model/registers/InfoContainerRegister.dart';
 import '../../model/StoreableItem.dart';
 import 'APIPath.dart';
 import 'Database.dart';
@@ -28,23 +27,34 @@ class FirestoreDatabase implements Database{
   Future<void> _storeItem(DatabaseItem databaseItem, String path) async{
     final documentReference = _firestore.doc(path);
     Map<String, dynamic> map = databaseItem.toMap();
-    if(databaseItem is Game){
-      map.addAll({"gameType" : GameTypeIdentifier.getGameType(databaseItem).name});
-      await documentReference.set(map);
-      List<Map<String, dynamic>> contents = databaseItem.getGameRegister().getRegisterAsMap();
-      String contentsPath = APIPath.getGameContents(databaseItem.getItemId());
-      final contentReference = _firestore.collection(contentsPath);
-      contents.forEach((content) async {await contentReference.add(content);});
-    }else{
-      await documentReference.set(map);
-    }
+    await documentReference.set(map);
+  }
+
+  ///Stores a game in the database.
+  ///[game] the game to store.
+  ///[path] the path to the game.
+  Future<void> _storeGame(Game game) async{
+    String path = APIPath.getGamePath(game.getGameName());///APIPath.getCustomGamePath(game.getGameName(), _uId); <- for custom games
+    final documentReference = _firestore.doc(path);
+    Map<String, dynamic> map = game.toMap();
+    map.addAll({"gameType" : GameTypeIdentifier.getGameType(game).name});
+
+    await documentReference.set(map);
+    List<Map<String, dynamic>> gameContents = game.getGameRegister().getRegisterAsMap();
+    String contentsPath = APIPath.getGameContents(game.getItemId());
+    final contentReference = _firestore.collection(contentsPath);
+    gameContents.forEach((content) async {await contentReference.add(content);});
+
+    List<Map<String, dynamic>> gameRules = game.getRulesAsMap();
+    String rulesPath = APIPath.getGameRules(game.getItemId());
+    final rulesReference = _firestore.collection(rulesPath);
+    gameRules.forEach((rule) async {await rulesReference.add(rule);});
+
   }
 
   @override
   Future<void> setCustomGame(Game game) async {
-    ///Todo: Change this back later
-    String path = APIPath.getGamePath(game.getGameName());///APIPath.getCustomGamePath(game.getGameName(), _uId); <- for custom games
-    _storeItem(game, path);
+    _storeGame(game);
   }
 
   @override
@@ -88,5 +98,4 @@ class FirestoreDatabase implements Database{
     String path = APIPath.getGameContents(game.getGameName());
     await _firestore.collection(path).add(databaseItem.toMap());
   }
-  
 }

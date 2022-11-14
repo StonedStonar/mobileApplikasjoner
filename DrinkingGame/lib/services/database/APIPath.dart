@@ -1,3 +1,5 @@
+
+
 ///Represents a class that holds path for things.
 class APIPath{
 
@@ -5,9 +7,14 @@ class APIPath{
   ///Returns the game path.
   static String getGamePath(String gameName) => "games/$gameName";
 
-  ///Path to the contets of the game.
+  ///Path to the contents of the game.
   ///Returns the path to the contents.
   static String getGameContents(String gameName) => "${getGamePath(gameName)}/contents";
+
+  ///Path to the games rules.
+  ///[gameName] the name of the game.
+  ///Returns the path to the rules of the game
+  static String getGameRules(String gameName) => "${getGamePath(gameName)}/rules";
 
   ///Gets the games path.
   ///Returns the games path

@@ -1,4 +1,10 @@
+import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
+import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
+import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
 import 'package:drinkinggame/services/auth/Authentication.dart';
 import 'package:drinkinggame/services/auth/FirebaseAuthenication.dart';
 import 'package:drinkinggame/services/database/Database.dart';
@@ -6,6 +12,8 @@ import 'package:drinkinggame/services/database/FirestoreDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_color_generator/material_color_generator.dart';
+
+final gameProvider = StateProvider<Game?>((ref) => null);
 
 final authProvider = StateProvider<Authentication>((ref) {
   return FirebaseAuthentication();
@@ -28,7 +36,6 @@ class App extends ConsumerWidget {
     Authentication auth = ref.watch(authProvider);
     auth.authStateChanges().listen((event) {
       ref.read(databaseProvider.notifier).state = event != null ? FirestoreDatabase(uId: event.uid) : null;
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
     });
 
     MaterialApp materialApp = MaterialApp(
@@ -40,7 +47,14 @@ class App extends ConsumerWidget {
         primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
       ),
       themeMode: ref.watch(themeProvider),
-      home: LandingPage(),
+      initialRoute: "/landingPage",
+      routes: {
+        "/landingPage" : (context) => LandingPage(),
+        "/profile" : (context) => ProfilePage(),
+        "/settings" : (context) => SettingsPage(),
+        "/aboutApp" : (context) => AboutApplicationPage(),
+        "/displayGame" : (context) =>  GameLandingPage(),
+      },
       );
     return materialApp;
   }
