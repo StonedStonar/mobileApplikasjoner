@@ -11,6 +11,7 @@ import '../../providers/signup_login_provider.dart';
 import '../../services/auth/Authentication.dart';
 import '../AppBars.dart';
 
+///A form for authenticating the user, by either login or signup.
 class AuthenticationForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators{
   AuthenticationForm({Key? key}) : super(key: key);
 
@@ -20,16 +21,19 @@ class AuthenticationForm extends ConsumerStatefulWidget with UsernamePasswordAnd
 
 class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
 
+  ///TexteditingControllers for getting user input
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmationPasswordController = TextEditingController();
 
+  ///Focusnodes for textfields
   final FocusNode _userNameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
 
+  ///Simplified getters for the user input
   String get _username => _usernameController.text;
   String get _email => _emailController.text;
   String get _password => _passwordController.text;
@@ -47,7 +51,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
 
   ///Creates and returns a widget list of the
   ///textfields for input and the submit button
-  List<Widget> _buildChildren(WidgetRef ref) {
+  List<Widget> _buildChildren() {
     bool usernameErrorText = _submitted && !widget.usernameValidator.isValid(_username);
     bool emailErrorText = _submitted && !widget.emailValidator.isValid(_email);
     bool passwordErrorText = _submitted && !widget.passwordValidator.isValid(_password);
@@ -107,6 +111,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     ];
   }
 
+  ///Switches between login and signup page
   void _switchPage() {
      _register = !_register;
      _updateState();
@@ -122,14 +127,14 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
             padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _buildChildren(ref),
+              children: _buildChildren(),
             )
         ),
       ),
     );
   }
 
-
+///Submits the form
   void _submit() {
     setState(() {
       _submitted = true;
@@ -137,6 +142,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     _register ? performSignup() : performLogin();
   }
 
+  ///Logs the user in
   void performLogin() async {
     if(validateLoginInfo()) {
       setState(() {
@@ -156,6 +162,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     }
   }
 
+  ///Signs the user up
   void performSignup() async {
     if(validateSignupInfo()) {
       setState(() {
@@ -175,6 +182,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     }
   }
 
+  ///Compares the two passwords input by the user
   bool _comparePasswords() {
     if(_password == _confirmationPassword) {
       return true;
