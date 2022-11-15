@@ -21,6 +21,10 @@ class Player extends DatabaseItem {
     return _playerName;
   }
 
+  int getPlayerId() {
+    return _playerID;
+  }
+
   @override
   String getItemId() {
     return _playerID.toString();

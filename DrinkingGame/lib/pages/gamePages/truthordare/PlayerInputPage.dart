@@ -25,13 +25,12 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
 
   bool _submitted = false;
 
-  PlayerRegister? playerRegister;
+  PlayerRegister playerRegister = PlayerRegister();
 
-  static int playerId = 0;
+  int playerId = 1;
 
   @override
   Widget build(BuildContext context) {
-    bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
     return  Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -45,13 +44,14 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
   Widget _buildPlayerInputField() {
     return Column(
       children: [
-        Text(
+        const Text(
           "Write in the names of the players",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
         ),
-        SizedBox(height: 20),
-        _buildTextFieldWithButton()
+        const SizedBox(height: 20),
+        _buildTextFieldWithButton(),
+        _buildAddedPlayersList()
       ],
     );
   }
@@ -69,7 +69,7 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
           ),
         ),
         TextButton(onPressed: _addPlayerToList, child: Column(
-          children: [
+          children: const [
             SizedBox(height: 10),
             Icon(CupertinoIcons.add, size: 30,),
             Text("Add", style: TextStyle(fontSize: 14),)
@@ -79,9 +79,42 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
     );
   }
 
+  Widget _buildAddedPlayersList() {
+    List<Player> players = playerRegister.getPlayers();
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(25, 50, 25, 25),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (Player player in players)
+                  Row(children: [
+                    Text(player.getPlayerName(), style: TextStyle(fontSize: 20)),
+                    TextButton(onPressed: () => _removePlayerFromList(), child: Column(
+                      children: const [
+                        SizedBox(height: 5),
+                        Icon(CupertinoIcons.minus, size: 30,),
+                      ],
+                    ))
+                  ],)
+              ],
+            ),
+          )
+      ),
+    );
+  }
+
   void _addPlayerToList() {
-    Player(playerID: playerId++, playerName: _playerInput);
-    playerRegister?.addPlayer(Player(playerID: playerId++, playerName: _playerInput));
+    Player player = Player(playerID: playerId, playerName: _playerInput);
+    playerRegister.addPlayer(player);
+    var it = playerRegister.getIterator();
+    while (it.moveNext()) {
+      print(it.current.getPlayerName() + " " + it.current.getItemId());
+    }
+  }
+
+  void _removePlayerFromList() {
   }
 
   void _updateState() {

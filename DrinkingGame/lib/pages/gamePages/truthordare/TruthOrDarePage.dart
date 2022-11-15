@@ -16,8 +16,6 @@ class TruthOrDarePage extends ConsumerWidget {
 
   StatementGame? statementGame;
 
-  PlayerRegister? playerRegister;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     statementGame = StatementGame(gameName: "Truth or dare", shortDescription: "hei");

@@ -26,14 +26,31 @@ class PlayerRegister extends Register {
   ///Removes a player from the register.
   ///[player] the player to be removed.
   void removePlayer(Player player) {
-    if(_players.remove(player)) {
+    if(_players.contains(player)) {
+      _players.remove(player);
+    } else {
       throw Exception("Player could not be removed form the register");
     }
+  }
+
+  void removePlayerById(int id) {
+      var it = _players.iterator;
+      while (it.moveNext()) {
+        if(it.current.getPlayerId() == id) {
+          removePlayer(it.current);
+          break;
+        }
+      }
   }
 
   ///Gets an iterator to go through players
   Iterator<Player> getIterator() {
     return _players.iterator;
+  }
+
+  ///Returns a list of players
+  List<Player> getPlayers() {
+    return _players;
   }
 
   @override

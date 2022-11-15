@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../App.dart';
-import '../../providers/signup_login_provider.dart';
 import '../../services/auth/Authentication.dart';
 import '../AppBars.dart';
 
