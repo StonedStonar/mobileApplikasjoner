@@ -37,6 +37,7 @@ class InfoContainer extends DatabaseItem{
   @override
   Map<String, dynamic> toMap() {
     return {
+      "containerId" : _containerId,
       "title": _title,
       "description": _description,
     };

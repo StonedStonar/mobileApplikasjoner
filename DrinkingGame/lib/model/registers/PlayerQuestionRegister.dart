@@ -41,6 +41,8 @@ class PlayerQuestionRegister extends QuestionRegister {
 
   @override
   void updateStream() {
+    _streamController.close();
+    _streamController = StreamController();
     _streamController.add(getRegisterItems());
   }
 

@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/model/registers/RuleRegister.dart';
 
 import '../../model/Rule.dart';
@@ -59,20 +60,23 @@ class FirestoreDatabase implements Database{
   }
 
   @override
-  Stream<List<Game>> getGames() {
+  Future<void> getGames(GameRegister gameRegister) async {
     String path = APIPath.getGamesPath();
-    Query<Map<String, dynamic>> reference = _firestore.collection(path);
-    final snapshots = reference.snapshots();
-    return snapshots.map((snapshot) => snapshot.docs.map((snap) {
-      final data = snap.data();
-      String type = data["gameType"];
-      Game game = InfoGame(gameName: data["gameName"], shortDescription: data["shortDescription"]);
+    QuerySnapshot<Map<String, dynamic>> reference = await _firestore.collection(path).get();
+    reference.docs.forEach((map) {
+      String type = map["gameType"];
+      Game game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"]);
       if(type == GameType.OPEN){
         ///Todo: Change this later when open game is ready
-        game = InfoGame(gameName: data["gameName"], shortDescription: data["shortDescription"]);
+        game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"]);
       }
-      return game;
-    }).toList());
+      try{
+        gameRegister.addGame(game);
+      }catch(e){
+
+      }
+    });
+    gameRegister.updateStream();
   }
 
   @override

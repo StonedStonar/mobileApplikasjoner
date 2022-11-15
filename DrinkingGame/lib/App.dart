@@ -1,4 +1,5 @@
 import 'package:drinkinggame/model/games/Game.dart';
+import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
@@ -12,6 +13,8 @@ import 'package:drinkinggame/services/database/FirestoreDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_color_generator/material_color_generator.dart';
+
+final gameRegisterProvider = StateProvider<GameRegister>((ref) => GameRegister());
 
 final gameProvider = StateProvider<Game?>((ref) => null);
 

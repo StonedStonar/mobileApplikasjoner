@@ -3,6 +3,7 @@
 import 'package:drinkinggame/model/StoreableItem.dart';
 
 import '../../model/games/Game.dart';
+import '../../model/registers/GameRegister.dart';
 
 abstract class Database{
 
@@ -12,7 +13,7 @@ abstract class Database{
 
   ///Gets all the games
   ///Returns a stream with all the games.
-  Stream<List<Game>> getGames();
+  Future<void> getGames(GameRegister gameRegister);
 
   ///Sets an item for a game.
   ///[game] the game to set

@@ -17,7 +17,6 @@ abstract class Game extends DatabaseItem {
 
   final String _shortDescription;
 
-
   ///Gets the name of the game.
   ///Returns the game name.
   String getGameName(){

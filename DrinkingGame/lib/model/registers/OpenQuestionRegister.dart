@@ -34,6 +34,8 @@ class OpenQuestionRegister extends QuestionRegister{
 
   @override
   Stream<List<DatabaseItem>> getStream() {
+    _streamController.close();
+    _streamController = StreamController();
     return _streamController.stream;
   }
 }

@@ -45,6 +45,8 @@ class InfoContainerRegister extends Register {
 
   ///Gets the stream.
   Stream<List<InfoContainer>> getStream(){
+    _streamController.close();
+    _streamController = StreamController();
     return _streamController.stream;
   }
 }

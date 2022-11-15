@@ -24,7 +24,6 @@ class RuleRegister extends Register{
     }
   }
 
-
   ///Removes a rule from the register.
   ///[rule] the rule to remove
   ///Throws [CouldNotRemoveRuleException] if the rule could not be removed.
@@ -49,6 +48,8 @@ class RuleRegister extends Register{
 
   @override
   void updateStream() {
+    _streamController.close();
+    _streamController = StreamController();
     _streamController.add(_rules);
   }
 

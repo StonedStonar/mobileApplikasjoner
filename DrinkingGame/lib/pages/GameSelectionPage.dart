@@ -1,15 +1,12 @@
-
-
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
-import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
-import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
 import 'package:drinkinggame/services/database/Database.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../components/overlays/MainMenu.dart';
@@ -25,17 +22,22 @@ class GameSelectionPage extends ConsumerWidget {
 
   Database? database;
 
+  GameRegister? gameRegister;
+
   WidgetRef? widgetRef;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     database = ref.watch(databaseProvider);
+    gameRegister = ref.watch(gameRegisterProvider);
     widgetRef = ref;
+
     return StreamBuilder<Game?>(
         stream: ref.watch(gameProvider.notifier).stream,
         builder: (context, game) {
           Widget widget = new CircularProgressIndicator();
           if(game.hasData){
+            print("Størrelse: ${game.data?.getGameRegister().getRegisterItems().length}");
             switch(game.data.runtimeType){
               case InfoGame:
                 widget = InfoGamePage(infoGame: game.data as InfoGame);
@@ -50,8 +52,9 @@ class GameSelectionPage extends ConsumerWidget {
   }
 
   Widget getSelectionWidget(){
-    return StreamBuilder<List<Game>>(
-        stream: database?.getGames(),
+    database?.getGames(gameRegister!);
+    return StreamBuilder<List<Game>?>(
+        stream: gameRegister?.getStream(),
         builder: (context, snapshot){
           List<Widget> widgets = [];
           if(snapshot.hasData){
@@ -143,7 +146,9 @@ class GameSelectionPage extends ConsumerWidget {
   ///[context] the build context.
   ///Returns the widget
   Widget _contentOfGamePage(BuildContext context, List<Widget> gameWidgets) {
-    return Column(
+    return ListView(
+      dragStartBehavior: DragStartBehavior.start,
+      scrollDirection: Axis.vertical,
       children: gameWidgets,
     );
   }
