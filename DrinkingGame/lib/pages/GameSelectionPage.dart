@@ -50,7 +50,7 @@ class GameSelectionPage extends ConsumerWidget {
                 widget = InfoGamePage(infoGame: game.data as InfoGame);
                 break;
               case StatementGame:
-                widget = TruthOrDarePage(statementGame: game.data as StatementGame);
+///                widget = TruthOrDarePage(statementGame: game.data as StatementGame);
                 break;
             }
           }else{

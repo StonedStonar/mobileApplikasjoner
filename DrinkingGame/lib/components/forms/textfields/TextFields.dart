@@ -106,3 +106,25 @@ TextField buildConfirmPasswordTextField(
       key: const Key("confirmPassword_input")
   );
 }
+
+TextField buildPlayerTextField(
+    TextEditingController controller,
+    Function onChanged,
+    bool errorText,
+    Function onEditingComplete) {
+
+  return TextField(
+      style: TextStyle(fontSize: 20),
+      controller: controller,
+      textAlign: TextAlign.center,
+      onChanged: (username) => onChanged(),
+      decoration: InputDecoration(
+        hintText: "Enter playername",
+        errorText: errorText ? "Invalid Playername" : null,
+      ),
+      autocorrect: false,
+      textInputAction: TextInputAction.done,
+      onEditingComplete: () => onEditingComplete(),
+      key: const Key("playername_input")
+  );
+}

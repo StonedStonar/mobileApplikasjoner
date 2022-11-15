@@ -79,7 +79,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           passwordErrorText,
           _isLoading,
           !_register ? TextInputAction.done : TextInputAction.go,
-          _passwordEditingComplete),
+          !_register ? _submit : _passwordEditingComplete),
       const SizedBox(height: 8.0),
 
      if (_register) buildConfirmPasswordTextField(_confirmationPasswordController,
@@ -139,38 +139,19 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     setState(() {
       _submitted = true;
     });
-    _register ? performSignup() : performLogin();
+    _performAuthentication();
   }
 
-  ///Logs the user in
-  void performLogin() async {
-    if(validateLoginInfo()) {
+  ///Authenticates the user
+  void _performAuthentication() async {
+    if(_register ? validateSignupInfo() : validateLoginInfo()) {
       setState(() {
         _isLoading = true;
       });
       try {
         Authentication authentication = ref.watch(authProvider);
-        await authentication.signInWithEmailAndPassword(_email, _password);
-        _onSuccessfulAuth();
-      } on FirebaseAuthException catch(e) {
-        print(e.toString());
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
-
-  ///Signs the user up
-  void performSignup() async {
-    if(validateSignupInfo()) {
-      setState(() {
-        _isLoading = true;
-      });
-      try {
-        Authentication authentication = ref.watch(authProvider);
-        await authentication.createUserWithEmailAndPassword(_email, _password);
+        _register ? await authentication.createUserWithEmailAndPassword(_email, _password)
+                  : await authentication.signInWithEmailAndPassword(_email, _password);
         _onSuccessfulAuth();
       } on FirebaseAuthException catch(e) {
         print(e.toString());
