@@ -5,6 +5,7 @@ import 'package:drinkinggame/model/StoreableItem.dart';
 import '../Player.dart';
 import 'Register.dart';
 
+///Represents the player Register.
 class PlayerRegister extends Register {
 
   final List<Player> _players = [];
@@ -13,19 +14,21 @@ class PlayerRegister extends Register {
 
   ///Adds a player to the register.
   ///[player] the player to be added
-  ///Throws [Exception] if the player had trouble being added.
+  ///Throws [Exception] if the player is already in the register.
   void addPlayer(Player player) {
     if(!_players.contains(player)) {
-      _players.add(player);
+    _players.add(player);
     } else {
-      throw Exception("Player is already found in the register");
+      throw Exception("The player is already found in the register");
     }
   }
 
   ///Removes a player from the register.
   ///[player] the player to be removed.
   void removePlayer(Player player) {
-    _players.remove(player);
+    if(_players.remove(player)) {
+      throw Exception("Player could not be removed form the register");
+    }
   }
 
   ///Gets an iterator to go through players

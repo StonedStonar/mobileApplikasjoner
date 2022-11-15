@@ -1,5 +1,6 @@
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/registers/PlayerQuestionRegister.dart';
+import 'package:drinkinggame/model/registers/PlayerRegister.dart';
 
 class PlayerGame extends Game {
 
@@ -9,16 +10,22 @@ class PlayerGame extends Game {
   PlayerGame({required super.gameName, required super.shortDescription});
 
   PlayerQuestionRegister playerQuestionRegister = PlayerQuestionRegister(playerQuestions: []);
+  PlayerRegister playerRegister = PlayerRegister();
 
-  @override
-  PlayerQuestionRegister getGameRegister() {
-    return playerQuestionRegister;
+  ///Gets the player register.
+  PlayerRegister getPlayerRegister() {
+    return playerRegister;
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = getGameDetails();
     return map;
+  }
+
+  @override
+  PlayerQuestionRegister getGameRegister() {
+    return playerQuestionRegister;
   }
 
 
