@@ -11,6 +11,8 @@ class DescriptionPage extends StatelessWidget {
   }
 
   Widget _descriptionContent() {
-    return Padding(padding: const EdgeInsets.all(20.0));
+    return Container(
+
+    );
   }
 }
