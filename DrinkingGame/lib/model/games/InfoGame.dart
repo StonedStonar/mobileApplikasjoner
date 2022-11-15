@@ -2,7 +2,6 @@ import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/questions/InfoContainer.dart';
 
 import '../registers/InfoContainerRegister.dart';
-import '../registers/Register.dart';
 
 
 class InfoGame extends Game{

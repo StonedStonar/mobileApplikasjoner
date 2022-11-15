@@ -2,7 +2,6 @@ import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
-import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';

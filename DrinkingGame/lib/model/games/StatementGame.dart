@@ -1,9 +1,6 @@
-
-
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/questions/PlayerQuestion.dart';
 import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
-import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 import 'package:drinkinggame/model/registers/Register.dart';
 
 ///Represents a game where player answer yes or no to a statement.

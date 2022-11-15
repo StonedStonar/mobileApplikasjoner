@@ -32,7 +32,7 @@ class EmailValidator implements StringValidator {
 ///one number, a minimum of totally 4 letters, and maximum of 20.
 ///TODO: Possibly add lighten up criteria to not have capital letter and numbers
 class PasswordValidator implements StringValidator {
-  final passwordRegexp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,20}$");
+  final passwordRegexp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{4,20}$");
 
   @override
   bool isValid(String value) {
