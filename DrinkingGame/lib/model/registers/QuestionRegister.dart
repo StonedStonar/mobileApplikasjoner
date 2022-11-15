@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drinkinggame/model/exceptions/CouldNotAddQuestionException.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotRemoveQuestionException.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
@@ -10,6 +12,8 @@ abstract class QuestionRegister extends Register{
 
   final List<Question> _questions = [];
 
+  StreamController<Question> _stream = StreamController();
+
   ///Adds a question to the question register.
   ///[question] the question to add.
   ///Throws [CouldNotAddQuestionException] if the question is already in the register.
@@ -21,7 +25,7 @@ abstract class QuestionRegister extends Register{
     }
   }
 
-  ///Removes a question from the register.
+  ///Removes a question from the register, and adds it to askedQuestions list.
   ///[question] the question to remove.
   ///Throws [CouldNotRemoveQuestionException] if the question is not in the register.
   void remove(Question question){

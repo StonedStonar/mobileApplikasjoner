@@ -1,3 +1,5 @@
+import 'package:drinkinggame/model/questions/InfoContainer.dart';
+
 ///Represents an item that can be in a database.
 abstract class DatabaseItem{
 

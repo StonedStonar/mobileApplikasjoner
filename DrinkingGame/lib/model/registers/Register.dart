@@ -14,4 +14,11 @@ abstract class Register {
   ///Gets all the items from that register.
   ///Returns a list with all the items.
   List<DatabaseItem> getRegisterItems();
+
+  ///Updates the stream of the register.
+  void updateStream();
+
+  ///Gets the stream.
+  ///Returns the stream of database items.
+  Stream<List<DatabaseItem>> getStream();
 }

@@ -4,6 +4,7 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
+import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
 import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
@@ -24,9 +25,31 @@ class GameSelectionPage extends ConsumerWidget {
 
   Database? database;
 
+  WidgetRef? widgetRef;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     database = ref.watch(databaseProvider);
+    widgetRef = ref;
+    return StreamBuilder<Game?>(
+        stream: ref.watch(gameProvider.notifier).stream,
+        builder: (context, game) {
+          Widget widget = new CircularProgressIndicator();
+          if(game.hasData){
+            switch(game.data.runtimeType){
+              case InfoGame:
+                widget = InfoGamePage(infoGame: game.data as InfoGame);
+                break;
+            }
+          }else{
+            widget = getSelectionWidget();
+          }
+          return widget;
+        }
+    );
+  }
+
+  Widget getSelectionWidget(){
     return StreamBuilder<List<Game>>(
         stream: database?.getGames(),
         builder: (context, snapshot){
@@ -53,7 +76,7 @@ class GameSelectionPage extends ConsumerWidget {
     TextEditingController descriptionController = TextEditingController();
     await makeAlertDialog(controller,descriptionController, context);
     if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
-      Game game = InfoGame(rules: [], gameName: controller.text, shortDescription: descriptionController.text);
+      Game game = InfoGame(gameName: controller.text, shortDescription: descriptionController.text);
       await database?.setCustomGame(game);
     }
   }
@@ -108,7 +131,9 @@ class GameSelectionPage extends ConsumerWidget {
     games.add(SizedBox(height: 16.0));
     games.add(GameButton(
       game: game,
-      onPressed: () => _openPage(gamePage, context),
+      onPressed: () {
+        widgetRef?.read(gameProvider.notifier).state = game;
+      },
     ),
     );
 

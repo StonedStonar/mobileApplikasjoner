@@ -20,41 +20,104 @@ class InfoGamePage extends ConsumerWidget {
   ///[infoGame] the game.
   InfoGamePage({required this.infoGame});
 
-  Database? database;
+  Database? _database;
+
+  bool recivedItem = true;
 
   final InfoGame infoGame;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    database = ref.watch(databaseProvider);
+    _database = ref.watch(databaseProvider);
     InfoContainerRegister infoContainerRegister = infoGame.getGameRegister();
-    return StreamBuilder<List<DatabaseItem>>(
-        stream: database?.getContentsOfGame(infoGame),
-        builder: (context, snapshot){
-          List<InfoContainer>? containers = snapshot.data?.map((item) => item as InfoContainer).toList();
-          List<Widget> cards = [];
-          containers?.forEach((item) {
-            InfoGameCard card = InfoGameCard(infoContainer: item);
-            cards.add(card);
-            cards.add(SizedBox(height: 10));
-            infoContainerRegister.addInfoContainer(item);
-            print(infoContainerRegister.getRegisterItems().length);
-          });
-          if(cards.isEmpty){
-            cards.add(Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator()
-              ],
-            ));
+    _database?.getContentsOfGame(infoGame);
+    return StreamBuilder<List<InfoContainer>?>(
+        stream: infoContainerRegister.getStream(),
+        builder: (context, container){
+          List<Widget> widgets = [];
+          if(container.hasData){
+            container.data!.forEach((container) {
+              widgets.add(InfoGameCard(infoContainer: container));
+              widgets.add(SizedBox(height: 10));
+            });
+          }else{
+            widgets.add(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [CircularProgressIndicator()],
+                )
+            );
           }
           return Scaffold(
             appBar: makeGameAppBar(context, infoGame),
-            body: _makeContent(cards),
+            body: _makeContent(widgets),
           );
         }
+
     );
 
+  }
+
+  ///Adds a custom info container so that the "store in database" is valid.
+  ///[context] the build context.
+  Future<void> addCustomInfoContainer(BuildContext context) async {
+    TextEditingController controller = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
+    TextEditingController value = TextEditingController();
+    await makeAlertDialog(controller,descriptionController, value,context);
+    if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
+      InfoContainer infoContainer = InfoContainer(containerId: value.text, title: controller.text, description: descriptionController.text);
+      print(infoContainer.toMap());
+      await _database?.setItemForGame(infoGame,infoContainer);
+    }
+  }
+
+  ///Makes an alert dialog and shows it.
+  ///[controller] the controller of the game name.
+  ///[description] the controller for description.
+  ///[value] the value controller.
+  ///[context] the build context.
+  Future<void> makeAlertDialog(TextEditingController contoller, TextEditingController description, TextEditingController value, BuildContext context) async{
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Make custom game"),
+            content: SizedBox(
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+
+                children: [
+                  TextField(
+                    controller: contoller,
+                    decoration: InputDecoration(
+                        hintText: "Input title",
+                    ),
+                  ),
+                  TextField(
+                    controller: description,
+                    decoration: InputDecoration(
+                        hintText: "Input "
+                    ),
+                  ),
+                  TextField(
+                    controller: value,
+                    decoration: InputDecoration(
+                        hintText: "Value "
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text("Add")),
+            ],
+          );
+        });
   }
 
   ///Makes the content for the info game page.

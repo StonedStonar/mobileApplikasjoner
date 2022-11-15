@@ -60,6 +60,7 @@ TextField buildPasswordTextField(
     Function onChanged,
     bool errorText,
     bool isLoading,
+    TextInputAction textInputAction,
     Function onEditingComplete) {
   return TextField(
       style: TextStyle(fontSize: 20),
@@ -73,7 +74,7 @@ TextField buildPasswordTextField(
       ),
       enabled: !isLoading,
       autocorrect: false,
-      textInputAction: TextInputAction.go,
+      textInputAction: textInputAction,
       onEditingComplete: () => onEditingComplete(),
       obscureText: true,
       key: const Key("password_input")
@@ -86,6 +87,7 @@ TextField buildConfirmPasswordTextField(
     Function onChanged,
     bool errorText,
     bool isLoading,
+    TextInputAction textInputAction,
     Function submit) {
   return TextField(
       style: TextStyle(fontSize: 20),
@@ -98,7 +100,7 @@ TextField buildConfirmPasswordTextField(
       ),
       enabled: !isLoading,
       autocorrect: false,
-      textInputAction: TextInputAction.go,
+      textInputAction: textInputAction,
       onEditingComplete: () => submit(),
       obscureText: true,
       key: const Key("confirmPassword_input")

@@ -1,17 +1,17 @@
 import 'package:drinkinggame/model/registers/Register.dart';
+import 'package:drinkinggame/model/registers/RuleRegister.dart';
 
+import '../Rule.dart';
 import '../StoreableItem.dart';
 
 abstract class Game extends DatabaseItem {
 
   ///Makes an instance of the game.
-  ///[rules] the list of rules for the game.
   ///[gameName] the game name.
   ///[shortDescription] the short description.
-  Game({required List<String> rules, required String gameName, required String shortDescription}) : _rules = rules,
-        _gameName = gameName, _shortDescription = shortDescription;
+  Game({required String gameName, required String shortDescription}) : _gameName = gameName, _shortDescription = shortDescription;
 
-  List<String> _rules;
+  final RuleRegister _ruleRegister = RuleRegister();
 
   final String _gameName;
 
@@ -32,8 +32,8 @@ abstract class Game extends DatabaseItem {
 
   ///Gets the rules of the game.
   ///return a list with the rules.
-  List<String> getRules(){
-    return _rules;
+  RuleRegister getRules(){
+    return _ruleRegister;
   }
 
   @override

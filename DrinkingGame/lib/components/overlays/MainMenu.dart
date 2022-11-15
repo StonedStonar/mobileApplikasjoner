@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +27,10 @@ class MainMenu extends ConsumerWidget {
   Widget buildContent(BuildContext context){
     return Column(
       children: [
-        MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage(GameSelectionPage(), context)),
-        MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: () => _openPage(SettingsPage(), context)),
-        MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: (){}),
-        MenuButton(buttonText: "About app", icon: Icons.info, onPressed: () => _openPage(AboutApplicationPage(), context)),
+        MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage("/landingPage", context)),
+        MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: () => _openPage("/settings", context)),
+        MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: () => _openPage("/profile", context)),
+        MenuButton(buttonText: "About app", icon: Icons.info, onPressed: () => _openPage("/aboutApp", context)),
         MenuButton(buttonText: "Logout", icon: Icons.logout, onPressed: () => _confirmSignOut(context)),
       ],
     );
@@ -37,8 +39,8 @@ class MainMenu extends ConsumerWidget {
   ///Opens a new page.
   ///[widget] widget to open on a new page.
   ///[context] the build context.
-  void _openPage(Widget widget, BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+  void _openPage(String nameOfPage, BuildContext context){
+    Navigator.pushReplacementNamed(context, nameOfPage);
   }
 
 
@@ -60,6 +62,7 @@ class MainMenu extends ConsumerWidget {
   Future<void> _signOut(BuildContext context) async{
     try{
       await _authentication?.signOut();
+      _openPage("/landingPage", context);
     }on Exception catch(e){
       showExceptionAlertDialog(context, title: "Could not sign out", exception: e);
     }
