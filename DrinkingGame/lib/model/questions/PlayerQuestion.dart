@@ -1,5 +1,4 @@
 
-import 'dart:js_util';
 
 
 import 'package:drinkinggame/model/questions/Question.dart';

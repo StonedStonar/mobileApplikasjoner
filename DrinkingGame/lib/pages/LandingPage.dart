@@ -1,4 +1,5 @@
 import 'package:drinkinggame/App.dart';
+import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/pages/login/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +29,7 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               widgetToShow = LoginPage();
             } else {
-              widgetToShow = ProfilePage();
+              widgetToShow = GameSelectionPage();
             }
           }
           return widgetToShow;

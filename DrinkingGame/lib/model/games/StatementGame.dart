@@ -30,8 +30,8 @@ class StatementGame extends Game {
 
 
   @override
-  Register getGameRegister() {
+  OpenQuestionRegister getGameRegister() {
     // TODO: implement getGameRegister
-    throw UnimplementedError();
+    return _openQuestionRegister;
   }
 }

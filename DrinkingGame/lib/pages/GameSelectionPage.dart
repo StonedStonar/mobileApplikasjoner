@@ -3,8 +3,10 @@ import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/services/database/Database.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,11 @@ class GameSelectionPage extends ConsumerWidget {
     database = ref.watch(databaseProvider);
     gameRegister = ref.watch(gameRegisterProvider);
     widgetRef = ref;
+    try{
+      gameRegister?.addGame(StatementGame(gameName: "Truth or dare", shortDescription: "Played by players on the phone"));
+    }catch(e){
+
+    }
 
     return StreamBuilder<Game?>(
         stream: ref.watch(gameProvider.notifier).stream,
@@ -41,6 +48,9 @@ class GameSelectionPage extends ConsumerWidget {
             switch(game.data.runtimeType){
               case InfoGame:
                 widget = InfoGamePage(infoGame: game.data as InfoGame);
+                break;
+              case StatementGame:
+                widget = TruthOrDarePage(statementGame: game.data as StatementGame);
                 break;
             }
           }else{
@@ -130,7 +140,6 @@ class GameSelectionPage extends ConsumerWidget {
   ///[games] the games.
   ///[context] the build context.
   void addGameToList(Game game, List<Widget> games, BuildContext context){
-    Widget gamePage = InfoGamePage(infoGame: game as InfoGame);
     games.add(SizedBox(height: 16.0));
     games.add(GameButton(
       game: game,
