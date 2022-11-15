@@ -1,5 +1,4 @@
 import 'package:drinkinggame/App.dart';
-import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/pages/login/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../services/auth/Authentication.dart';
+import 'mainMenuPages/ProfilePage.dart';
 
 ///Is the first page that the user gets put into. Changes based on if the user is logged in or not.
 class LandingPage extends ConsumerWidget {
@@ -28,7 +28,7 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               widgetToShow = LoginPage();
             } else {
-              widgetToShow = GameSelectionPage();
+              widgetToShow = ProfilePage();
             }
           }
           return widgetToShow;

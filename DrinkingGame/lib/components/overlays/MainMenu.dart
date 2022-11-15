@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
