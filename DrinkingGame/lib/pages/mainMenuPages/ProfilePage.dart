@@ -13,9 +13,9 @@ import '../../components/InfoGameCard.dart';
 
 class ProfilePage extends ConsumerWidget{
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //final user = UserPreferences.myUser;
     return Scaffold(
       appBar: makeNormalAppBar("Profile", context),
       body: _buildContent(ref),
@@ -29,10 +29,23 @@ class ProfilePage extends ConsumerWidget{
   Widget _buildContent(WidgetRef widgetRef){
     Authentication? authentication = widgetRef.watch(authProvider);
     String username = authentication?.currentUser?.displayName == null ? "No username" : authentication!.currentUser!.displayName!;
+    String email = authentication?.currentUser?.displayName == null ? "No email" : authentication!.currentUser!.email!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text(username),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
+          child: Text(
+              "Your username: $username",
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+
         Padding(
           padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
           child: CustomElevatedButton(
@@ -72,8 +85,4 @@ class ProfilePage extends ConsumerWidget{
     ));
   }
 
-}
-
-void main () {
-  runApp(ProviderScope(child: ProfilePage()));
 }
