@@ -2,6 +2,7 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/forms/AuthenticationForm.dart';
 import 'package:drinkinggame/components/overlays/MainMenu.dart';
+import 'package:drinkinggame/pages/EditProfilePage.dart';
 import 'package:drinkinggame/services/auth/Authentication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,8 @@ class ProfilePage extends ConsumerWidget{
               ),
             ),
             borderRadius: 4,
-            onPressed: () {},
+            //onPressed: () => _showEditProfilePage(context),
+              onPressed: () {},
             color: const Color(0xFF000434)
           ),
         ),
@@ -64,5 +66,14 @@ class ProfilePage extends ConsumerWidget{
     );
   }
 
+  void _showEditProfilePage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const EditProfilePage(),
+    ));
+  }
 
+}
+
+void main () {
+  runApp(ProviderScope(child: ProfilePage()));
 }

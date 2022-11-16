@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 
+import 'pages/EditProfilePage.dart';
+
 final gameRegisterProvider = StateProvider<GameRegister>((ref) => GameRegister());
 
 final gameProvider = StateProvider<Game?>((ref) => null);
@@ -49,10 +51,12 @@ class App extends ConsumerWidget {
         primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
       ),
       themeMode: ref.watch(themeProvider),
-      initialRoute: "/landingPage",
+      //initialRoute: "/landingPage",
+      initialRoute: "/profile",
       routes: {
         "/landingPage" : (context) => LandingPage(),
         "/profile" : (context) => ProfilePage(),
+        //"/profile" : (context) => EditProfilePage(),
         "/settings" : (context) => SettingsPage(),
         "/aboutApp" : (context) => AboutApplicationPage(),
         "/displayGame" : (context) =>  GameLandingPage(),
