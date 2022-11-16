@@ -32,10 +32,21 @@ class ProfilePage extends ConsumerWidget{
     String username = authentication?.currentUser?.displayName == null ? "No username" : authentication!.currentUser!.displayName!;
     String email = authentication?.currentUser?.displayName == null ? "No email" : authentication!.currentUser!.email!;
 
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
+          child: Image.asset(
+              'images/face.jpg',
+            width: 400,
+            height: 200,
+            fit: BoxFit.contain,
+          ),
+
+        ),
         Padding(
           padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
           child: Text(
