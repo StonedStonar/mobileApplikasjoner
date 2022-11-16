@@ -36,23 +36,23 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
             padding: const EdgeInsets.fromLTRB(5, 65, 5, 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _buildPlayerInputField(),
+              children: _buildChildren(),
             )
 
       ),
     );
   }
 
-   List<Widget> _buildPlayerInputField() {
-    ///TODO: REMOVE
-    ///_fillPlayerListWithTestPlayers();
+   List<Widget> _buildChildren() {
     return [
         _buildHeadText("Write in the names of \n the players", 30),
         const SizedBox(height: 20),
         _buildTextFieldWithButton(),
         const SizedBox(height: 40),
-        _buildHeadText("Players in game", 25),
+
+        _buildHeadText("Players in game", 30),
         _buildAddedPlayersList(),
+
          Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
          child: _buildNextPageButton())
       ];
@@ -62,7 +62,6 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
     bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
     return Container(
       margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -85,29 +84,32 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
   Widget _buildAddedPlayersList() {
     List<Player> players = playerRegister.getPlayers();
     return Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (Player player in players)
-                  Row(
+        padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
+        child: Center(
+            child: SizedBox(
+              height: 165,
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  ///Loops through the players list
+                  for (Player player in players)
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 35),
                         Text(player.getPlayerName(), style: TextStyle(fontSize: 20)),
-                          TextButton(onPressed: () => _removePlayerFromList(player), child: Column(
+                        TextButton(onPressed: () => _removePlayerFromList(player), child: Column(
                           children: const [
                             SizedBox(height: 5),
                             Icon(CupertinoIcons.minus, size: 30,),
                           ],
                         )),
-                    ],),
-              ],
-            ),
-          )
+                      ],),
+                ],
+              ),
+            )
+        )
     );
   }
 
@@ -146,12 +148,4 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
     setState(() {});
   }
 
-  ///TODO: REMOVE
-  void _fillPlayerListWithTestPlayers() {
-    Player player1 = Player(playerID: 1, playerName: "Fuckyou");
-    Player player2 = Player(playerID: 2, playerName: "Pikachu");
-    playerRegister.addPlayer(player1);
-    playerRegister.addPlayer(player2);
-    _updateState();
-  }
 }

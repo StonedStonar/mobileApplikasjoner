@@ -38,7 +38,6 @@ class PlayerRegister extends Register {
       while (it.moveNext()) {
         if(it.current.getPlayerId() == id) {
           removePlayer(it.current);
-          break;
         }
       }
   }
