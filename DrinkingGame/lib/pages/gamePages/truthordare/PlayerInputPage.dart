@@ -51,7 +51,8 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
         ),
         const SizedBox(height: 20),
         _buildTextFieldWithButton(),
-        _buildAddedPlayersList()
+        _buildAddedPlayersList(),
+        _buildNextPageButton()
       ],
     );
   }
@@ -81,40 +82,54 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
 
   Widget _buildAddedPlayersList() {
     List<Player> players = playerRegister.getPlayers();
-    return SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 50, 25, 25),
+    return Padding(
+          padding: const EdgeInsets.fromLTRB(25, 10, 25, 25),
           child: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (Player player in players)
-                  Row(children: [
-                    Text(player.getPlayerName(), style: TextStyle(fontSize: 20)),
-                    TextButton(onPressed: () => _removePlayerFromList(), child: Column(
-                      children: const [
-                        SizedBox(height: 5),
-                        Icon(CupertinoIcons.minus, size: 30,),
-                      ],
-                    ))
-                  ],)
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      Text(player.getPlayerName(), style: TextStyle(fontSize: 20)),
+                      TextButton(onPressed: () => _removePlayerFromList(player), child: Column(
+                        children: const [
+                          SizedBox(height: 5),
+                          Icon(CupertinoIcons.minus, size: 30,),
+                        ],
+                      ))
+                    ],),
               ],
             ),
           )
-      ),
+
     );
+  }
+
+  Widget _buildNextPageButton() {
+    return CustomElevatedButton(widget: Text(
+        "Next page",
+        style: TextStyle(fontSize: 22),
+      ),
+        borderRadius: 10,
+        onPressed: () {},
+        color: const Color(0xFF000434),
+      );
   }
 
   void _addPlayerToList() {
     Player player = Player(playerID: playerId, playerName: _playerInput);
     playerRegister.addPlayer(player);
-    var it = playerRegister.getIterator();
-    while (it.moveNext()) {
-      print(it.current.getPlayerName() + " " + it.current.getItemId());
-    }
+    _updateState();
+    _playerInputController.clear();
   }
 
-  void _removePlayerFromList() {
+  void _removePlayerFromList(Player player) {
+    playerRegister.removePlayer(player);
+    _updateState();
   }
 
   void _updateState() {
