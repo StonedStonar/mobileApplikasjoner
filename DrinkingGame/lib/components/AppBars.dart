@@ -23,14 +23,24 @@ enum MenuItem { firstItem, secondItem }
 ///[title] the title of the page.
 ///[context] the build context
 ///returns the wanted appbar.
-AppBar makeNormalAppBar(String title, BuildContext context){
+AppBar makeNormalAppBar(String title, BuildContext context) {
   return AppBar(
     title: makeAppbarText(title),
     centerTitle: true,
     leading: ElevatedIconButton(
-      onPressed: (context) {Scaffold.of(context).openDrawer();},
-      iconData: Icons.menu,
+      onPressed: (context) {
+        Navigator.pop(context);
+      },
+      iconData: Icons.arrow_back,
     ),
+    actions: [
+      ElevatedIconButton(
+        onPressed: (context) {
+          Scaffold.of(context).openDrawer();
+        },
+        iconData: Icons.menu,
+      )
+    ],
     toolbarHeight: 80,
   );
 }
@@ -38,12 +48,14 @@ AppBar makeNormalAppBar(String title, BuildContext context){
 ///Makes the menus appbar.
 ///[context] the build context
 ///[title] the title of the appbar.
-AppBar makeMenuAppBar(BuildContext context, String? title){
+AppBar makeMenuAppBar(BuildContext context, String? title) {
   return AppBar(
     title: makeAppbarText(title == null ? "Menu" : title),
     centerTitle: true,
     leading: ElevatedIconButton(
-      onPressed: (context) {Navigator.pop(context);},
+      onPressed: (context) {
+        Navigator.pop(context);
+      },
       iconData: Icons.arrow_back,
     ),
     toolbarHeight: 80,
@@ -55,7 +67,7 @@ AppBar makeMenuAppBar(BuildContext context, String? title){
 ///[context] the build context
 ///[game] the game.
 ///returns the wanted appbar.
-AppBar makeGameAppBar(BuildContext context, Game game){
+AppBar makeGameAppBar(BuildContext context, Game game) {
   return AppBar(
     title: makeAppbarText(game.getGameName()),
     actions: [
@@ -77,7 +89,7 @@ AppBar makeBasicAppbar(String title) {
 
 ///Makes the heading for the appbar.
 ///[text] the text to make into a heading.
-Text makeAppbarText(String text){
+Text makeAppbarText(String text) {
   return Text(
     text,
     style: TextStyle(
