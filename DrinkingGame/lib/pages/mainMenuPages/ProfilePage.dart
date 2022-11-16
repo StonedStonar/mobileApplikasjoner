@@ -1,3 +1,7 @@
+
+
+import 'dart:js';
+
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/forms/AuthenticationForm.dart';
@@ -45,6 +49,16 @@ class ProfilePage extends ConsumerWidget{
             ),
           ),
         ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
+          child: Text(
+            "Your email: $email",
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
 
         Padding(
           padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
@@ -56,22 +70,8 @@ class ProfilePage extends ConsumerWidget{
               ),
             ),
             borderRadius: 4,
-            //onPressed: () => _showEditProfilePage(context),
+            //onPressed: (context) => {_showEditProfilePage(context),},
               onPressed: () {},
-            color: const Color(0xFF000434)
-          ),
-        ),
-        Padding(
-        padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
-        child: CustomElevatedButton(
-            widget: Text(
-              "Change password",
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-            ),
-            borderRadius: 4,
-            onPressed: () {},
             color: const Color(0xFF000434)
           ),
         ),

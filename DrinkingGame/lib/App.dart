@@ -55,6 +55,7 @@ class App extends ConsumerWidget {
       routes: {
         "/landingPage" : (context) => LandingPage(),
         "/profile" : (context) => ProfilePage(),
+        "/editProfile" : (context) => EditProfilePage(),
         "/settings" : (context) => SettingsPage(),
         "/aboutApp" : (context) => AboutApplicationPage(),
         "/displayGame" : (context) =>  GameLandingPage(),
