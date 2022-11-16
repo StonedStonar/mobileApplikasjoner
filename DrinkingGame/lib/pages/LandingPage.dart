@@ -30,7 +30,7 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               widgetToShow = LoginPage();
             } else {
-              widgetToShow = TruthOrDarePage();
+              widgetToShow = GameSelectionPage();
             }
           }
           return widgetToShow;
