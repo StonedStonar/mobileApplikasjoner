@@ -1,6 +1,4 @@
 
-
-
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/forms/AuthenticationForm.dart';

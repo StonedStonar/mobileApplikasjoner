@@ -23,10 +23,7 @@ class TruthOrDarePage extends ConsumerWidget {
     return Scaffold(
       appBar: makeGameAppBar(context, statementGame!),
       body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
           child: PlayerInputPage()
-        ),
       ),
     );
   }
