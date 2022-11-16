@@ -8,27 +8,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../components/forms/textfields/TextFields.dart';
+import '../../../../components/CustomText.dart';
+import '../../../../components/forms/textfields/TextFields.dart';
 
-class PlayerInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
-  PlayerInputPage({Key? key}) : super(key: key);
+class CustomPlayersInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
+  CustomPlayersInputPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<PlayerInputPage> createState() => _PlayerInputPageState();
+  ConsumerState<CustomPlayersInputPage> createState() => _CustomPlayerInputPageState();
 }
 
-class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
+class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> {
 
+  ///Controller for the textfield
   final TextEditingController _playerInputController = TextEditingController();
 
+  ///Getter for input player writes in the textfield
   String get _playerInput => _playerInputController.text;
 
   bool _submitted = false;
 
+  ///Register of players
   PlayerRegister playerRegister = PlayerRegister();
 
   int playerId = 1;
 
+  ///Build the page
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -45,12 +50,12 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
 
    List<Widget> _buildChildren() {
     return [
-        _buildHeadText("Write in the names of \n the players", 30),
+        buildHeadLineText("Write in the names of \n the players", 30, FontWeight.w600),
         const SizedBox(height: 20),
         _buildTextFieldWithButton(),
         const SizedBox(height: 40),
 
-        _buildHeadText("Players in game", 30),
+        buildHeadLineText("Players in game", 30, FontWeight.w600),
         _buildAddedPlayersList(),
 
          Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -58,6 +63,7 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
       ];
   }
 
+  ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
     bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
     return Container(
@@ -67,8 +73,10 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
+              ///The textfield
               child: buildPlayerTextField(_playerInputController, _updateState, playerErrorText, _addPlayerToList),
           ),
+          ///Button to add player to the register
           TextButton(onPressed: _addPlayerToList, child: Column(
             children: const [
               SizedBox(height: 11),
@@ -81,17 +89,21 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
     );
   }
 
+  ///Builds a scrollable list of the existing users with a delete button
   Widget _buildAddedPlayersList() {
     List<Player> players = playerRegister.getPlayers();
     return Padding(
         padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
         child: Center(
+          ///A fixed size for the scrollable list
             child: SizedBox(
               height: 165,
+              ///Scrollable list for displaying users
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  ///Loops through the players list
+                  ///Loops through the players list and creates a
+                  ///component for each player
                   for (Player player in players)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -113,6 +125,7 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
     );
   }
 
+  ///Builds a button to redirect to another page
   Widget _buildNextPageButton() {
     return CustomElevatedButton(widget: Text(
             "Next page",
@@ -123,15 +136,8 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
             color: const Color(0xFF000434),
     );
   }
-  
-  Widget _buildHeadText(String text, double fontSize) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w600),
-    );
-  }
-  
+
+  ///Adds a player to the register and wipes the textfield
   void _addPlayerToList() {
     Player player = Player(playerID: playerId, playerName: _playerInput);
     playerRegister.addPlayer(player);
@@ -139,11 +145,13 @@ class _PlayerInputPageState extends ConsumerState<PlayerInputPage> {
     _playerInputController.clear();
   }
 
+  ///Removes a player from the list
   void _removePlayerFromList(Player player) {
     playerRegister.removePlayer(player);
     _updateState();
   }
 
+  ///refreshes the state - rebuilds components
   void _updateState() {
     setState(() {});
   }
