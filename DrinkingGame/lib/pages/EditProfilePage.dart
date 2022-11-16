@@ -12,16 +12,28 @@ class EditProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: makeNormalAppBar("Edit profile", context),
-      body: _contentOfSettingsPage(ref),
+      body: _contentOfEditProfilePage(ref),
       drawer: MainMenu(),
     );
   }
 
-  Widget _contentOfSettingsPage(WidgetRef ref) {
+  Widget _contentOfEditProfilePage(WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
+
       children: <Widget>[
+
+        Padding(
+          padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
+          child: Image.asset(
+            'images/face.jpg',
+            width: 400,
+            height: 200,
+            fit: BoxFit.contain,
+          ),
+
+        ),
 
         Padding(
           padding: const EdgeInsets.fromLTRB(25, 0, 25, 10),
@@ -67,9 +79,13 @@ class EditProfilePage extends ConsumerWidget {
         ),
       ],
     );
+
   }
 
   void ChangeTheme(WidgetRef ref) {
-    ref.read(themeProvider.notifier).state = ref.watch(themeProvider) == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+    ref.read(themeProvider.notifier).state =
+        ref.watch(themeProvider) == ThemeMode.dark
+            ? ThemeMode.light
+            : ThemeMode.dark;
   }
 }
