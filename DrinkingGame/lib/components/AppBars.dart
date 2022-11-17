@@ -29,18 +29,10 @@ AppBar makeNormalAppBar(String title, BuildContext context) {
     centerTitle: true,
     leading: ElevatedIconButton(
       onPressed: (context) {
-        Navigator.pop(context);
+        Scaffold.of(context).openDrawer();
       },
-      iconData: Icons.arrow_back,
+      iconData: Icons.menu,
     ),
-    actions: [
-      ElevatedIconButton(
-        onPressed: (context) {
-          Scaffold.of(context).openDrawer();
-        },
-        iconData: Icons.menu,
-      )
-    ],
     toolbarHeight: 80,
   );
 }
@@ -73,6 +65,7 @@ AppBar makeGameAppBar(BuildContext context, Game game) {
     actions: [
       GamePopUpMenu(),
     ],
+    leading: SizedBox(),
     toolbarHeight: 80,
     centerTitle: true,
   );

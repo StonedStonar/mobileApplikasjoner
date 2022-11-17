@@ -1,5 +1,6 @@
 
 
+import 'package:drinkinggame/pages/mainMenuPages/DescriptionPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,6 @@ class InfoGamePage extends ConsumerWidget {
   InfoGamePage({required this.infoGame});
 
   Database? _database;
-
-  bool recivedItem = true;
 
   final InfoGame infoGame;
 
@@ -62,6 +61,7 @@ class InfoGamePage extends ConsumerWidget {
               onPressed: () => addCustomInfoContainer(context),
               child: Icon(Icons.add),
             ),
+            drawer: DescriptionPage(game: infoGame),
           );
         }
 

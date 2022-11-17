@@ -2,23 +2,32 @@ import 'package:drinkinggame/model/StoreableItem.dart';
 
 class Rule extends DatabaseItem{
 
-  int _ruleId;
+  final int _ruleId;
 
-  String _ruleText;
+  final String _ruleText;
+
+  final String _punishment;
 
   ///Makes an instance of a rule
   ///[ruleId] the id of the rule
   ///[ruleText] the rule as a text
-  Rule({required int ruleId, required String ruleText}) : assert(ruleText.isNotEmpty), assert(ruleId > 0), _ruleId = ruleId, _ruleText = ruleText;
+  ///[punishment] the punishment.
+  Rule({required int ruleId, required String ruleText, required String punishment}) : assert(ruleText.isNotEmpty), assert(ruleId > 0), _ruleId = ruleId, _ruleText = ruleText, _punishment = punishment;
 
   ///Makes a rule from a map.
   ///[map] the map.
-  Rule.fromMap({required Map<String, dynamic> map}) : assert(map.length == 2), _ruleId = int.parse(map["ruleId"]), _ruleText = map["ruleText"];
+  Rule.fromMap({required Map<String, dynamic> map}) : assert(map.length == 3), _ruleId = int.parse(map["ruleId"]), _ruleText = map["ruleText"], _punishment = map["punishment"];
 
   ///Gets the rule as text with format id + ruleText
   ///Returns the rule as text
   String getRuleAsText(){
     return "$_ruleId $_ruleText";
+  }
+
+  ///Gets the punishment for the rule
+  ///Returns the punishment
+  String getPunishment(){
+    return _punishment;
   }
 
   @override
@@ -31,7 +40,7 @@ class Rule extends DatabaseItem{
     return {
       "ruleId" : _ruleId,
       "ruleText" : _ruleText,
+      "punishment" : _punishment,
     };
   }
-
 }

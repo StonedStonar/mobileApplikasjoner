@@ -8,7 +8,8 @@ class PlayerGame extends Game {
   ///Makes an instance of the player game.
   ///[gameName] the name of the game.
   ///[shortDescription] the short description of the game.
-  PlayerGame({required super.gameName, required super.shortDescription});
+  ///[_longDescription] the long description of the game describing it more in detail.
+  PlayerGame({required super.gameName, required super.shortDescription, required super.longDescription});
 
   TruthOrDareRegister _playerQuestionRegister = TruthOrDareRegister();
   PlayerRegister _playerRegister = PlayerRegister();

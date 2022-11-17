@@ -17,7 +17,7 @@ class TruthOrDarePage extends ConsumerWidget {
   //Uncomment statement game parameter later.
   TruthOrDarePage({/*StatementGame statementGame ,*/ super.key}) /*: _statementGame = statementGame*/;
 
-  StatementGame _statementGame = StatementGame(gameName: "Truth or dare", shortDescription: "hei");
+  StatementGame _statementGame = StatementGame(gameName: "Truth or dare", shortDescription: "hei", longDescription: "far far away");
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

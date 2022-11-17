@@ -2,9 +2,11 @@ import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
+import 'package:drinkinggame/model/enums/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
 import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
+import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/services/database/Database.dart';
@@ -28,40 +30,14 @@ class GameSelectionPage extends ConsumerWidget {
 
   WidgetRef? widgetRef;
 
+  GameType gameType = GameType.INFO;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     database = ref.watch(databaseProvider);
     gameRegister = ref.watch(gameRegisterProvider);
     widgetRef = ref;
-    try{
-      gameRegister?.addGame(StatementGame(gameName: "Truth or dare", shortDescription: "Played by players on the phone"));
-    }catch(e){
 
-    }
-
-    return StreamBuilder<Game?>(
-        stream: ref.watch(gameProvider.notifier).stream,
-        builder: (context, game) {
-          Widget widget = new CircularProgressIndicator();
-          if(game.hasData){
-            print("Størrelse: ${game.data?.getGameRegister().getRegisterItems().length}");
-            switch(game.data.runtimeType){
-              case InfoGame:
-                widget = InfoGamePage(infoGame: game.data as InfoGame);
-                break;
-              case StatementGame:
-///                widget = TruthOrDarePage(statementGame: game.data as StatementGame);
-                break;
-            }
-          }else{
-            widget = getSelectionWidget();
-          }
-          return widget;
-        }
-    );
-  }
-
-  Widget getSelectionWidget(){
     database?.getGames(gameRegister!);
     return StreamBuilder<List<Game>?>(
         stream: gameRegister?.getStream(),
@@ -86,11 +62,19 @@ class GameSelectionPage extends ConsumerWidget {
   ///[context] the build context.
   Future<void> addCustomGame(BuildContext context) async {
     TextEditingController controller = TextEditingController();
-    TextEditingController descriptionController = TextEditingController();
-    await makeAlertDialog(controller,descriptionController, context);
-    if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
-      Game game = InfoGame(gameName: controller.text, shortDescription: descriptionController.text);
+    await makeAlertDialog(controller, context);
+    if(controller.text.isNotEmpty){
+      Game game = InfoGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
+      switch(gameType){
+        case GameType.OPEN:
+          break;
+        case GameType.TRUTHORDARE:
+          game = StatementGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
+          break;
+      }
       await database?.setCustomGame(game);
+      gameRegister?.getRegisterItems().clear();
+      Navigator.pushNamed(context, "/landingPage");
     }
   }
 
@@ -98,7 +82,18 @@ class GameSelectionPage extends ConsumerWidget {
   ///[controller] the controller of the game name.
   ///[description] the controller for description.
   ///[context] the build context.
-  Future<void> makeAlertDialog(TextEditingController contoller, TextEditingController description, BuildContext context) async{
+  Future<void> makeAlertDialog(TextEditingController contoller, BuildContext context) async{
+    List<GameType> gameTypes = [];
+    gameTypes.add(GameType.INFO);
+    gameTypes.add(GameType.TRUTHORDARE);
+    gameTypes.add(GameType.OPEN);
+    List<DropdownMenuItem<GameType>> chooseWidgets = [];
+    gameTypes.forEach((type) {
+      chooseWidgets.add(DropdownMenuItem<GameType>(
+        child: Text(type.name),
+        value: type,
+      ));
+    });
     return showDialog(
         context: context,
         builder: (context) {
@@ -117,11 +112,11 @@ class GameSelectionPage extends ConsumerWidget {
                         hintText: "Input game name"
                     ),
                   ),
-                  TextField(
-                    controller: description,
-                    decoration: InputDecoration(
-                        hintText: "Input description"
-                    ),
+                  DropdownButton<GameType>(
+                      items: chooseWidgets,
+                      onChanged: (type){
+                        gameType = type!;
+                      },
                   ),
                 ],
               ),
@@ -145,6 +140,7 @@ class GameSelectionPage extends ConsumerWidget {
       game: game,
       onPressed: () {
         widgetRef?.read(gameProvider.notifier).state = game;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
       },
     ),
     );

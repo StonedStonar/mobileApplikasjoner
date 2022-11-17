@@ -4,8 +4,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinkinggame/model/games/Game.dart';
-import 'package:drinkinggame/model/games/GameType.dart';
+import 'package:drinkinggame/model/enums/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/model/registers/RuleRegister.dart';
 
@@ -65,10 +66,12 @@ class FirestoreDatabase implements Database{
     QuerySnapshot<Map<String, dynamic>> reference = await _firestore.collection(path).get();
     reference.docs.forEach((map) {
       String type = map["gameType"];
-      Game game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"]);
+      Game game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
       if(type == GameType.OPEN){
         ///Todo: Change this later when open game is ready
-        game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"]);
+        game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
+      }else if(type == GameType.TRUTHORDARE){
+        game = StatementGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
       }
       try{
         gameRegister.addGame(game);

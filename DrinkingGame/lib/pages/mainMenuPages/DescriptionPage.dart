@@ -1,3 +1,4 @@
+import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/CustomText.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,12 @@ class DescriptionPage extends StatelessWidget {
 
   DescriptionPage({required this.game});
 
-  final InfoGame game;
+  final Game game;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: makeMenuAppBar(context, "Description"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -22,27 +24,19 @@ class DescriptionPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children:
-              _descriptionContent(),
+              _descriptionContent(context),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> _descriptionContent() {
+  List<Widget> _descriptionContent(BuildContext context) {
     return [
-          _ExitPageButton(),
-          SizedBox(height: 10),
           _about(),
           SizedBox(height: 10),
           _description()
       ];
-  }
-
-  Widget _ExitPageButton() {
-    return IconButton(onPressed: () {}, icon: Icon(
-      CupertinoIcons.return_icon,
-    ));
   }
 
   Widget _about() {
@@ -65,8 +59,7 @@ class DescriptionPage extends StatelessWidget {
     return Column(
       children: [
         buildHeadLineText("Description", 25, FontWeight.w500),
-        ///TODO: Infogame should have a long description aswell
-        buildHeadLineText(game.getShortDescription(), 15, FontWeight.w400)
+        buildHeadLineText(game.getLongDescription(), 15, FontWeight.w400)
       ],
     );
   }

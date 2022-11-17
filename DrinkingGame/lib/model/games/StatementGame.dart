@@ -9,8 +9,11 @@ import 'package:drinkinggame/model/registers/Register.dart';
 ///Represents a game where player answer yes or no to a statement.
 class StatementGame extends Game {
 
-  ///Makes an instance of
-  StatementGame({required super.gameName, required super.shortDescription});
+  ///Makes an instance of statement game.
+  ///[gameName] the name of the game.
+  ///[shortDescription] the short description of the game.
+  ///[_longDescription] the long description of the game describing it more in detail.
+  StatementGame({required super.gameName, required super.shortDescription, required super.longDescription});
 
   TruthOrDareRegister _playerQuestionRegister = TruthOrDareRegister();
 

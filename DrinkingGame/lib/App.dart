@@ -54,8 +54,7 @@ class App extends ConsumerWidget {
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
       routes: {
-        "/landingPage" : (context) => TruthOrDarePage(),
-        ///"/landingPage" : (context) => EditProfilePage(),
+        "/landingPage" : (context) => LandingPage(),
         "/profile" : (context) => ProfilePage(),
         "/editProfile" : (context) => EditProfilePage(),
         "/settings" : (context) => SettingsPage(),

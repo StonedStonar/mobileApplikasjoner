@@ -9,13 +9,17 @@ abstract class Game extends DatabaseItem {
   ///Makes an instance of the game.
   ///[gameName] the game name.
   ///[shortDescription] the short description.
-  Game({required String gameName, required String shortDescription}) : _gameName = gameName, _shortDescription = shortDescription;
+  ///[_longDescription] the long description of the game describing it more in detail.
+  Game({required String gameName, required String shortDescription, required String longDescription}) :
+        _gameName = gameName, _shortDescription = shortDescription, _longDescription = longDescription;
 
   final RuleRegister _ruleRegister = RuleRegister();
 
   final String _gameName;
 
   final String _shortDescription;
+
+  final String _longDescription;
 
   ///Gets the name of the game.
   ///Returns the game name.
@@ -27,6 +31,12 @@ abstract class Game extends DatabaseItem {
   ///Returns the short description.
   String getShortDescription(){
     return _shortDescription;
+  }
+
+  ///Gets the long description
+  ///Returns the long description
+  String getLongDescription(){
+    return _longDescription;
   }
 
   ///Gets the rules of the game.
@@ -46,6 +56,7 @@ abstract class Game extends DatabaseItem {
     return {
       "gameName" : _gameName,
       "shortDescription" : _shortDescription,
+      "longDescription" : _longDescription,
     };
   }
 
