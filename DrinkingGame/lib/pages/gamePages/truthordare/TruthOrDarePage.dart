@@ -3,6 +3,7 @@ import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
 import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/ContinueQuestionPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomPlayersInputPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomQuestionsPage.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +30,10 @@ class TruthOrDarePage extends ConsumerWidget {
     return Scaffold(
       appBar: makeGameAppBar(context, statementGame!),
       body: Container(
-          child: CustomPlayersInputPage()
+          child: ContinueQuestionPage()
       ),
     );
   }
-
-
 
   Widget _buildPlayersAddedField() {
     return Card(
