@@ -107,7 +107,8 @@ TextField buildConfirmPasswordTextField(
   );
 }
 
-TextField buildPlayerTextField(
+TextField buildGameUserTextField(
+    String displaytext,
     TextEditingController controller,
     Function onChanged,
     bool errorText,
@@ -119,12 +120,12 @@ TextField buildPlayerTextField(
       textAlign: TextAlign.center,
       onChanged: (username) => onChanged(),
       decoration: InputDecoration(
-        hintText: "Enter playername",
-        errorText: errorText ? "Invalid Playername" : null,
+        hintText: "Enter ${displaytext}",
+        errorText: errorText ? "Invalid ${displaytext}" : null,
       ),
       autocorrect: false,
       textInputAction: TextInputAction.done,
       onEditingComplete: () => onEditingComplete(),
-      key: const Key("playername_input")
+      key: const Key("gameUser_input")
   );
 }

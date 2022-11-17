@@ -7,11 +7,11 @@ abstract class Question extends DatabaseItem{
   ///Makes an instance of the questions
   ///[questionText] the question text.
   ///[questionId] the id of the question.
-  Question({required String questionText, required String questionId}) : _questionId = questionId, _questionText = questionText;
+  Question({required String questionText, required int questionId}) : _questionId = questionId, _questionText = questionText;
 
   String _questionText;
 
-  String _questionId;
+  int _questionId;
 
   ///Gets the questions as a string.
   ///Returns the question text
@@ -33,6 +33,6 @@ abstract class Question extends DatabaseItem{
 
   @override
   String getItemId() {
-    return _questionId;
+    return _questionId.toString();
   }
 }

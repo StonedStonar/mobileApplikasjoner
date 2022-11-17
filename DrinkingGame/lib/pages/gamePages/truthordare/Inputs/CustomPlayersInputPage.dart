@@ -74,7 +74,12 @@ class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> 
         children: [
           Expanded(
               ///The textfield
-              child: buildPlayerTextField(_playerInputController, _updateState, playerErrorText, _addPlayerToList),
+              child: buildGameUserTextField(
+                  "playername",
+                  _playerInputController,
+                  _updateState,
+                  playerErrorText,
+                  _addPlayerToList),
           ),
           ///Button to add player to the register
           TextButton(onPressed: _addPlayerToList, child: Column(
@@ -110,7 +115,10 @@ class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> 
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 35),
-                        Text(player.getPlayerName(), style: TextStyle(fontSize: 20)),
+                        Expanded(child:
+                        Text(player.getPlayerName(),
+                          style: TextStyle(fontSize: 20),
+                          overflow: TextOverflow.clip,)),
                         TextButton(onPressed: () => _removePlayerFromList(player), child: Column(
                           children: const [
                             SizedBox(height: 5),
@@ -148,6 +156,7 @@ class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> 
   ///Removes a player from the list
   void _removePlayerFromList(Player player) {
     playerRegister.removePlayer(player);
+    playerId--;
     _updateState();
   }
 

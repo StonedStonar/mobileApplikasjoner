@@ -23,8 +23,8 @@ class StatementGame extends Game {
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = getGameDetails();
-    _openQuestionRegister.add(PlayerQuestion(questionText: "Question 1", questionId: "1", response: "Response1", madeBy: "madeBy1"));
-    _openQuestionRegister.add(PlayerQuestion(questionText: "Question 2", questionId: "2", response: "Response2", madeBy: "madeBy2"));
+    _openQuestionRegister.add(PlayerQuestion(questionText: "Question 1", questionId: 1, response: "Response1", madeBy: "madeBy1"));
+    _openQuestionRegister.add(PlayerQuestion(questionText: "Question 2", questionId: 2, response: "Response2", madeBy: "madeBy2"));
     return map;
   }
 

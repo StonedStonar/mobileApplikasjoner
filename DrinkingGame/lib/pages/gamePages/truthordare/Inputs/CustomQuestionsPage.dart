@@ -1,7 +1,11 @@
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
 import 'package:drinkinggame/model/Player.dart';
+import 'package:drinkinggame/model/questions/OpenQuestion.dart';
+import 'package:drinkinggame/model/questions/Question.dart';
+import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
+import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,17 +25,26 @@ class CustomQuestionsInputPage extends ConsumerStatefulWidget with UsernamePassw
 class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPage> {
 
   ///Controller for the textfield
-  final TextEditingController _playerInputController = TextEditingController();
+  final TextEditingController _userInputController = TextEditingController();
 
   ///Getter for input player writes in the textfield
-  String get _playerInput => _playerInputController.text;
+  String get _userInput => _userInputController.text;
 
   bool _submitted = false;
+
+  ///Bool for switching between adding truths or dares
+  bool _truthOrDare = true;
 
   ///Register of players
   PlayerRegister playerRegister = PlayerRegister();
 
-  int playerId = 1;
+  OpenQuestionRegister questionRegister = OpenQuestionRegister();
+
+  ///Local array for the truths and dares the user creates
+  ///Used for merging with ALL the questions
+  List<Question> userQuestions = [];
+
+  int questionId = 1;
 
   ///Build the page
   @override
@@ -50,22 +63,36 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
 
   List<Widget> _buildChildren() {
     return [
-      buildHeadLineText("Write in the names of \n the players", 30, FontWeight.w600),
+      buildHeadLineText(_truthOrDare ? "Write in your truth(s)" : "Write in your dare(s)",
+          30, FontWeight.w600),
       const SizedBox(height: 20),
-      _buildTextFieldWithButton(),
-      const SizedBox(height: 40),
 
-      buildHeadLineText("Players in game", 30, FontWeight.w600),
+      _buildTextFieldWithButton(),
+      const SizedBox(height: 20),
+
+      Padding(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: _buildElevatedButton(_truthOrDare ? "Change to dare" : "Change to truth",
+            _switchTruthOrDare),
+      ),
+      SizedBox(height: 10),
+
+      buildHeadLineText("Truth or dare", 30, FontWeight.w600),
       _buildAddedPlayersList(),
 
-      Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: _buildNextPageButton())
+      _buildElevatedButton("add questions", mergePlayerQuestionsWithQuestionList),
+
+      Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: _buildElevatedButton("Next page", _nextPage)
+      )
     ];
   }
 
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
-    bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
+    ///TODO:Replace with truth validator
+    bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_userInput);
     return Container(
       margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
       child: Row(
@@ -74,10 +101,15 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
         children: [
           Expanded(
             ///The textfield
-            child: buildPlayerTextField(_playerInputController, _updateState, playerErrorText, _addPlayerToList),
+            child: buildGameUserTextField(
+                _truthOrDare ? "truth" : "dare",
+                _userInputController,
+                _updateState,
+                playerErrorText,
+                _addQuestionToList),
           ),
           ///Button to add player to the register
-          TextButton(onPressed: _addPlayerToList, child: Column(
+          TextButton(onPressed: _addQuestionToList, child: Column(
             children: const [
               SizedBox(height: 11),
               Icon(CupertinoIcons.add, size: 30,),
@@ -91,7 +123,8 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
 
   ///Builds a scrollable list of the existing users with a delete button
   Widget _buildAddedPlayersList() {
-    List<Player> players = playerRegister.getPlayers();
+    List<Question> questions = questionRegister.getRegisterItems();
+    print(questions.map((e) => e.getQuestionText()));
     return Padding(
         padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
         child: Center(
@@ -104,14 +137,17 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
                 children: [
                   ///Loops through the players list and creates a
                   ///component for each player
-                  for (Player player in players)
+                  for (Question question in userQuestions)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 35),
-                        Text(player.getPlayerName(), style: TextStyle(fontSize: 20)),
-                        TextButton(onPressed: () => _removePlayerFromList(player), child: Column(
+                        Expanded(child:
+                        Text(question.getQuestionText(),
+                          style: TextStyle(fontSize: 20),
+                          overflow: TextOverflow.clip,)),
+                        TextButton(onPressed: () => _removeQuestionFromList(question), child: Column(
                           children: const [
                             SizedBox(height: 5),
                             Icon(CupertinoIcons.minus, size: 30,),
@@ -125,29 +161,48 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
     );
   }
 
+  void _nextPage() {
+
+  }
+
+  void _switchTruthOrDare() {
+      _truthOrDare = !_truthOrDare;
+       print(_truthOrDare);
+      _updateState();
+  }
+
+  void mergePlayerQuestionsWithQuestionList() {
+    List<Question> questions = questionRegister.getRegisterItems();
+    questions.addAll(userQuestions);
+    userQuestions.clear();
+    _updateState();
+    print(questions.map((e) => e.getQuestionText()));
+  }
+
   ///Builds a button to redirect to another page
-  Widget _buildNextPageButton() {
+  Widget _buildElevatedButton(String text, Function onPressed) {
     return CustomElevatedButton(widget: Text(
-      "Next page",
+      text,
       style: TextStyle(fontSize: 22),
     ),
       borderRadius: 10,
-      onPressed: () {},
+      onPressed: () => onPressed(),
       color: const Color(0xFF000434),
     );
   }
 
-  ///Adds a player to the register and wipes the textfield
-  void _addPlayerToList() {
-    Player player = Player(playerID: playerId, playerName: _playerInput);
-    playerRegister.addPlayer(player);
+  ///Adds a question to the register and wipes the textfield
+  void _addQuestionToList() {
+    OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);
+    userQuestions.add(question);
     _updateState();
-    _playerInputController.clear();
+    _userInputController.clear();
   }
 
-  ///Removes a player from the list
-  void _removePlayerFromList(Player player) {
-    playerRegister.removePlayer(player);
+  ///Removes a question from the list
+  void _removeQuestionFromList(Question question) {
+    userQuestions.remove(question);
+    questionId--;
     _updateState();
   }
 
