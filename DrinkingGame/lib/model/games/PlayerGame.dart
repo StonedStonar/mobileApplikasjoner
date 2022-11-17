@@ -9,12 +9,13 @@ class PlayerGame extends Game {
   ///[shortDescription] the short description of the game.
   PlayerGame({required super.gameName, required super.shortDescription});
 
-  PlayerQuestionRegister playerQuestionRegister = PlayerQuestionRegister(playerQuestions: []);
-  PlayerRegister playerRegister = PlayerRegister();
+  PlayerQuestionRegister _playerQuestionRegister = PlayerQuestionRegister();
+  PlayerRegister _playerRegister = PlayerRegister();
 
   ///Gets the player register.
+  ///Returns player register
   PlayerRegister getPlayerRegister() {
-    return playerRegister;
+    return _playerRegister;
   }
 
   @override
@@ -25,7 +26,7 @@ class PlayerGame extends Game {
 
   @override
   PlayerQuestionRegister getGameRegister() {
-    return playerQuestionRegister;
+    return _playerQuestionRegister;
   }
 
 

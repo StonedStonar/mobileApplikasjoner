@@ -40,7 +40,6 @@ class PlayerQuestion extends Question {
   void answerQuestion(Response response, Player player) {
     this.response = response;
     this.madeBy = player;
-    print("Answer to question: " + response.toString(), );
   }
 
 
@@ -48,11 +47,7 @@ class PlayerQuestion extends Question {
   ///Returns true if the question is used.
   @override
   bool isUsed() {
-    bool value = false;
-    if (respondant != null){
-      value = true;
-    }
-    return value;
+    return respondant != null;
   }
 
   @override

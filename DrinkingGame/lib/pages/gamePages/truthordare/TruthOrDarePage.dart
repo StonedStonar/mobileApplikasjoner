@@ -29,7 +29,7 @@ class TruthOrDarePage extends ConsumerWidget {
     return Scaffold(
       appBar: makeGameAppBar(context, statementGame!),
       body: Container(
-          child: CustomQuestionsInputPage()
+          child: CustomPlayersInputPage()
       ),
     );
   }

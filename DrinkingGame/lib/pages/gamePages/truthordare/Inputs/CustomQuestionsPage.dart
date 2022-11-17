@@ -18,6 +18,8 @@ import '../../../../components/forms/textfields/TextFields.dart';
 class CustomQuestionsInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
   CustomQuestionsInputPage({Key? key}) : super(key: key);
 
+
+
   @override
   ConsumerState<CustomQuestionsInputPage> createState() => _CustomQuestionInputPageState();
 }
@@ -26,6 +28,7 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
 
   ///Controller for the textfield
   final TextEditingController _userInputController = TextEditingController();
+
 
   ///Getter for input player writes in the textfield
   String get _userInput => _userInputController.text;
@@ -80,11 +83,20 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
       buildHeadLineText("Truth or dare", 30, FontWeight.w600),
       _buildAddedPlayersList(),
 
-      _buildElevatedButton("add questions", mergePlayerQuestionsWithQuestionList),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 200,
+            child: _buildElevatedButton("Add questions", mergePlayerQuestionsWithQuestionList),
+          ),
 
-      Padding(
-          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: _buildElevatedButton("Next page", _nextPage)
+
+             SizedBox(
+               width: 200,
+                 child: _buildElevatedButton("Next page", _nextPage)
+             )
+        ],
       )
     ];
   }
@@ -126,7 +138,7 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
     List<Question> questions = questionRegister.getRegisterItems();
     print(questions.map((e) => e.getQuestionText()));
     return Padding(
-        padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
+        padding: const EdgeInsets.fromLTRB(30, 10, 10, 10),
         child: Center(
           ///A fixed size for the scrollable list
             child: SizedBox(
@@ -190,6 +202,23 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
       color: const Color(0xFF000434),
     );
   }
+
+  Widget _buildCustomButton(Widget widget, double height, double borderRadius, Function onPressed, Color color) {
+    return SizedBox(
+        height: height,
+        child: ElevatedButton(
+          onLongPress: (){print("PEPE");},
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
+            backgroundColor: MaterialStateColor.resolveWith((states) => color),
+          ),
+          onPressed: () => onPressed(),
+          child: widget,
+        ),
+    );
+  }
+
 
   ///Adds a question to the register and wipes the textfield
   void _addQuestionToList() {

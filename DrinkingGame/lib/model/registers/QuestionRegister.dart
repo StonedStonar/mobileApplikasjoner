@@ -27,9 +27,7 @@ abstract class QuestionRegister extends Register{
   ///[question] the question to remove.
   ///Throws [CouldNotRemoveQuestionException] if the question is not in the register.
   void remove(Question question){
-    if(_questions.contains(question)){
-      _questions.remove(question);
-    } else {
+    if(!_questions.remove(question)){
       throw CouldNotRemoveQuestionException("The question could not be removed");
     }
   }

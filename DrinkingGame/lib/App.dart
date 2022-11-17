@@ -2,6 +2,7 @@ import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
@@ -53,7 +54,7 @@ class App extends ConsumerWidget {
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
       routes: {
-        "/landingPage" : (context) => LandingPage(),
+        "/landingPage" : (context) => TruthOrDarePage(),
         ///"/landingPage" : (context) => EditProfilePage(),
         "/profile" : (context) => ProfilePage(),
         "/editProfile" : (context) => EditProfilePage(),

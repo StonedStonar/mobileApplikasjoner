@@ -12,28 +12,27 @@ class PlayerQuestionRegister extends QuestionRegister {
 
 
   ///Makes an instance of playerQuestionsRegister.
-  ///Todo: Trenger ikke å ta inn noe siden vi har arvet det fra question register klassen.
-  PlayerQuestionRegister({required List<PlayerQuestion> playerQuestions}) : this.playerQuestions = playerQuestions;
-
-  List<PlayerQuestion> playerQuestions;
+  PlayerQuestionRegister();
   
   StreamController<List<Question>> _streamController = StreamController();
-
 
   ///Check to see if there are questions in the register or not.
   ///Returns true if register has questions.
   @override
   bool hasQuestions() {
-    return playerQuestions.isNotEmpty;
+    return getRegisterItems().isNotEmpty && getRegisterItems().any((question) => question.isUsed());
   }
 
+  ///Shuffles the register
+  void shuffleRegister(){
+    getRegisterItems().shuffle();
+  }
 
-
-  ///Returns a random question for a specified player
+  ///Gets a random question for the player based on if they made it and if its used
+  ///Returns the question
   Question getRandomQuestionForPlayer(player) {
     if (hasQuestions()) {
-      ///Todo: skal returnere et spørsmål som denne playeren ikke har laget selv men samtidig ikke er besvart.
-      return (playerQuestions.toList()).first;
+      return getRegisterItems().firstWhere((question) => (question as PlayerQuestion).getMadeBy() != player && !question.isUsed());
     } else {
       throw Exception("There is no elements in the list"); //prob not necessary, since "first" throws an exception if list is empty.
     }
