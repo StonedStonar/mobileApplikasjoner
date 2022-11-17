@@ -10,7 +10,7 @@ class PlayerRegister extends Register {
 
   final List<Player> _players = [];
 
-  final StreamController<List<Player>> _streamController = StreamController();
+  StreamController<List<Player>> _streamController = StreamController();
 
   ///Adds a player to the register.
   ///[player] the player to be added
@@ -59,6 +59,8 @@ class PlayerRegister extends Register {
 
   @override
   Stream<List<DatabaseItem>> getStream() {
+    _streamController.close();
+    _streamController = StreamController();
     return _streamController.stream;
   }
 

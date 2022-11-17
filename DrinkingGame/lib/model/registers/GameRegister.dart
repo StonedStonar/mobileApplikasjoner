@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotAddGameException.dart';
 import 'package:drinkinggame/model/exceptions/CouldNotRemoveGameException.dart';
 import 'package:drinkinggame/model/registers/Register.dart';

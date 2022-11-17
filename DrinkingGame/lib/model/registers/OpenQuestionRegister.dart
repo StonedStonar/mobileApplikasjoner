@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:drinkinggame/model/StoreableItem.dart';
+import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 
 import '../questions/Question.dart';
 
 ///Represents a register for open questions which every player can answer.
-class OpenQuestionRegister extends QuestionRegister{
+class OpenQuestionRegister extends QuestionRegister<OpenQuestion>{
 
   bool used = false;
 

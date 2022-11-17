@@ -14,20 +14,15 @@ import '../../../model/games/InfoGame.dart';
 
 class TruthOrDarePage extends ConsumerWidget {
 
-  TruthOrDarePage({super.key});
+  //Uncomment statement game parameter later.
+  TruthOrDarePage({/*StatementGame statementGame ,*/ super.key}) /*: _statementGame = statementGame*/;
 
-  ///TODO: remove!!
-  InfoGame? infoGame;
-
-  StatementGame? statementGame;
+  StatementGame _statementGame = StatementGame(gameName: "Truth or dare", shortDescription: "hei");
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ///TODO: remove!!
-    infoGame = InfoGame(gameName: "Spill", shortDescription: "Kult spill");
-    statementGame = StatementGame(gameName: "Truth or dare", shortDescription: "hei");
     return Scaffold(
-      appBar: makeGameAppBar(context, statementGame!),
+      appBar: makeGameAppBar(context, _statementGame),
       body: Container(
           child: CustomPlayersInputPage()
       ),

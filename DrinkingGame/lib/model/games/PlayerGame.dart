@@ -1,7 +1,8 @@
 import 'package:drinkinggame/model/games/Game.dart';
-import 'package:drinkinggame/model/registers/PlayerQuestionRegister.dart';
+import 'package:drinkinggame/model/registers/TruthOrDareRegister.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
 
+///Todo: Da fuq is this class - Steinar 2022
 class PlayerGame extends Game {
 
   ///Makes an instance of the player game.
@@ -9,7 +10,7 @@ class PlayerGame extends Game {
   ///[shortDescription] the short description of the game.
   PlayerGame({required super.gameName, required super.shortDescription});
 
-  PlayerQuestionRegister _playerQuestionRegister = PlayerQuestionRegister();
+  TruthOrDareRegister _playerQuestionRegister = TruthOrDareRegister();
   PlayerRegister _playerRegister = PlayerRegister();
 
   ///Gets the player register.
@@ -25,7 +26,7 @@ class PlayerGame extends Game {
   }
 
   @override
-  PlayerQuestionRegister getGameRegister() {
+  TruthOrDareRegister getGameRegister() {
     return _playerQuestionRegister;
   }
 
