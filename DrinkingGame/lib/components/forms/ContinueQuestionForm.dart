@@ -25,9 +25,9 @@ class ContinueQuestionForm extends StatelessWidget{
 
   List<Widget> getFormItems(BuildContext context) {
     return [
-      buildHeadLineText(mainTitle, 30, FontWeight.w500),
+      CustomText(text: mainTitle, fontSize: 30, fontWeight: FontWeight.w500),
       SizedBox(height: 10,),
-      buildHeadLineText(subTitle, 20, FontWeight.w300),
+      CustomText(text: subTitle, fontSize: 20, fontWeight: FontWeight.w300),
       SizedBox(height: 50,),
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,

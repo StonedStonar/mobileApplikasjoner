@@ -65,8 +65,8 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
 
   List<Widget> _buildChildren() {
     return [
-      buildHeadLineText(_truthOrDare ? "Write in your truth(s)" : "Write in your dare(s)",
-          30, FontWeight.w600),
+      CustomText(text: _truthOrDare ? "Write in your truth(s)" : "Write in your dare(s)",
+          fontSize: 30, fontWeight: FontWeight.w600),
       const SizedBox(height: 20),
 
       _buildTextFieldWithButton(),
@@ -79,7 +79,7 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
       ),
       SizedBox(height: 10),
 
-      buildHeadLineText("Truth or dare", 30, FontWeight.w600),
+      CustomText(text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
       _buildAddedPlayersList(),
 
       Row(

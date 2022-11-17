@@ -49,8 +49,8 @@ class DescriptionPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildHeadLineText("About ${game.getGameName()}", 30, FontWeight.w600),
-        buildHeadLineText("Rules", 20, FontWeight.w500),
+        CustomText(text: "About ${game.getGameName()}", fontSize: 30, fontWeight: FontWeight.w600),
+        CustomText(text: "Rules", fontSize: 20, fontWeight: FontWeight.w500),
         ListView(
           shrinkWrap: true,
           children: [
@@ -64,9 +64,9 @@ class DescriptionPage extends StatelessWidget {
   Widget _description() {
     return Column(
       children: [
-        buildHeadLineText("Description", 25, FontWeight.w500),
+        CustomText(text: "Description", fontSize: 25, fontWeight: FontWeight.w500),
         ///TODO: Infogame should have a long description aswell
-        buildHeadLineText(game.getShortDescription(), 15, FontWeight.w400)
+        CustomText(text: game.getShortDescription(), fontSize: 15, fontWeight: FontWeight.w400)
       ],
     );
   }

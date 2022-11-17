@@ -51,12 +51,12 @@ class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> 
 
    List<Widget> _buildChildren() {
     return [
-        buildHeadLineText("Write in the names of \n the players", 30, FontWeight.w600),
+        CustomText(text: "Write in the names of \n the players", fontSize: 30, fontWeight: FontWeight.w600),
         const SizedBox(height: 20),
         _buildTextFieldWithButton(),
         const SizedBox(height: 40),
 
-        buildHeadLineText("Players in game", 30, FontWeight.w600),
+        CustomText(text: "Players in game", fontSize: 30, fontWeight: FontWeight.w600),
         _buildAddedPlayersList(),
 
          Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),

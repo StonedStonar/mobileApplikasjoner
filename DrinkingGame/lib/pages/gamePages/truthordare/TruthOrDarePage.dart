@@ -6,6 +6,7 @@ import 'package:drinkinggame/model/registers/PlayerRegister.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/ContinueQuestionPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomPlayersInputPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomQuestionsPage.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/QuestionDisplayPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +26,7 @@ class TruthOrDarePage extends ConsumerWidget {
     return Scaffold(
       appBar: makeGameAppBar(context, _statementGame),
       body: Container(
-          child: ContinueQuestionPage()
+          child: QuestionDisplayPage(),
       ),
     );
   }
