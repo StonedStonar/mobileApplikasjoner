@@ -14,7 +14,12 @@ import '../../../../components/forms/textfields/TextFields.dart';
 
 class InputPlayersInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
-  InputPlayersInputPage({Key? key}) : super(key: key);
+  InputPlayersInputPage({required this.playerRegister, required this.onDone, Key? key}) : super(key: key);
+
+  VoidCallback onDone;
+
+  ///Register of players
+  PlayerRegister playerRegister;
 
   @override
   ConsumerState<InputPlayersInputPage> createState() => _CustomPlayerInputPageState();
@@ -29,9 +34,6 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   String get _playerInput => _playerInputController.text;
 
   bool _submitted = false;
-
-  ///Register of players
-  PlayerRegister playerRegister = PlayerRegister();
 
   int playerId = 1;
 
@@ -52,12 +54,12 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
    List<Widget> _buildChildren() {
     return [
-        buildHeadLineText("Write in the names of \n the players", 30, FontWeight.w600),
+        CustomText(text: "Write in the names of \n the players", fontSize: 30, fontWeight: FontWeight.w600),
         const SizedBox(height: 20),
         _buildTextFieldWithButton(),
         const SizedBox(height: 40),
 
-        buildHeadLineText("Players in game", 30, FontWeight.w600),
+        CustomText(text: "Players in game", fontSize: 30, fontWeight: FontWeight.w600),
         _buildAddedPlayersList(),
 
          Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -98,7 +100,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   ///Builds a scrollable list of the existing users with a delete button
   Widget _buildAddedPlayersList() {
-    List<Player> players = playerRegister.getPlayers();
+    List<Player> players = widget.playerRegister.getPlayers();
     return Padding(
         padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
         child: Center(
@@ -142,7 +144,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
             style: TextStyle(fontSize: 22),
           ),
             borderRadius: 10,
-            onPressed: () => InputQuestionsPage(),
+            onPressed: () => widget.onDone(),
             color: const Color(0xFF000434),
     );
   }
@@ -150,14 +152,16 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Adds a player to the register and wipes the textfield
   void _addPlayerToList() {
     Player player = Player(playerID: playerId, playerName: _playerInput);
-    playerRegister.addPlayer(player);
+    widget.playerRegister.addPlayer(player);
+    print(player.toMap());
+    playerId++;
     _updateState();
     _playerInputController.clear();
   }
 
   ///Removes a player from the list
   void _removePlayerFromList(Player player) {
-    playerRegister.removePlayer(player);
+    widget.playerRegister.removePlayer(player);
     playerId--;
     _updateState();
   }

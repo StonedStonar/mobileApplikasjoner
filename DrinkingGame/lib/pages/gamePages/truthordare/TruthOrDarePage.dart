@@ -1,21 +1,10 @@
-import 'package:drinkinggame/App.dart';
-import 'package:drinkinggame/components/AppBars.dart';
-import 'package:drinkinggame/components/forms/textfields/TextFields.dart';
-import 'package:drinkinggame/model/games/StatementGame.dart';
-import 'package:drinkinggame/model/questions/Question.dart';
-import 'package:drinkinggame/model/registers/PlayerRegister.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/ContinueQuestionPage.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/InputPlayersInputPage.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../components/forms/ContinueQuestionForm.dart';
-import '../../../model/games/Game.dart';
-import '../../../model/games/InfoGame.dart';
-import 'Inputs/TruthOrDarePageEnum.dart';
-
+import '../../../model/games/StatementGame.dart';
+import 'Inputs/InputPlayersInputPage.dart';
+import 'Inputs/InputQuestionsPage.dart';
+import 'QuestionDisplayPage.dart';
 
 class TruthOrDarePage extends ConsumerStatefulWidget {
 
@@ -32,32 +21,44 @@ class _TruthOrDareState extends ConsumerState<TruthOrDarePage> {
 
   int number = 0;
 
-  Widget widgetToShow = InputPlayersInputPage();
+  bool _firstTime = true;
+
+  Widget widgetToShow = Container();
 
   @override
   Widget build(BuildContext context) {
-
+    if(_firstTime){
+      widgetToShow = InputPlayersInputPage(playerRegister:widget.statementGame.getPlayerRegister(), onDone: _makeContinueForm);
+      _firstTime = false;
+    }
     return widgetToShow;
   }
 
-  Widget _makeContiunueForm(){
-    return Padding(
+  void _makeContinueForm(){
+    _updateThisState(Padding(
       padding: const EdgeInsets.fromLTRB(15, 70, 15, 5),
       child: ContinueQuestionForm(mainTitle: 'Do you want to add truth(s) or dare(s)?',
         subTitle: 'If nor truth or dares is added only a default question set will be used',
         yesFunction: _changeToInputQuestions,
-        noFunction: ,
+        noFunction: _changeToPlay,
       ),
-    );
+    ));
   }
 
   void _changeToInputQuestions(){
-    widgetToShow = InputQuestionsPage();
+    _updateThisState(InputQuestionsPage(playerRegister: widget.statementGame.getPlayerRegister(), truthOrDareRegister: widget.statementGame.getGameRegister(),onDone: _changeToPlay,));
   }
 
   void _changeToPlay(){
-    widgetToShow = QuestionDisplay();
+    _updateThisState(QuestionDisplayPage(statementGame: widget.statementGame));
   }
+
+  void _updateThisState(Widget widget){
+    setState(() {
+      widgetToShow = widget;
+    });
+  }
+
 
 
 }

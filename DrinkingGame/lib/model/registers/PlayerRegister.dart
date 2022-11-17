@@ -26,20 +26,30 @@ class PlayerRegister extends Register {
   ///Removes a player from the register.
   ///[player] the player to be removed.
   void removePlayer(Player player) {
-    if(_players.contains(player)) {
+    if (_players.contains(player)) {
       _players.remove(player);
     } else {
       throw Exception("Player could not be removed form the register");
     }
   }
 
-  void removePlayerById(int id) {
-      var it = _players.iterator;
-      while (it.moveNext()) {
-        if(it.current.getPlayerId() == id) {
-          removePlayer(it.current);
-        }
+  ///Gets a player by their id.
+  ///[playerID] the id of the player.
+  ///Returns the player who matches the id.
+  ///Throws [StateError] is thrown when there is no player with that id.
+  Player getPlayerById(int playerID){
+    Iterator<Player> it = _players.iterator;
+    Player? playerFound = null;
+    while(it.moveNext() && playerFound == null){
+      Player player = it.current;
+      if(int.parse(player.getItemId()) == playerID){
+        playerFound = player;
       }
+    }
+    if(playerFound == null){
+      throw StateError("Player not found");
+    }
+    return playerFound!;
   }
 
   ///Gets an iterator to go through players

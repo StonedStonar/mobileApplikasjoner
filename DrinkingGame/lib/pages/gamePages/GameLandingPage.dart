@@ -31,7 +31,7 @@ class GameLandingPage extends ConsumerWidget{
         widget = InfoGamePage(infoGame: game as InfoGame);
         break;
       case StatementGame:
-        widget = TruthOrDarePage();
+        widget = TruthOrDarePage(statementGame: game as StatementGame,);
         break;
     }
     return Scaffold(

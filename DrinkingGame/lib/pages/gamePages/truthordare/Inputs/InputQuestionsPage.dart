@@ -1,8 +1,10 @@
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
+import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
 import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
+import 'package:drinkinggame/model/registers/TruthOrDareRegister.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +13,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../components/CustomText.dart';
 import '../../../../components/forms/textfields/TextFields.dart';
+import '../../../../model/Player.dart';
 
 class InputQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
-  InputQuestionsPage({Key? key}) : super(key: key);
+  InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required this.onDone, Key? key}) : super(key: key);
 
+  PlayerRegister playerRegister;
+
+  TruthOrDareRegister truthOrDareRegister;
+
+  VoidCallback onDone;
 
 
   @override
@@ -36,22 +44,26 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Bool for switching between adding truths or dares
   bool _truthOrDare = true;
 
-  ///Register of players
-  PlayerRegister playerRegister = PlayerRegister();
-
-  ///Todo: Bruk heller player question register siden du skal lage spørsmål for spillere. Så kan vi få til hele logikken senere.
-  OpenQuestionRegister questionRegister = OpenQuestionRegister();
+  bool firstTime = true;
 
   ///Local array for the truths and dares the user creates
   ///Used for merging with ALL the questions
-  List<Question> userQuestions = [];
+  List<TruthOrDareQuestion> userQuestions = [];
+
+  Player? _currentPlayer;
 
   int questionId = 1;
+
+  int _playerId = 1;
 
   ///Build the page
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    if(firstTime){
+      getNextPlayer();
+      firstTime = false;
+    }
+    Widget widgetToShow = SingleChildScrollView(
       child: Padding(
           padding: const EdgeInsets.fromLTRB(5, 65, 5, 50),
           child: Column(
@@ -61,12 +73,23 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
       ),
     );
+
+    if(_currentPlayer == null){
+      widgetToShow = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildElevatedButton("Next page", widget.onDone),
+        ],
+      );
+    }
+    return widgetToShow;
   }
 
   List<Widget> _buildChildren() {
     return [
-      buildHeadLineText(_truthOrDare ? "Write in your truth(s)" : "Write in your dare(s)",
-          30, FontWeight.w600),
+      CustomText(text: _truthOrDare ? "Write in your truth(s)" : "Write in your dare(s)",
+          fontSize: 30, fontWeight: FontWeight.w600),
       const SizedBox(height: 20),
 
       _buildTextFieldWithButton(),
@@ -79,7 +102,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       ),
       SizedBox(height: 10),
 
-      buildHeadLineText("Truth or dare", 30, FontWeight.w600),
+      CustomText(text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
       _buildAddedPlayersList(),
 
       Row(
@@ -89,12 +112,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
             width: 200,
             child: _buildElevatedButton("Add questions", mergePlayerQuestionsWithQuestionList),
           ),
-
-
-             SizedBox(
-               width: 200,
-                 child: _buildElevatedButton("Next page", _nextPage)
-             )
         ],
       )
     ];
@@ -134,7 +151,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Builds a scrollable list of the existing users with a delete button
   Widget _buildAddedPlayersList() {
-    List<Question> questions = questionRegister.getRegisterItems();
+    List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
     print(questions.map((e) => e.getQuestionText()));
     return Padding(
         padding: const EdgeInsets.fromLTRB(30, 10, 10, 10),
@@ -183,11 +200,22 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   void mergePlayerQuestionsWithQuestionList() {
-    List<Question> questions = questionRegister.getRegisterItems();
+    List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
     questions.addAll(userQuestions);
     userQuestions.clear();
     _updateState();
     print(questions.map((e) => e.getQuestionText()));
+    getNextPlayer();
+  }
+
+  ///Gets the next player.
+  void getNextPlayer(){
+    try{
+      _currentPlayer = widget.playerRegister.getPlayerById(_playerId);
+      _playerId++;
+    }catch(e){
+      _currentPlayer = null;
+    }
   }
 
   ///Builds a button to redirect to another page
@@ -221,7 +249,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Adds a question to the register and wipes the textfield
   void _addQuestionToList() {
-    OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);
+    TruthOrDareQuestion question = TruthOrDareQuestion(questionId: questionId, questionText: _userInput, madeBy: _currentPlayer!
+    );
     userQuestions.add(question);
     _updateState();
     _userInputController.clear();
