@@ -3,16 +3,13 @@ import 'dart:async';
 
 import 'package:drinkinggame/model/Player.dart';
 import 'package:drinkinggame/model/StoreableItem.dart';
-import 'package:drinkinggame/model/questions/PlayerQuestion.dart';
+import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
 import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 
-///Representes a register of questions made by player.
-class PlayerQuestionRegister extends QuestionRegister {
-
-
-  ///Makes an instance of playerQuestionsRegister.
-  PlayerQuestionRegister();
+///Represents a register of questions made by player.
+///When it comes to the register we add the question type in the diamond brackets.
+class TruthOrDareRegister extends QuestionRegister<TruthOrDareQuestion> {
   
   StreamController<List<Question>> _streamController = StreamController();
 
@@ -32,8 +29,9 @@ class PlayerQuestionRegister extends QuestionRegister {
   ///Returns the question
   Question getRandomQuestionForPlayer(player) {
     if (hasQuestions()) {
-      return getRegisterItems().firstWhere((question) => (question as PlayerQuestion).getMadeBy() != player && !question.isUsed());
+      return getRegisterItems().firstWhere((question) => question.getMadeBy() != player && !question.isUsed());
     } else {
+      ///Todo: En "CouldNotGetQuestionException" er bedre.
       throw Exception("There is no elements in the list"); //prob not necessary, since "first" throws an exception if list is empty.
     }
   }

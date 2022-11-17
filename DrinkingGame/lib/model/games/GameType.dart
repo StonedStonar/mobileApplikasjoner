@@ -1,4 +1,5 @@
 import 'package:drinkinggame/model/games/Game.dart';
+import 'package:drinkinggame/model/games/StatementGame.dart';
 
 ///Represents the game type as an enum.
 enum GameType{
@@ -6,7 +7,7 @@ enum GameType{
   INFO,
 
   ///Is a player based game.
-  PLAYER,
+  TRUTHORDARE,
 
   ///Is an open question game.
   OPEN,
@@ -21,6 +22,9 @@ extension GameTypeIdentifier on GameType{
   static GameType getGameType(Game game){
     GameType gameType = GameType.INFO;
     switch(game.runtimeType){
+      case StatementGame:
+        gameType = GameType.TRUTHORDARE;
+        break;
       ///Todo: Add more games here later.
       default: break;
     }

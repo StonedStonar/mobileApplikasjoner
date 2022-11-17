@@ -11,13 +11,17 @@ class OpenQuestion extends Question {
   ///[map] the map
   OpenQuestion.fromMap(Map<String, dynamic> map) : super(questionText: map["questionText"], questionId: map["questionId"]);
 
-  bool used = false;
+  bool _used = false;
 
+
+  ///Sets the question to used.
+  void setUsed(){
+    _used = true;
+  }
 
   @override
   bool isUsed() {
-    //TODO implement method
-    return used;
+    return _used;
   }
 
 

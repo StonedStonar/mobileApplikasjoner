@@ -8,14 +8,16 @@ import 'package:drinkinggame/model/registers/Register.dart';
 import '../StoreableItem.dart';
 
 ///Represents a question register.
-abstract class QuestionRegister extends Register{
+///The "T" in this case is the object that extends the class Question. Its called generic class.
+///This question register can now contain anything that extends the question class.
+abstract class QuestionRegister<T extends Question> extends Register{
 
-  final List<Question> _questions = [];
+  final List<T> _questions = [];
 
   ///Adds a question to the question register.
   ///[question] the question to add.
   ///Throws [CouldNotAddQuestionException] if the question is already in the register.
-  void add(Question question){
+  void add(T question){
     if(!_questions.contains(question)){
       _questions.add(question);
     }else{
@@ -26,7 +28,7 @@ abstract class QuestionRegister extends Register{
   ///Removes a question from the register, and adds it to askedQuestions list.
   ///[question] the question to remove.
   ///Throws [CouldNotRemoveQuestionException] if the question is not in the register.
-  void remove(Question question){
+  void remove(T question){
     if(!_questions.remove(question)){
       throw CouldNotRemoveQuestionException("The question could not be removed");
     }
@@ -37,7 +39,7 @@ abstract class QuestionRegister extends Register{
   bool hasQuestions();
 
   @override
-  List<Question> getRegisterItems() {
+  List<T> getRegisterItems() {
     return _questions;
   }
 }

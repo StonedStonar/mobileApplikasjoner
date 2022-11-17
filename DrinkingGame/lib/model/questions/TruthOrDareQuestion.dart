@@ -2,44 +2,44 @@
 
 
 import 'package:drinkinggame/model/questions/Question.dart';
-import 'package:drinkinggame/model/registers/PlayerQuestionRegister.dart';
+import 'package:drinkinggame/model/registers/TruthOrDareRegister.dart';
 import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 import '../Player.dart';
 import '../enums/Response.dart';
 
 
 ///Represents a questions made by a player.
-class PlayerQuestion extends Question {
+class TruthOrDareQuestion extends Question {
 
   ///Makes an instance of playerQuestions.
   ///[playerQuestions] the playerQuestions.
-  PlayerQuestion({required super.questionText, required super.questionId, required response, required madeBy, respondant})
-  : response = response, madeBy = madeBy, respondant = respondant;
+  TruthOrDareQuestion({required super.questionText, required super.questionId, required Response response, required Player madeBy})
+  : _response = response, _madeBy = madeBy;
 
-  Response response;
-  Player madeBy;
-  Player? respondant;
+  Response _response;
+  Player _madeBy;
+  Player? _respondant;
 
 
   ///Gets response
   Response getResponse() {
-    return response;
+    return _response;
   }
 
   ///Gets made by
   Player getMadeBy() {
-    return madeBy;
+    return _madeBy;
   }
 
   ///Gets respondant
   Player? getRespondant() {
-    return respondant;
+    return _respondant;
   }
 
   ///Prints the answer to a question
   void answerQuestion(Response response, Player player) {
-    this.response = response;
-    this.madeBy = player;
+    this._response = response;
+    this._madeBy = player;
   }
 
 
@@ -47,7 +47,7 @@ class PlayerQuestion extends Question {
   ///Returns true if the question is used.
   @override
   bool isUsed() {
-    return respondant != null;
+    return _respondant != null;
   }
 
   @override

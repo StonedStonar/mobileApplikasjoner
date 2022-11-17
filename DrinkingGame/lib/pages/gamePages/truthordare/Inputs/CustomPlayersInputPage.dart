@@ -2,6 +2,7 @@ import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
 import 'package:drinkinggame/model/Player.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomQuestionsPage.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +141,7 @@ class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> 
             style: TextStyle(fontSize: 22),
           ),
             borderRadius: 10,
-            onPressed: () {},
+            onPressed: () => CustomQuestionsInputPage(),
             color: const Color(0xFF000434),
     );
   }

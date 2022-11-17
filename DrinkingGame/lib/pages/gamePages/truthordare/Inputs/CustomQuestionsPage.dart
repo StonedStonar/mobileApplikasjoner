@@ -1,11 +1,8 @@
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
-import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
-import 'package:drinkinggame/model/Player.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
 import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
-import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +13,7 @@ import '../../../../components/CustomText.dart';
 import '../../../../components/forms/textfields/TextFields.dart';
 
 class CustomQuestionsInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
+
   CustomQuestionsInputPage({Key? key}) : super(key: key);
 
 
@@ -41,6 +39,7 @@ class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPa
   ///Register of players
   PlayerRegister playerRegister = PlayerRegister();
 
+  ///Todo: Bruk heller player question register siden du skal lage spørsmål for spillere. Så kan vi få til hele logikken senere.
   OpenQuestionRegister questionRegister = OpenQuestionRegister();
 
   ///Local array for the truths and dares the user creates

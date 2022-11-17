@@ -3,7 +3,7 @@ import 'package:drinkinggame/model/questions/InfoContainer.dart';
 
 import '../registers/InfoContainerRegister.dart';
 
-
+///Represents an information game that shows its contents as containers
 class InfoGame extends Game{
 
   ///Makes an instance of the info game.
@@ -16,10 +16,6 @@ class InfoGame extends Game{
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = getGameDetails();
-    _infoContainerRegister.addInfoContainer(
-        InfoContainer(containerId: "1", title: "pepe", description: "From DB"));
-    _infoContainerRegister.addInfoContainer(InfoContainer(containerId: "2", title: "LUL", description: "slap"));
-    //map.addAll({"contents" : _infoContainerRegister.getRegisterAsMap(
     return map;
   }
 
