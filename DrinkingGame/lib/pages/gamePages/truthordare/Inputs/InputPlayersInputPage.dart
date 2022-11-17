@@ -2,7 +2,7 @@ import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
 import 'package:drinkinggame/model/Player.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomQuestionsPage.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +12,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../components/CustomText.dart';
 import '../../../../components/forms/textfields/TextFields.dart';
 
-class CustomPlayersInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
-  CustomPlayersInputPage({Key? key}) : super(key: key);
+class InputPlayersInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
+
+  InputPlayersInputPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<CustomPlayersInputPage> createState() => _CustomPlayerInputPageState();
+  ConsumerState<InputPlayersInputPage> createState() => _CustomPlayerInputPageState();
 }
 
-class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> {
+class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   ///Controller for the textfield
   final TextEditingController _playerInputController = TextEditingController();
@@ -141,7 +142,7 @@ class _CustomPlayerInputPageState extends ConsumerState<CustomPlayersInputPage> 
             style: TextStyle(fontSize: 22),
           ),
             borderRadius: 10,
-            onPressed: () => CustomQuestionsInputPage(),
+            onPressed: () => InputQuestionsPage(),
             color: const Color(0xFF000434),
     );
   }

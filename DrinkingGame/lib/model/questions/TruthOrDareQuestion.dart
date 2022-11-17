@@ -13,7 +13,7 @@ class TruthOrDareQuestion extends Question {
 
   ///Makes an instance of playerQuestions.
   ///[playerQuestions] the playerQuestions.
-  TruthOrDareQuestion({required super.questionText, required super.questionId, required Response response, required Player madeBy})
+  TruthOrDareQuestion({required super.questionText, required super.questionId, Response response = Response.undefined, required Player madeBy})
   : _response = response, _madeBy = madeBy;
 
   Response _response;

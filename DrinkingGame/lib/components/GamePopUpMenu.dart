@@ -19,7 +19,7 @@ class GamePopUpMenu extends ConsumerWidget {
             Scaffold.of(context).openDrawer();
             break;
           case MenuItem.secondItem:
-            ref.read(gameProvider.notifier).state = null;
+            Navigator.pushReplacementNamed(context, "/landingPage");
             break;
         }
       },

@@ -91,6 +91,7 @@ class GameSelectionPage extends ConsumerWidget {
     gameTypes.forEach((type) {
       chooseWidgets.add(DropdownMenuItem<GameType>(
         child: Text(type.name),
+
         value: type,
       ));
     });
@@ -139,7 +140,7 @@ class GameSelectionPage extends ConsumerWidget {
     games.add(GameButton(
       game: game,
       onPressed: () {
-        widgetRef?.read(gameProvider.notifier).state = game;
+        widgetRef?.read(gameProvider.state).state = game;
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
       },
     ),
@@ -156,12 +157,5 @@ class GameSelectionPage extends ConsumerWidget {
       scrollDirection: Axis.vertical,
       children: gameWidgets,
     );
-  }
-
-  ///Opens a new page.
-  ///[widget] widget to open on a new page.
-  ///[context] the build context.
-  void _openPage(Widget widget, BuildContext context){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget));
   }
 }

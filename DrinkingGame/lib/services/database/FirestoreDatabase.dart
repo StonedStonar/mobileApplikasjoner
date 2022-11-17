@@ -67,10 +67,10 @@ class FirestoreDatabase implements Database{
     reference.docs.forEach((map) {
       String type = map["gameType"];
       Game game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
-      if(type == GameType.OPEN){
+      if(type == GameType.OPEN.name){
         ///Todo: Change this later when open game is ready
         game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
-      }else if(type == GameType.TRUTHORDARE){
+      }else if(type == GameType.TRUTHORDARE.name){
         game = StatementGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
       }
       try{

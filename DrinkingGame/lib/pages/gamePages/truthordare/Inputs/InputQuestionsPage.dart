@@ -12,17 +12,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../components/CustomText.dart';
 import '../../../../components/forms/textfields/TextFields.dart';
 
-class CustomQuestionsInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
+class InputQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
-  CustomQuestionsInputPage({Key? key}) : super(key: key);
+  InputQuestionsPage({Key? key}) : super(key: key);
 
 
 
   @override
-  ConsumerState<CustomQuestionsInputPage> createState() => _CustomQuestionInputPageState();
+  ConsumerState<InputQuestionsPage> createState() => _CustomQuestionInputPageState();
 }
 
-class _CustomQuestionInputPageState extends ConsumerState<CustomQuestionsInputPage> {
+class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Controller for the textfield
   final TextEditingController _userInputController = TextEditingController();

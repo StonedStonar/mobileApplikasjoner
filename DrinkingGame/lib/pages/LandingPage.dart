@@ -1,6 +1,6 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/CustomQuestionsPage.dart';
+import 'package:drinkinggame/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/login/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
