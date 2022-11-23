@@ -1,6 +1,6 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
-import 'package:drinkinggame/components/buttons/GameButton.dart';
+import 'package:drinkinggame/components/GameSlidingButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
@@ -137,10 +137,10 @@ class GameSelectionPage extends ConsumerWidget {
   ///[context] the build context.
   void addGameToList(Game game, List<Widget> games, BuildContext context){
     games.add(SizedBox(height: 16.0));
-    games.add(GameButton(
+    games.add(GameSlidingButton(
       game: game,
       onPressed: () {
-        widgetRef?.read(gameProvider.state).state = game;
+        widgetRef?.read(gameProvider.notifier).state = game;
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
       },
     ),

@@ -107,4 +107,14 @@ class FirestoreDatabase implements Database{
     });
     game.getGameRegister().updateStream();
   }
+
+  @override
+  Future<void> updateGame(Game game) async {
+    String rulePath = APIPath.getGamePath(game.getGameName());
+    DocumentSnapshot<Map<String, dynamic>> ruleReference = await _firestore.doc(rulePath).get();
+    game.updateAllDetails(ruleReference["shortDescription"], ruleReference["longDescription"]);
+    game.getRules().getRegisterItems().clear();
+    game.getGameRegister().getRegisterItems().clear();
+    getContentsOfGame(game);
+  }
 }
