@@ -21,6 +21,8 @@ class Player extends DatabaseItem {
     return _playerName;
   }
 
+  ///Gets the id if the player
+  ///Returns the player id
   int getPlayerId() {
     return _playerID;
   }

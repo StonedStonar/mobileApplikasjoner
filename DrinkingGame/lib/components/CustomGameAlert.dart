@@ -28,7 +28,7 @@ class CustomGameAlert extends ConsumerWidget{
     return widgets;
   }
 
-  TextField makeTextField(TextEditingController controller, ){
+  TextField makeTextField(TextEditingController controller ){
     return TextField(
       controller: controller,
       decoration: InputDecoration(
