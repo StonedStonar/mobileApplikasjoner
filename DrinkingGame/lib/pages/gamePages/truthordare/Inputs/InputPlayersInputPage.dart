@@ -1,3 +1,4 @@
+import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
 import 'package:drinkinggame/model/Player.dart';
@@ -34,6 +35,8 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   String get _playerInput => _playerInputController.text;
 
   bool _submitted = false;
+
+  bool atleastTwoPlayers = false;
 
   int playerId = 0;
 
@@ -144,19 +147,37 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
             style: TextStyle(fontSize: 22),
           ),
             borderRadius: 10,
-            onPressed: () => widget.onDone(),
+            onPressed: atleastTwoPlayersAdded()
+                ? widget.onDone
+                : () => showAlertDialog(
+                context,
+                title: "title",
+                content: "There must be two players",
+                defaultActionText: "Ok"),
             color: const Color(0xFF000434),
     );
   }
 
-  ///Adds a player to the register and wipes the textfield
+  ///Adds a player to the register IF the user´s input is valid
+  /// then wipes the textfield
   void _addPlayerToList() {
-    playerId++;
-    Player player = Player(playerID: playerId, playerName: _playerInput);
-    widget.playerRegister.addPlayer(player);
-    print(player.getPlayerId());
+    _submitted = true;
+    if(validatePlayerInput()) {
+      playerId++;
+      Player player = Player(playerID: playerId, playerName: _playerInput);
+      widget.playerRegister.addPlayer(player);
+      _playerInputController.clear();
+      _submitted = false;
+    }
     _updateState();
-    _playerInputController.clear();
+  }
+
+  bool validatePlayerInput() {
+    if(widget.usernameValidator.isValid(_playerInput)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ///Removes a player from the list
@@ -166,9 +187,16 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     _updateState();
   }
 
+  bool atleastTwoPlayersAdded() {
+    if(widget.playerRegister.getRegisterItems().length >= 2) {
+      atleastTwoPlayers = true;
+      _updateState();
+    }
+    return atleastTwoPlayers;
+  }
+
   ///refreshes the state - rebuilds components
   void _updateState() {
     setState(() {});
   }
-
 }
