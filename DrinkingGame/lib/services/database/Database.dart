@@ -1,5 +1,6 @@
 
 
+import 'package:drinkinggame/model/Rule.dart';
 import 'package:drinkinggame/model/StoreableItem.dart';
 
 import '../../model/games/Game.dart';
@@ -27,4 +28,9 @@ abstract class Database{
   ///Updates the chosen game.
   ///[game] the game to update.
   Future<void> updateGame(Game game);
+
+  ///Sets a rule for a game.
+  ///[game] the game.
+  ///[rule] the rule
+  Future<void> setRuleForGame(Game game, Rule rule);
 }

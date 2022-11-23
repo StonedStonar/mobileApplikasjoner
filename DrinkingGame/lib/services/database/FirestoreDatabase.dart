@@ -117,4 +117,10 @@ class FirestoreDatabase implements Database{
     game.getGameRegister().getRegisterItems().clear();
     getContentsOfGame(game);
   }
+
+  @override
+  Future<void> setRuleForGame(Game game, Rule rule) async {
+    String rulePath = APIPath.getGameRules(game.getGameName());
+    await _firestore.collection(rulePath).add(rule.toMap());
+  }
 }
