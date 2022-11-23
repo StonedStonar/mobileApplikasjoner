@@ -1,4 +1,6 @@
 import 'package:drinkinggame/components/AppBars.dart';
+import 'package:drinkinggame/components/CustomGameAlert.dart';
+import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/DescriptionPage.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import '../../App.dart';
 import '../../model/games/Game.dart';
 import '../../model/games/InfoGame.dart';
 import '../../model/games/StatementGame.dart';
-import '../../model/questions/InfoContainer.dart';
 import '../../services/database/Database.dart';
 import 'InfoGamePage.dart';
 
@@ -40,69 +41,26 @@ class GameLandingPage extends ConsumerWidget{
       body: widget,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => addCustomInfoContainer(context),
+        onPressed: () => makeAlertDialog(context),
       ),
     );
   }
 
-  ///Adds a custom info container so that the "store in database" is valid.
-  ///[context] the build context.
-  Future<void> addCustomInfoContainer(BuildContext context) async {
-    TextEditingController controller = TextEditingController();
-    TextEditingController descriptionController = TextEditingController();
-    TextEditingController value = TextEditingController();
-    await makeAlertDialog(controller,descriptionController, value,context);
-    if(controller.text.isNotEmpty && descriptionController.text.isNotEmpty){
-      InfoContainer infoContainer = InfoContainer(containerId: value.text, title: controller.text, description: descriptionController.text);
-      print(infoContainer.toMap());
-      await _database?.setItemForGame(game,infoContainer);
-    }
+  Future<void> makeCustomItem(BuildContext context) async {
+    await makeAlertDialog(context);
   }
 
   ///Makes an alert dialog and shows it.
-  ///[controller] the controller of the game name.
-  ///[description] the controller for description.
-  ///[value] the value controller.
   ///[context] the build context.
-  Future<void> makeAlertDialog(TextEditingController contoller, TextEditingController description, TextEditingController value, BuildContext context) async{
+  Future<void> makeAlertDialog(BuildContext context) async{
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Make custom game"),
             content: SizedBox(
-              height: 150,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children: [
-                  TextField(
-                    controller: contoller,
-                    decoration: InputDecoration(
-                      hintText: "Input title",
-                    ),
-                  ),
-                  TextField(
-                    controller: description,
-                    decoration: InputDecoration(
-                        hintText: "Input "
-                    ),
-                  ),
-                  TextField(
-                    controller: value,
-                    decoration: InputDecoration(
-                        hintText: "Value "
-                    ),
-                  ),
-                ],
-              ),
+              height: 300,
+              child: CustomGameAlert(game: game,),
             ),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text("Add")),
-            ],
           );
         });
   }
