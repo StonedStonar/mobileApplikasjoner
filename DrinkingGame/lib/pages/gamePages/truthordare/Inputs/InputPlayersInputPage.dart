@@ -35,7 +35,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   bool _submitted = false;
 
-  int playerId = 1;
+  int playerId = 0;
 
   ///Build the page
   @override
@@ -100,7 +100,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   ///Builds a scrollable list of the existing users with a delete button
   Widget _buildAddedPlayersList() {
-    List<Player> players = widget.playerRegister.getPlayers();
+    List<Player> players = widget.playerRegister.getRegisterItems();
     return Padding(
         padding: const EdgeInsets.fromLTRB(30, 10, 10, 25),
         child: Center(
@@ -151,10 +151,10 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   ///Adds a player to the register and wipes the textfield
   void _addPlayerToList() {
+    playerId++;
     Player player = Player(playerID: playerId, playerName: _playerInput);
     widget.playerRegister.addPlayer(player);
-    print(player.toMap());
-    playerId++;
+    print(player.getPlayerId());
     _updateState();
     _playerInputController.clear();
   }

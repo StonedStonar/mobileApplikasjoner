@@ -32,7 +32,7 @@ class CustomGameAlert extends ConsumerWidget{
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: "halla";
+        labelText: "halla",
       ),
     );
   }

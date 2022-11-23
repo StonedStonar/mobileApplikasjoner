@@ -7,6 +7,8 @@ import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
 import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 
+import '../exceptions/CouldNotGetQuestionException.dart';
+
 ///Represents a register of questions made by player.
 ///When it comes to the register we add the question type in the diamond brackets.
 class TruthOrDareRegister extends QuestionRegister<TruthOrDareQuestion> {
@@ -17,7 +19,7 @@ class TruthOrDareRegister extends QuestionRegister<TruthOrDareQuestion> {
   ///Returns true if register has questions.
   @override
   bool hasQuestions() {
-    return getRegisterItems().isNotEmpty && getRegisterItems().any((question) => question.isUsed());
+    return getRegisterItems().isNotEmpty && getRegisterItems().any((question) => !question.isUsed());
   }
 
   ///Shuffles the register
@@ -26,13 +28,14 @@ class TruthOrDareRegister extends QuestionRegister<TruthOrDareQuestion> {
   }
 
   ///Gets a random question for the player based on if they made it and if its used
+  ///[player] the player.
   ///Returns the question
-  Question getRandomQuestionForPlayer(player) {
+  ///Throws [CouldNotGetQuestionException] if there is no question left for the player.
+  TruthOrDareQuestion getRandomQuestionForPlayer(Player player) {
     if (hasQuestions()) {
       return getRegisterItems().firstWhere((question) => question.getMadeBy() != player && !question.isUsed());
     } else {
-      ///Todo: En "CouldNotGetQuestionException" er bedre.
-      throw Exception("There is no elements in the list"); //prob not necessary, since "first" throws an exception if list is empty.
+      throw CouldNotGetQuestionException("There is no question for this user in the register.");
     }
   }
 

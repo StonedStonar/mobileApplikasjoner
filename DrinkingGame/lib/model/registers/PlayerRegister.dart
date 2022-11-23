@@ -52,18 +52,20 @@ class PlayerRegister extends Register {
     return playerFound!;
   }
 
+  ///Gets the next player.
+  ///[playerID] the player
+  ///Returns the next player
+  Player getNextPlayer(Player player){
+    return _players[(_players.indexOf(player) + 1) % _players.length];
+  }
+
   ///Gets an iterator to go through players
   Iterator<Player> getIterator() {
     return _players.iterator;
   }
 
-  ///Returns a list of players
-  List<Player> getPlayers() {
-    return _players;
-  }
-
   @override
-  List<DatabaseItem> getRegisterItems() {
+  List<Player> getRegisterItems() {
     return _players;
   }
 

@@ -1,3 +1,4 @@
+import 'package:drinkinggame/pages/gamePages/FinishedGamePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../components/forms/ContinueQuestionForm.dart';
@@ -50,7 +51,11 @@ class _TruthOrDareState extends ConsumerState<TruthOrDarePage> {
   }
 
   void _changeToPlay(){
-    _updateThisState(QuestionDisplayPage(statementGame: widget.statementGame));
+    _updateThisState(QuestionDisplayPage(statementGame: widget.statementGame, onDone: _changeToFinish));
+  }
+
+  void _changeToFinish(){
+    _updateThisState(GameDonePage(game: widget.statementGame));
   }
 
   void _updateThisState(Widget widget){

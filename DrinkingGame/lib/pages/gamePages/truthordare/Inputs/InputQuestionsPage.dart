@@ -1,4 +1,5 @@
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
+import 'package:drinkinggame/model/enums/TruthOrDare.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
 import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
@@ -42,7 +43,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   bool _submitted = false;
 
   ///Bool for switching between adding truths or dares
-  bool _truthOrDare = true;
+  bool _isTruth = true;
 
   bool firstTime = true;
 
@@ -88,7 +89,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   List<Widget> _buildChildren() {
     return [
-      CustomText(text: _truthOrDare ? "Write in your truth(s)" : "Write in your dare(s)",
+      CustomText(text: _isTruth ? "Write in your truth(s)" : "Write in your dare(s)",
           fontSize: 30, fontWeight: FontWeight.w600),
       const SizedBox(height: 20),
 
@@ -97,7 +98,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
       Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: _buildElevatedButton(_truthOrDare ? "Change to dare" : "Change to truth",
+        child: _buildElevatedButton(_isTruth ? "Change to dare" : "Change to truth",
             _switchTruthOrDare),
       ),
       SizedBox(height: 10),
@@ -130,7 +131,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
           Expanded(
             ///The textfield
             child: buildGameUserTextField(
-                _truthOrDare ? "truth" : "dare",
+                _isTruth ? "truth" : "dare",
                 _userInputController,
                 _updateState,
                 playerErrorText,
@@ -194,8 +195,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   void _switchTruthOrDare() {
-      _truthOrDare = !_truthOrDare;
-       print(_truthOrDare);
+      _isTruth = !_isTruth;
+       print(_isTruth);
       _updateState();
   }
 
@@ -249,8 +250,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Adds a question to the register and wipes the textfield
   void _addQuestionToList() {
-    TruthOrDareQuestion question = TruthOrDareQuestion(questionId: questionId, questionText: _userInput, madeBy: _currentPlayer!
-    );
+    TruthOrDareQuestion question = TruthOrDareQuestion(questionId: questionId, questionText: _userInput, madeBy: _currentPlayer!, truthOrDare: _isTruth ? TruthOrDare.TRUTH : TruthOrDare.DARE);
+    questionId++;
     userQuestions.add(question);
     _updateState();
     _userInputController.clear();
