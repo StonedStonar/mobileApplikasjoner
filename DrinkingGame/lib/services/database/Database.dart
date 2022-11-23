@@ -23,4 +23,8 @@ abstract class Database{
   ///Gets the items of the game.
   ///[game] the game.
   Future<void> getContentsOfGame(Game game);
+
+  ///Updates the chosen game.
+  ///[game] the game to update.
+  Future<void> updateGame(Game game);
 }

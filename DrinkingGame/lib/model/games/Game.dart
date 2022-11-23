@@ -17,9 +17,9 @@ abstract class Game extends DatabaseItem {
 
   final String _gameName;
 
-  final String _shortDescription;
+  String _shortDescription;
 
-  final String _longDescription;
+  String _longDescription;
 
   ///Gets the name of the game.
   ///Returns the game name.
@@ -37,6 +37,14 @@ abstract class Game extends DatabaseItem {
   ///Returns the long description
   String getLongDescription(){
     return _longDescription;
+  }
+
+  ///Updates the short and long description.
+  ///[shortDesc] the short description.
+  ///[longDesc] the long description.
+  void updateAllDetails(String shortDesc, String longDesc){
+    _longDescription = longDesc;
+    _shortDescription = shortDesc;
   }
 
   ///Gets the rules of the game.

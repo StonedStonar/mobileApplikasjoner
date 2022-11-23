@@ -16,22 +16,9 @@ class InfoGameCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget background = Text("Hei");
-    return Slidable(
-      closeOnScroll: true,
-      endActionPane: buildBehindMenu(),
-      child: buildContent(),
-    );
+    return buildContent();
   }
 
-
-  ActionPane buildBehindMenu(){
-    return ActionPane(
-      motion: BehindMotion(),
-      children: [
-        Text("halla")
-      ],
-    );
-  }
 
   Widget buildContent(){
     return Container(
