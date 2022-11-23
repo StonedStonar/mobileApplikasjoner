@@ -19,7 +19,7 @@ class DescriptionPage extends StatelessWidget {
       appBar: makeMenuAppBar(context, "Description"),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +34,7 @@ class DescriptionPage extends StatelessWidget {
   List<Widget> _descriptionContent(BuildContext context) {
     return [
           _about(),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           _description()
       ];
   }
@@ -44,22 +44,61 @@ class DescriptionPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText(text: "About ${game.getGameName()}", fontSize: 30, fontWeight: FontWeight.w600),
-        CustomText(text: "Rules", fontSize: 20, fontWeight: FontWeight.w500),
-        ListView(
-          shrinkWrap: true,
-          children: [
-            ///rules
-          ],
+        SizedBox(height: 15,),
+        CustomText(text: "Rules", fontSize: 25, fontWeight: FontWeight.w500),
+        SizedBox(height: 10,),
+        StreamBuilder<List<Rule>>(
+            stream: game.getRules().getStream(),
+            builder: (context, snapshot) {
+              Widget widget = Text("No rules");
+              if(snapshot.hasData){
+                List<Widget> children = [];
+                snapshot.data?.forEach((rule) {
+                  children.add(ruleWidget(rule) );
+                });
+                widget = ListView(
+                  shrinkWrap: true,
+                  children: children,
+                );
+              }
+              return widget;
+            },
         )
+
       ],
     );
   }
 
+  Widget ruleWidget(Rule rule) {
+     return Row(
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       children: [
+         Row(
+           children: [
+             Icon(CupertinoIcons.circle_fill,
+               size: 5,),
+             SizedBox(width: 10,),
+             Text(rule.getRuleText()),
+           ],
+         ),
+         Row(
+           children: [
+             Icon(CupertinoIcons.arrow_right),
+             SizedBox(width: 10,),
+             Text(rule.getPunishment())
+           ],
+         )
+       ],
+     );
+  }
+
   Widget _description() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText(text: "Description", fontSize: 25, fontWeight: FontWeight.w500),
-        CustomText(text: game.getLongDescription(), fontSize: 15, fontWeight: FontWeight.w400)
+        SizedBox(height: 10,),
+        Text(game.getLongDescription())
       ],
     );
   }

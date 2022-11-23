@@ -20,8 +20,12 @@ class Rule extends DatabaseItem{
 
   ///Gets the rule as text with format id + ruleText
   ///Returns the rule as text
-  String getRuleAsText(){
+  String _getRuleAsText(){
     return "$_ruleId $_ruleText";
+  }
+
+  String getRuleText() {
+    return _ruleText;
   }
 
   ///Gets the punishment for the rule
