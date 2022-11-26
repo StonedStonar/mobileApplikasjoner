@@ -21,10 +21,13 @@ class InputQuestionsPage extends ConsumerStatefulWidget {
 
   InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required this.onDone, Key? key}) : super(key: key);
 
+  ///Register for all players
   PlayerRegister playerRegister;
 
+  ///Register for all truths and dares
   TruthOrDareRegister truthOrDareRegister;
 
+  ///Function to be called when all players have inputted their questions
   VoidCallback onDone;
 
 
@@ -168,10 +171,11 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
             child: SizedBox(
               height: 165,
               ///Scrollable list for displaying users
-              child: userQuestions.isNotEmpty ? ListView(
+              child: userQuestions.isNotEmpty ?
+              ListView(
                 shrinkWrap: true,
-                children: questionWidgets,
-              ) : SizedBox(
+                children: questionWidgets,) :
+              SizedBox(
                   height: 10,
                   child: CustomText(text: "No questions", fontSize: 20, fontWeight: FontWeight.w300)),
             )
@@ -179,14 +183,15 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     );
   }
 
-  Widget makeWidgetForQuestion(Question question){
+  ///Makes a widget for a question with a button to remove it
+  Widget makeWidgetForQuestion(TruthOrDareQuestion question){
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(width: 35),
         Expanded(child:
-        Text(question.getQuestionText(),
+        Text("${question.getTruthOrDare().name.toLowerCase()}: ${question.getQuestionText()}",
           style: TextStyle(fontSize: 20),
           overflow: TextOverflow.clip,)),
         TextButton(onPressed: () => _removeQuestionFromList(question), child: Column(
@@ -198,12 +203,14 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       ]);
   }
 
+  ///
   void _switchTruthOrDare() {
       _isTruth = !_isTruth;
        print(_isTruth);
       _updateState();
   }
 
+  ///
   void moveToNextPlayer() {
       if(_atleastOneQuestionAdded()) {
         mergePlayerQuestionsWithQuestionList();
@@ -216,6 +223,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       }
   }
 
+  ///
   void mergePlayerQuestionsWithQuestionList() {
     List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
     questions.addAll(userQuestions);

@@ -34,10 +34,15 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Getter for input player writes in the textfield
   String get _playerInput => _playerInputController.text;
 
+  ///Bool for verifying if a textfield is submitted
+  ///true for submitted, false if not
   bool _submitted = false;
 
+  ///Bool for verifying that there are minimally two players in the game
+  /// true for if there are more than two players, false if not
   bool atleastTwoPlayers = false;
 
+  ///integer for playerId
   int playerId = 0;
 
   ///Build the page
@@ -55,6 +60,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     );
   }
 
+  ///Creates a list of widgets with all the widgets for the page
    List<Widget> _buildChildren() {
     return [
         CustomText(text: "Write in the names of \n the players", fontSize: 30, fontWeight: FontWeight.w600),
