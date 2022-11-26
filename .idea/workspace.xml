@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cbd3c970-56e4-41a7-be1b-023db753fc54" name="Changes" comment="" />
+    <list default="true" id="cbd3c970-56e4-41a7-be1b-023db753fc54" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,17 +58,39 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kenne\OneDrive\Skrivebord\Skole Dokumenter\Programmering\Flutter\Drinking App\DrinkingGame\test" />
+      <recent name="C:\Users\kenne\OneDrive\Skrivebord\Skole Dokumenter\Programmering\Flutter\Drinking App\DrinkingGame\test\componentsTests" />
       <recent name="C:\Users\kenne\OneDrive\Skrivebord\Skole Dokumenter\Programmering\Flutter\Drinking App\DrinkingGame\lib\components\darkMode" />
       <recent name="C:\Users\stave\Desktop\mobileApplikasjoner\drinkingGame\DrinkingGame\lib\services\enums" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter Test.tests in customElevatedButtonTest.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/DrinkingGame/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="Test if button color is correct" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Test if button color is correct" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" />
+      <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test shape of button" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Test shape of button" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" />
+      <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in customElevatedButtonTest.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in customElevatedButtonTest.dart" />
+        <item itemvalue="Flutter Test.Test shape of button" />
+        <item itemvalue="Flutter Test.Test if button color is correct" />
         <item itemvalue="Flutter.main.dart" />
       </list>
     </recent_temporary>
