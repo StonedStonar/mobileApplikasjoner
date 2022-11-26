@@ -51,6 +51,7 @@ class App extends ConsumerWidget {
         ///Used a library to generate the material color since it was a pain.
         primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
       ),
+      //supportedLocales: L10n.all,
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
       routes: {

@@ -1,3 +1,5 @@
+import 'package:drinkinggame/components/GameInputForm.dart';
+import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/model/enums/TruthOrDare.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
@@ -64,16 +66,16 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       getNextPlayer();
       firstTime = false;
     }
-    Widget widgetToShow = SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 65, 5, 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _buildChildren(),
-          )
 
+    Widget textField = _buildTextFieldWithButton();
+    String titleText = "Write in your ${_isTruth ? "Truth(s)" : "Dare(s)"}" ;
+    Widget widgetToShow = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: _buildContent(GameInputForm(formTitle: titleText, textField: textField, underWidget: _makeSwitchTruthOrDareButton(),)),
       ),
     );
+
 
     if(_currentPlayer == null){
       widgetToShow = Column(
@@ -84,24 +86,23 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
         ],
       );
     }
+
     return widgetToShow;
   }
 
-  List<Widget> _buildChildren() {
+  ///Makes the truth or dare switch button.
+  ///Returns the button
+  Widget _makeSwitchTruthOrDareButton(){
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: _buildElevatedButton(_isTruth ? "Change to dare" : "Change to truth",
+          _switchTruthOrDare),
+    );
+  }
+
+  List<Widget> _buildContent(GameInputForm gameInputForm) {
     return [
-      CustomText(text: _isTruth ? "Write in your truth(s)" : "Write in your dare(s)",
-          fontSize: 30, fontWeight: FontWeight.w600),
-      const SizedBox(height: 20),
-
-      _buildTextFieldWithButton(),
-      const SizedBox(height: 20),
-
-      Padding(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: _buildElevatedButton(_isTruth ? "Change to dare" : "Change to truth",
-            _switchTruthOrDare),
-      ),
-      SizedBox(height: 10),
+      gameInputForm,
 
       CustomText(text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
       _buildAddedPlayersList(),
@@ -122,32 +123,12 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   Widget _buildTextFieldWithButton() {
     ///TODO:Replace with truth validator
     bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_userInput);
-    return Container(
-      margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            ///The textfield
-            child: buildGameUserTextField(
-                _isTruth ? "truth" : "dare",
-                _userInputController,
-                _updateState,
-                playerErrorText,
-                _addQuestionToList),
-          ),
-          ///Button to add player to the register
-          TextButton(onPressed: _addQuestionToList, child: Column(
-            children: const [
-              SizedBox(height: 11),
-              Icon(CupertinoIcons.add, size: 30,),
-              Text("Add", style: TextStyle(fontSize: 14),)
-            ],
-          ))
-        ],
-      ),
-    );
+    String? error = null;
+    if(playerErrorText){
+      String truthOrDare = _isTruth ? "truth" : "dare";
+      error = "Invalid ${truthOrDare}";
+    }
+    return QuestionInputField(errorText: error, hintTextField: _isTruth ? "truth" : "dare",fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList);
   }
 
   ///Builds a scrollable list of the existing users with a delete button
@@ -188,10 +169,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
             )
         )
     );
-  }
-
-  void _nextPage() {
-
   }
 
   void _switchTruthOrDare() {

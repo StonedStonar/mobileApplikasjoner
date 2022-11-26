@@ -1,4 +1,6 @@
 import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/components/GameInputForm.dart';
+import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
 import 'package:drinkinggame/model/Player.dart';
@@ -43,25 +45,18 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Build the page
   @override
   Widget build(BuildContext context) {
+    GameInputForm gameInputForm = GameInputForm(formTitle: "Write in the name of the players", textField: _buildTextFieldWithButton());
     return SingleChildScrollView(
-      child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 65, 5, 50),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _buildChildren(),
-            )
-
-      ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: _buildChildren(gameInputForm),
+        )
     );
   }
 
-   List<Widget> _buildChildren() {
+   List<Widget> _buildChildren(GameInputForm gameInputForm) {
     return [
-        CustomText(text: "Write in the names of \n the players", fontSize: 30, fontWeight: FontWeight.w600),
-        const SizedBox(height: 20),
-        _buildTextFieldWithButton(),
-        const SizedBox(height: 40),
-
+        gameInputForm,
         CustomText(text: "Players in game", fontSize: 30, fontWeight: FontWeight.w600),
         _buildAddedPlayersList(),
 
@@ -73,32 +68,12 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
     bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
-    return Container(
-      margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-              ///The textfield
-              child: buildGameUserTextField(
-                  "playername",
-                  _playerInputController,
-                  _updateState,
-                  playerErrorText,
-                  _addPlayerToList),
-          ),
-          ///Button to add player to the register
-          TextButton(onPressed: _addPlayerToList, child: Column(
-            children: const [
-              SizedBox(height: 11),
-              Icon(CupertinoIcons.add, size: 30,),
-              Text("Add", style: TextStyle(fontSize: 14),)
-            ],
-          ))
-        ],
-      ),
-    );
+    String? error = null;
+    if(playerErrorText){
+      error = "playername";
+    }
+    return QuestionInputField(errorText: error, hintTextField: "playername",fieldController: _playerInputController,
+        onTextFieldChanged: _updateState, onEditingComplete: _addPlayerToList, onButtonPress: _addPlayerToList);
   }
 
   ///Builds a scrollable list of the existing users with a delete button
