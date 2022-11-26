@@ -2,6 +2,7 @@
 
 import 'dart:collection';
 
+import 'package:drinkinggame/model/enums/Response.dart';
 import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
 import 'package:drinkinggame/model/registers/PlayerRegister.dart';
 import 'package:drinkinggame/model/registers/TruthOrDareRegister.dart';
@@ -125,6 +126,7 @@ class _QuestionDisplayPageState extends ConsumerState<QuestionDisplayPage> {
   ///Gets the next question and updates the page.
   void _nextQuestion() {
     bool done = widget.playedMap.values.every((done) => done);
+    truthOrDare?.answerQuestion(Response.yes, _currentPlayer);
     if(!done){
       _getNextPlayer();
     }

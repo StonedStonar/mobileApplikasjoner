@@ -1,3 +1,4 @@
+import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/model/enums/TruthOrDare.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
@@ -56,7 +57,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   int _playerId = 1;
 
-  bool atleastTwoQuestions = false;
+  bool atleastOneQuestion = false;
 
   ///Build the page
   @override
@@ -114,7 +115,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
         children: [
           SizedBox(
             width: 200,
-            child: _buildElevatedButton("Add questions", mergePlayerQuestionsWithQuestionList),
+            child: _buildElevatedButton("Add questions", moveToNextPlayer),
           ),
         ],
       )
@@ -199,14 +200,22 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       ]);
   }
 
-  void _nextPage() {
-
-  }
-
   void _switchTruthOrDare() {
       _isTruth = !_isTruth;
        print(_isTruth);
       _updateState();
+  }
+
+  void moveToNextPlayer() {
+      if(_atleastOneQuestionAdded()) {
+        mergePlayerQuestionsWithQuestionList();
+        getNextPlayer();
+      } else {
+        showAlertDialog(context,
+            title: "Oops!",
+            content: "Every player must add atleast 1 question",
+            defaultActionText: "Ok");
+      }
   }
 
   void mergePlayerQuestionsWithQuestionList() {
@@ -215,7 +224,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     userQuestions.clear();
     _updateState();
     print(questions.map((e) => e.getQuestionText()));
-    getNextPlayer();
   }
 
   ///Gets the next player.
@@ -240,12 +248,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     );
   }
 
-  bool atleastTwoQuestionsAdded() {
-    if(widget.truthOrDareRegister.getRegisterItems().length >= 2) {
-      atleastTwoQuestions = true;
-      _updateState();
-    }
-    return atleastTwoQuestions;
+  bool _atleastOneQuestionAdded() {
+    return userQuestions.isNotEmpty;
   }
 
   ///Adds a question to the register and wipes the textfield
