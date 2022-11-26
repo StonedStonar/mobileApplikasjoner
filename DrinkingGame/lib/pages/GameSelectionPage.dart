@@ -148,7 +148,6 @@ class GameSelectionPage extends ConsumerWidget {
       },
     ),
     );
-
   }
 
   ///Makes the content of the game page.
