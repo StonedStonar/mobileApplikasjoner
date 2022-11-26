@@ -5,6 +5,8 @@ import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../providers/ThemeProvider.dart';
+
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({Key? key}) : super(key: key);
 

@@ -11,6 +11,8 @@ import '../../App.dart';
 import '../../model/games/Game.dart';
 import '../../model/games/InfoGame.dart';
 import '../../model/games/StatementGame.dart';
+import '../../providers/DatabaseProvider.dart';
+import '../../providers/GameProvider.dart';
 import '../../services/database/Database.dart';
 import 'InfoGamePage.dart';
 

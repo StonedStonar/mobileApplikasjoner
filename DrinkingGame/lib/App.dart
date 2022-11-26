@@ -6,6 +6,9 @@ import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
+import 'package:drinkinggame/providers/AuthProvider.dart';
+import 'package:drinkinggame/providers/DatabaseProvider.dart';
+import 'package:drinkinggame/providers/ThemeProvider.dart';
 import 'package:drinkinggame/services/auth/Authentication.dart';
 import 'package:drinkinggame/services/auth/FirebaseAuthenication.dart';
 import 'package:drinkinggame/services/database/Database.dart';
@@ -15,21 +18,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 
 import 'pages/EditProfilePage.dart';
-
-final gameRegisterProvider = StateProvider<GameRegister>((ref) => GameRegister());
-
-final gameProvider = StateProvider<Game?>((ref) => null);
-
-final authProvider = StateProvider<Authentication>((ref) {
-  return FirebaseAuthentication();
-});
-
-final themeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
-
-final databaseProvider = StateProvider<Database?>((ref){
-  return null;
-});
-
 
 ///Represents the main class of the app.
 class App extends ConsumerWidget {
