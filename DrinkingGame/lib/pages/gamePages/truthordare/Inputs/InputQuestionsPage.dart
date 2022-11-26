@@ -16,7 +16,7 @@ import '../../../../components/CustomText.dart';
 import '../../../../components/forms/textfields/TextFields.dart';
 import '../../../../model/Player.dart';
 
-class InputQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
+class InputQuestionsPage extends ConsumerStatefulWidget {
 
   InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required this.onDone, Key? key}) : super(key: key);
 
@@ -35,7 +35,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Controller for the textfield
   final TextEditingController _userInputController = TextEditingController();
-
 
   ///Getter for input player writes in the textfield
   String get _userInput => _userInputController.text;
@@ -57,6 +56,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   int _playerId = 1;
 
+  bool atleastTwoQuestions = false;
+
   ///Build the page
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     }
     Widget widgetToShow = SingleChildScrollView(
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 65, 5, 50),
+          padding: const EdgeInsets.fromLTRB(5, 45, 5, 50),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: _buildChildren(),
@@ -89,6 +90,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   List<Widget> _buildChildren() {
     return [
+      CustomText(text: _currentPlayer != null ? _currentPlayer!.getPlayerName() : "", fontSize: 35, fontWeight: FontWeight.w500),
+      const SizedBox(height: 20),
       CustomText(text: _isTruth ? "Write in your truth(s)" : "Write in your dare(s)",
           fontSize: 30, fontWeight: FontWeight.w600),
       const SizedBox(height: 20),
@@ -121,7 +124,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
     ///TODO:Replace with truth validator
-    bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_userInput);
+    bool questionErrorText = _submitted && !validateUserInput();
     return Container(
       margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
       child: Row(
@@ -131,10 +134,11 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
           Expanded(
             ///The textfield
             child: buildGameUserTextField(
-                _isTruth ? "truth" : "dare",
+                "Enter question",
+                "Question must be between 1 - 150 characters",
                 _userInputController,
                 _updateState,
-                playerErrorText,
+                questionErrorText,
                 _addQuestionToList),
           ),
           ///Button to add player to the register
@@ -154,40 +158,45 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   Widget _buildAddedPlayersList() {
     List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
     print(questions.map((e) => e.getQuestionText()));
+    List<Widget> questionWidgets = [];
+    userQuestions.forEach((question) {
+      questionWidgets.add(makeWidgetForQuestion(question));
+    });
     return Padding(
-        padding: const EdgeInsets.fromLTRB(30, 10, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Center(
           ///A fixed size for the scrollable list
             child: SizedBox(
               height: 165,
               ///Scrollable list for displaying users
-              child: ListView(
+              child: userQuestions.isNotEmpty ? ListView(
                 shrinkWrap: true,
-                children: [
-                  ///Loops through the players list and creates a
-                  ///component for each player
-                  for (Question question in userQuestions)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(width: 35),
-                        Expanded(child:
-                        Text(question.getQuestionText(),
-                          style: TextStyle(fontSize: 20),
-                          overflow: TextOverflow.clip,)),
-                        TextButton(onPressed: () => _removeQuestionFromList(question), child: Column(
-                          children: const [
-                            SizedBox(height: 5),
-                            Icon(CupertinoIcons.minus, size: 30,),
-                          ],
-                        )),
-                      ],),
-                ],
-              ),
+                children: questionWidgets,
+              ) : SizedBox(
+                  height: 10,
+                  child: CustomText(text: "No questions", fontSize: 20, fontWeight: FontWeight.w300)),
             )
         )
     );
+  }
+
+  Widget makeWidgetForQuestion(Question question){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(width: 35),
+        Expanded(child:
+        Text(question.getQuestionText(),
+          style: TextStyle(fontSize: 20),
+          overflow: TextOverflow.clip,)),
+        TextButton(onPressed: () => _removeQuestionFromList(question), child: Column(
+          children: const [
+            SizedBox(height: 5),
+            Icon(CupertinoIcons.minus, size: 30,),
+          ],
+        )),
+      ]);
   }
 
   void _nextPage() {
@@ -231,30 +240,40 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     );
   }
 
-  Widget _buildCustomButton(Widget widget, double height, double borderRadius, Function onPressed, Color color) {
-    return SizedBox(
-        height: height,
-        child: ElevatedButton(
-          onLongPress: (){print("PEPE");},
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
-            backgroundColor: MaterialStateColor.resolveWith((states) => color),
-          ),
-          onPressed: () => onPressed(),
-          child: widget,
-        ),
-    );
+  bool atleastTwoQuestionsAdded() {
+    if(widget.truthOrDareRegister.getRegisterItems().length >= 2) {
+      atleastTwoQuestions = true;
+      _updateState();
+    }
+    return atleastTwoQuestions;
   }
-
 
   ///Adds a question to the register and wipes the textfield
   void _addQuestionToList() {
-    TruthOrDareQuestion question = TruthOrDareQuestion(questionId: questionId, questionText: _userInput, madeBy: _currentPlayer!, truthOrDare: _isTruth ? TruthOrDare.TRUTH : TruthOrDare.DARE);
-    questionId++;
-    userQuestions.add(question);
+    _submitted = true;
+    if(validateUserInput()) {
+      TruthOrDareQuestion question = TruthOrDareQuestion(
+          questionId: questionId,
+          questionText: _userInput,
+          madeBy: _currentPlayer!,
+          truthOrDare: _isTruth ?
+          TruthOrDare.TRUTH :
+          TruthOrDare.DARE);
+      questionId++;
+      userQuestions.add(question);
+      _submitted = false;
+      _userInputController.clear();
+      print(userQuestions.length);
+    }
     _updateState();
-    _userInputController.clear();
+  }
+
+  bool validateUserInput() {
+    if(_userInput.length > 1 && _userInput.length < 150) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ///Removes a question from the list

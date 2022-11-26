@@ -108,10 +108,11 @@ TextField buildConfirmPasswordTextField(
 }
 
 TextField buildGameUserTextField(
-    String displaytext,
+    String hintText,
+    String errorText,
     TextEditingController controller,
     Function onChanged,
-    bool errorText,
+    bool errorCondition,
     Function onEditingComplete) {
 
   return TextField(
@@ -120,8 +121,8 @@ TextField buildGameUserTextField(
       textAlign: TextAlign.center,
       onChanged: (username) => onChanged(),
       decoration: InputDecoration(
-        hintText: "Enter ${displaytext}",
-        errorText: errorText ? "Invalid ${displaytext}" : null,
+        hintText: hintText,
+        errorText: errorCondition ? errorText : null,
       ),
       autocorrect: false,
       textInputAction: TextInputAction.done,

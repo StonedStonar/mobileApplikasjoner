@@ -82,7 +82,8 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
           Expanded(
               ///The textfield
               child: buildGameUserTextField(
-                  "playername",
+                  "Enter player name",
+                  "playername must be between 3 and 20 characters",
                   _playerInputController,
                   _updateState,
                   playerErrorText,
@@ -151,8 +152,8 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
                 ? widget.onDone
                 : () => showAlertDialog(
                 context,
-                title: "title",
-                content: "There must be two players",
+                title: "Oops!",
+                content: "There must be atleast two players in the game",
                 defaultActionText: "Ok"),
             color: const Color(0xFF000434),
     );
@@ -172,6 +173,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     _updateState();
   }
 
+  ///Validates the user input according to business logic
   bool validatePlayerInput() {
     if(widget.usernameValidator.isValid(_playerInput)) {
       return true;
@@ -187,6 +189,8 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     _updateState();
   }
 
+  ///Checks if there are atleast two players in the register,
+  ///returns true if there are two players
   bool atleastTwoPlayersAdded() {
     if(widget.playerRegister.getRegisterItems().length >= 2) {
       atleastTwoPlayers = true;
