@@ -57,8 +57,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   int _playerId = 1;
 
-  bool atleastOneQuestion = false;
-
   ///Build the page
   @override
   Widget build(BuildContext context) {
