@@ -1,6 +1,7 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/CustomGameAlert.dart';
 import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/pages/gamePages/neverHaveIEver/NeverHaveIeverPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/DescriptionPage.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,10 @@ class GameLandingPage extends ConsumerWidget{
         break;
       case StatementGame:
         widget = TruthOrDarePage(statementGame: game as StatementGame,);
+        break;
+      case StatementGame:
+      //widget = TruthOrDarePage(statementGame: game as StatementGame,);
+        widget = NeverHaveIEverPage(statementGame: game as StatementGame,);
         break;
     }
     return Scaffold(

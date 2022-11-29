@@ -11,6 +11,9 @@ enum GameType{
 
   ///Is an open question game.
   OPEN,
+
+  ///Is a Never Have I Ever game
+  //NEVERHAVEIEVER,
 }
 
 ///Extends the enum to introduce a method that can identify the game.
