@@ -41,11 +41,10 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   bool _submitted = false;
 
 
+
   ///Local array for the truths and dares the user creates
   ///Used for merging with ALL the questions
-  List<OpenQuestionRegister> userQuestions = [];
-
-  Player? _currentPlayer;
+  List<OpenQuestion> userQuestions = [];
 
   int questionId = 1;
 
@@ -63,35 +62,40 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
       ),
     );
 
-
-    if(_currentPlayer == null){
-      widgetToShow = Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          //_buildElevatedButton("Next page", widget.onDone),
-          _buildElevatedButton("Next question"),
-        ],
-      );
-    }
-
+    print(userQuestions.length);
     return widgetToShow;
   }
 
   List<Widget> _buildContent(GameInputForm gameInputForm) {
+    List<Widget> widgets = [];
+    userQuestions.forEach((question) => widgets.add(_makeQuestionWidget(question)));
     return [
       gameInputForm,
       CustomText(text: "Never Have I Evah", fontSize: 30, fontWeight: FontWeight.w600),
+      SizedBox(
+        height: 200,
+        child: SingleChildScrollView(
+          child: Column(
+            children: widgets,
+          ),
+        ),
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: 200,
-            child: _buildElevatedButton("Add questions", ),
+            child: _buildElevatedButton("Play game", ),
           ),
+
         ],
       )
     ];
+  }
+
+  Widget _makeQuestionWidget(OpenQuestion openQuestion){
+    //Todo: STyle this you shit
+    return Text(openQuestion.getQuestionText());
   }
 
   ///Builds an Textfield for userinput and an add button for the user
@@ -109,21 +113,24 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
       style: TextStyle(fontSize: 22),
     ),
       borderRadius: 10,
-      onPressed: () { }, //TODO redirect.
+      onPressed: () => _addQuestionsAndPlayGame(), //TODO redirect.
       color: const Color(0xFF000434),
     );
   }
 
-
+  void _addQuestionsAndPlayGame(){
+    userQuestions.forEach((question) => widget.openQuestionRegister.add(question));
+    widget.onDone();
+  }
 
   ///Adds a question to the register and wipes the textfield
   void _addQuestionToList() {
 
     OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);
     questionId++;
-    //userQuestions.add(question); TODO hvilken parameter skal inn her?
-    _updateState();
+    userQuestions.add(question);
     _userInputController.clear();
+    _updateState();
   }
 
 

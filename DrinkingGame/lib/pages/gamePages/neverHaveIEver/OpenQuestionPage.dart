@@ -1,3 +1,4 @@
+import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/pages/gamePages/neverHaveIEver/Inputs/InputOpenQuestionsPage.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,41 +18,47 @@ class OpenQuestionPage extends ConsumerStatefulWidget {
   OpenQuestionGame openQuestionGame;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _NeverHaveIEverState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _OpenQuestionPageState();
 
 }
 
-class _NeverHaveIEverState extends ConsumerState<OpenQuestionPage> {
+class _OpenQuestionPageState extends ConsumerState<OpenQuestionPage> {
 
   int number = 0;
 
   bool _firstTime = true;
 
-  Widget widgetToShow = Container();
+  Widget widgetToShow = new Container();
 
   @override
   Widget build(BuildContext context) {
     if(_firstTime){
-      widgetToShow = InputPlayersInputPage(playerRegister:widget.openQuestionGame.getPlayerRegister(), onDone: _makeContinueForm);
+      widgetToShow = _makeContinueForm();
       _firstTime = false;
     }
     return widgetToShow;
   }
 
-  void _makeContinueForm(){
-    _updateThisState(Padding(
+  Widget _makeContinueForm(){
+    return Padding(
       padding: const EdgeInsets.fromLTRB(15, 70, 15, 5),
       child: ContinueQuestionForm(mainTitle: 'Do you want to add some "Never have I Evers"?',
-        subTitle: 'If none are provided, a default statements set will be used',
+        subTitle: 'No worries, we have already some statements to use if you are not so creative <3 ',
         yesFunction: _changeToInputQuestions,
-        noFunction: _changeToPlay,
+        noFunction: () => _changeToPlayWithDBQuestions(),
       ),
-    ));
+    );
   }
 
   void _changeToInputQuestions(){
+    widget.openQuestionGame.getGameRegister().getRegisterItems().clear();
     _updateThisState(InputOpenQuestionsPage(openQuestionRegister: widget.openQuestionGame.getGameRegister(),onDone: _changeToPlay,));
 
+  }
+
+  Future<void> _changeToPlayWithDBQuestions() async {
+    await ref.watch(databaseProvider)?.getContentsOfGame(widget.openQuestionGame);
+    _changeToPlay();
   }
 
   void _changeToPlay(){

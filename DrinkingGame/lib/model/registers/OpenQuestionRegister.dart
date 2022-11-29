@@ -20,19 +20,16 @@ class OpenQuestionRegister extends QuestionRegister<OpenQuestion>{
 
   @override
   bool hasQuestions() {
-    if(getRegisterItems().isNotEmpty){
-      used = true;
-    }
-    return used;
+    return getRegisterItems().isNotEmpty && getRegisterItems().any((element) => !element.isUsed());
   }
 
 
   ///Gets a question to display.
   ///Returns the question
   ///Throws [CouldNotGetQuestionException] if there is no question left for the player.
-  OpenQuestion getRandomQuestionForPlayer() {
+  OpenQuestion getRandomQuestion() {
     if (hasQuestions()) {
-      return getRegisterItems().first; //make it random. But shuffle did not work for me.
+      return getRegisterItems().firstWhere((question) => !question.isUsed()); //make it random. But shuffle did not work for me.
     } else {
       throw CouldNotGetQuestionException("There is no more questions in the register.");
     }

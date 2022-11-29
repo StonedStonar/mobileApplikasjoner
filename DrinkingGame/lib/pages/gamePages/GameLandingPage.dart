@@ -29,6 +29,8 @@ class GameLandingPage extends ConsumerWidget{
     _database = ref.watch(databaseProvider);
     Widget widget = new CircularProgressIndicator();
     game = ref.read(gameProvider)!;
+    ref.watch(databaseProvider)?.getRulesForGame(game);
+    print("Game is ${game is OpenQuestionGame}");
     switch(game.runtimeType){
       case InfoGame:
         widget = InfoGamePage(infoGame: game as InfoGame);

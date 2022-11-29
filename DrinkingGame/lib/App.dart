@@ -2,6 +2,7 @@ import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
+import 'package:drinkinggame/pages/gamePages/neverHaveIEver/Inputs/InputOpenQuestionsPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
@@ -51,7 +52,6 @@ class App extends ConsumerWidget {
         ///Used a library to generate the material color since it was a pain.
         primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
       ),
-      //supportedLocales: L10n.all,
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
       routes: {

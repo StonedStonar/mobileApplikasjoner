@@ -45,38 +45,29 @@ class OpenQuestionDisplayPage extends ConsumerStatefulWidget {
 
 class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
 
-  late Player _currentPlayer;
+  late OpenQuestion _currentQuestion;
 
-  bool _firstPlayer = true;
-
-  TruthOrDareQuestion? truthOrDare;
-
-  OpenQuestion? openQuestion;
-
+  bool _firstTime = true;
 
   @override
   Widget build(BuildContext context) {
-    if(_firstPlayer){
-      _firstPlayer = false;
-      _currentPlayer = widget.openQuestionGame.getPlayerRegister().getRegisterItems().last;
-      _getNextPlayer();
-    }
 
-    return Center(
-      child: Column(
-        children: _buildChildren(),
-      ),
+    if(_firstTime){
+      _nextQuestion();
+      _firstTime = false;
+    }
+    
+    return Column(
+      children: _buildChildren(),
     );
   }
 
   List<Widget> _buildChildren() {
     return [
       SizedBox(height: 60,),
-      CustomText(text: _currentPlayer.getPlayerName(), fontSize: 30, fontWeight: FontWeight.w600),
+      CustomText(text: "Never have i ever", fontSize: 30, fontWeight: FontWeight.w600),
       SizedBox(height: 30,),
-      CustomText(text: truthOrDare!.getTruthOrDare().name, fontSize: 30, fontWeight: FontWeight.w600),
-      SizedBox(height: 30,),
-      CustomText(text: truthOrDare!.getQuestionText(), fontSize: 25, fontWeight: FontWeight.w300),
+      CustomText(text: _currentQuestion.getQuestionText(), fontSize: 25, fontWeight: FontWeight.w300),
       SizedBox(height: 30,),
       CustomText(text: "Or..", fontSize: 30, fontWeight: FontWeight.w600),
       SizedBox(height: 30,),
@@ -94,34 +85,16 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
     ];
   }
 
-  ///Gets the next player and sets it.
-  void _getNextPlayer(){
-    PlayerRegister playerRegister = widget.openQuestionGame.getPlayerRegister();
-    HashMap<Player, bool> playedMap = widget.playedMap;
-    int amountOfPlayers = playerRegister.getRegisterItems().length;
-    int i = 0;
-    bool hasQuestions = false;
-    while(!hasQuestions && i < amountOfPlayers){
-      _currentPlayer = playerRegister.getNextPlayer(_currentPlayer);
-      playedMap[_currentPlayer] = hasQuestions;
-      i++;
-    }
-  }
 
-
-  ///Gets the next question and updates the page.
-  void _nextQuestion() {
-    bool done = widget.playedMap.values.every((done) => done);
-    if(!done){
-      _getNextPlayer();
-    }
-    if(done || openQuestion == null){
+  void _nextQuestion(){
+    OpenQuestionRegister openQuestionRegister = widget.openQuestionGame.getGameRegister();
+    if(openQuestionRegister.hasQuestions()){
+      _currentQuestion = openQuestionRegister.getRandomQuestion();
+      ///Change this later if you want to record the result
+      _currentQuestion.setUsed();
+      setState(() {});
+    }else{
       widget.doDone();
-    }else {
-      setState(() {
-
-      });
     }
-
   }
 }

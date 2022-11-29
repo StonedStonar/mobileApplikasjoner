@@ -1,5 +1,8 @@
 import 'package:drinkinggame/App.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
+import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionDisplayPage.dart';
+import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart';
 import 'package:drinkinggame/pages/login/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +18,7 @@ class LandingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Authentication authentication = ref.watch(authProvider);
+    OpenQuestionGame openQuestionGame = OpenQuestionGame(gameName: "TEst", shortDescription: "shortDescription", longDescription: "longDescription");
     return StreamBuilder<User?>(
         stream: authentication.authStateChanges(),
         builder: (context, snapshot) {
@@ -28,7 +32,9 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               widgetToShow = LoginPage();
             } else {
+
               widgetToShow = GameSelectionPage();
+              
             }
           }
           return widgetToShow;

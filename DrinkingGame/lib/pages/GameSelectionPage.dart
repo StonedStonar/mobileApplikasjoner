@@ -4,6 +4,7 @@ import 'package:drinkinggame/components/GameSlidingButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
@@ -65,15 +66,12 @@ class GameSelectionPage extends ConsumerWidget {
       Game game = InfoGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
       switch(gameType){
         case GameType.OPEN:
+          game = OpenQuestionGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
           break;
         case GameType.TRUTHORDARE:
           game = StatementGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
           break;
-        /*
-          case GameType.NEVERHAVEIEVER:
-          game = StatementGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
-          break;
-         */
+
       }
       await database?.setCustomGame(game);
       gameRegister?.getRegisterItems().clear();
@@ -89,7 +87,6 @@ class GameSelectionPage extends ConsumerWidget {
     List<GameType> gameTypes = [];
     gameTypes.add(GameType.INFO);
     gameTypes.add(GameType.TRUTHORDARE);
-    //gameTypes.add(GameType.NEVERHAVEIEVER);
     gameTypes.add(GameType.OPEN);
     List<DropdownMenuItem<GameType>> chooseWidgets = [];
     gameTypes.forEach((type) {
