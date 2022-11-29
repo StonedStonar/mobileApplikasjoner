@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbd3c970-56e4-41a7-be1b-023db753fc54" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/services/Validators.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/services/Validators.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/App.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/App.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/overlays/MainMenu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/overlays/MainMenu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/LandingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/LandingPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/ProfilePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/SettingsPage.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,11 +67,9 @@
       <recent name="C:\Users\stave\Desktop\mobileApplikasjoner\drinkingGame\DrinkingGame\lib\services\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.Test password with a length of more than 20">
-    <configuration name="If PasswordValidator works with valid input" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="If PasswordValidator works with valid input" />
-      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
-      <option name="useRegexp" value="false" />
+  <component name="RunManager" selected="Flutter.main.dart">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/DrinkingGame/lib/main.dart" />
       <method v="2" />
     </configuration>
     <configuration name="PasswordValidator tests" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
@@ -89,19 +90,18 @@
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Test without @" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Test without @" />
-      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
+    <configuration name="tests in gameSelectionPageTest.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/gameSelectionPageTest.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter.main.dart" />
+        <item itemvalue="Flutter Test.tests in gameSelectionPageTest.dart" />
         <item itemvalue="Flutter Test.Test password with a length of more than 20" />
         <item itemvalue="Flutter Test.Test password with a length of less than 4" />
         <item itemvalue="Flutter Test.PasswordValidator tests" />
-        <item itemvalue="Flutter Test.If PasswordValidator works with valid input" />
-        <item itemvalue="Flutter Test.Test without @" />
       </list>
     </recent_temporary>
   </component>

@@ -1,17 +1,11 @@
-import 'package:drinkinggame/model/games/Game.dart';
-import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/LandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
-import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
 import 'package:drinkinggame/providers/AuthProvider.dart';
 import 'package:drinkinggame/providers/DatabaseProvider.dart';
 import 'package:drinkinggame/providers/ThemeProvider.dart';
 import 'package:drinkinggame/services/auth/Authentication.dart';
-import 'package:drinkinggame/services/auth/FirebaseAuthenication.dart';
-import 'package:drinkinggame/services/database/Database.dart';
 import 'package:drinkinggame/services/database/FirestoreDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,7 +39,6 @@ class App extends ConsumerWidget {
         "/landingPage" : (context) => LandingPage(),
         "/profile" : (context) => ProfilePage(),
         "/editProfile" : (context) => EditProfilePage(),
-        "/settings" : (context) => SettingsPage(),
         "/aboutApp" : (context) => AboutApplicationPage(),
         "/displayGame" : (context) =>  GameLandingPage(),
       },
