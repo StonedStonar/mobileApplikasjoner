@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbd3c970-56e4-41a7-be1b-023db753fc54" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/services/Validators.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/services/Validators.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,34 +64,44 @@
       <recent name="C:\Users\stave\Desktop\mobileApplikasjoner\drinkingGame\DrinkingGame\lib\services\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in customElevatedButtonTest.dart">
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/DrinkingGame/lib/main.dart" />
+  <component name="RunManager" selected="Flutter Test.Test password with a length of more than 20">
+    <configuration name="If PasswordValidator works with valid input" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="If PasswordValidator works with valid input" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
+      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Test if button color is correct" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Test if button color is correct" />
-      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" />
-      <option name="useRegexp" value="true" />
+    <configuration name="PasswordValidator tests" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="PasswordValidator tests" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
+      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Test shape of button" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Test shape of button" />
-      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" />
-      <option name="useRegexp" value="true" />
+    <configuration name="Test password with a length of less than 4" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Test password with a length of less than 4" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
+      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in customElevatedButtonTest.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/customElevatedButtonTest.dart" />
+    <configuration name="Test password with a length of more than 20" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Test password with a length of more than 20" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test without @" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Test without @" />
+      <option name="testFile" value="$PROJECT_DIR$/DrinkingGame/test/validatorsTest.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.tests in customElevatedButtonTest.dart" />
-        <item itemvalue="Flutter Test.Test shape of button" />
-        <item itemvalue="Flutter Test.Test if button color is correct" />
-        <item itemvalue="Flutter.main.dart" />
+        <item itemvalue="Flutter Test.Test password with a length of more than 20" />
+        <item itemvalue="Flutter Test.Test password with a length of less than 4" />
+        <item itemvalue="Flutter Test.PasswordValidator tests" />
+        <item itemvalue="Flutter Test.If PasswordValidator works with valid input" />
+        <item itemvalue="Flutter Test.Test without @" />
       </list>
     </recent_temporary>
   </component>

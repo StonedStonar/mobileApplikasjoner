@@ -17,7 +17,6 @@ class UsernameValidator implements StringValidator {
 }
 
 ///Validates an email
-///Not entirely sure how it validates. XD.
 class EmailValidator implements StringValidator {
   final emailRegexp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9]+.[a-zA-Z]+$");
 
