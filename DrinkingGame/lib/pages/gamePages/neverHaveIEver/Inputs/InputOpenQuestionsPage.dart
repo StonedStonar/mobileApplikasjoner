@@ -15,9 +15,9 @@ import '../../../../components/CustomText.dart';
 import '../../../../components/forms/textfields/TextFields.dart';
 import '../../../../model/Player.dart';
 
-class InputNeverHaveIEverQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
+class InputOpenQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
-  InputNeverHaveIEverQuestionsPage({required this. openQuestionRegister,required this.onDone, Key? key}) : super(key: key);
+  InputOpenQuestionsPage({required this. openQuestionRegister,required this.onDone, Key? key}) : super(key: key);
 
 
   OpenQuestionRegister openQuestionRegister;
@@ -26,10 +26,10 @@ class InputNeverHaveIEverQuestionsPage extends ConsumerStatefulWidget with Usern
 
 
   @override
-  ConsumerState<InputNeverHaveIEverQuestionsPage> createState() => _CustomNeverHaveIEverQuestionInputPageState();
+  ConsumerState<InputOpenQuestionsPage> createState() => _CustomNeverHaveIEverQuestionInputPageState();
 }
 
-class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputNeverHaveIEverQuestionsPage> {
+class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpenQuestionsPage> {
 
   ///Controller for the textfield
   final TextEditingController _userInputController = TextEditingController();

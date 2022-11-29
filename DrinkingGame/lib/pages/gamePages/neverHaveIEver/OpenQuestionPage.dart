@@ -4,25 +4,24 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../components/forms/ContinueQuestionForm.dart';
-import '../../../model/games/StatementGame.dart';
 import '../FinishedGamePage.dart';
 import '../truthordare/Inputs/InputPlayersInputPage.dart';
-import '../truthordare/Inputs/InputQuestionsPage.dart';
-import '../truthordare/QuestionDisplayPage.dart';
+import 'OpenQuestionDisplayPage.dart';
 
 
-class NeverHaveIEverPage extends ConsumerStatefulWidget {
-  NeverHaveIEverPage({required this.statementGame, super.key});
+class OpenQuestionPage extends ConsumerStatefulWidget {
+  //OpenQuestionPage({required this.openQuestionGame, required VoidCallback onDone, Key? key});
+  OpenQuestionPage({required this.openQuestionGame, super.key});
 
-  StatementGame statementGame;
-  //OpenQuestionGame openQuestionGame;
+
+  OpenQuestionGame openQuestionGame;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _NeverHaveIEverState();
 
 }
 
-class _NeverHaveIEverState extends ConsumerState<NeverHaveIEverPage> {
+class _NeverHaveIEverState extends ConsumerState<OpenQuestionPage> {
 
   int number = 0;
 
@@ -33,7 +32,7 @@ class _NeverHaveIEverState extends ConsumerState<NeverHaveIEverPage> {
   @override
   Widget build(BuildContext context) {
     if(_firstTime){
-      widgetToShow = InputPlayersInputPage(playerRegister:widget.statementGame.getPlayerRegister(), onDone: _makeContinueForm);
+      widgetToShow = InputPlayersInputPage(playerRegister:widget.openQuestionGame.getPlayerRegister(), onDone: _makeContinueForm);
       _firstTime = false;
     }
     return widgetToShow;
@@ -51,16 +50,16 @@ class _NeverHaveIEverState extends ConsumerState<NeverHaveIEverPage> {
   }
 
   void _changeToInputQuestions(){
-    _updateThisState(InputQuestionsPage(playerRegister: widget.statementGame.getPlayerRegister(), truthOrDareRegister: widget.statementGame.getGameRegister(),onDone: _changeToPlay,));
-    //_updateThisState(InputNeverHaveIEverQuestionsPage(playerRegister: widget.statementGame.getPlayerRegister(), openQuestionRegister: widget.openQuestionGame, onDone: _changeToPlay,));
+    _updateThisState(InputOpenQuestionsPage(openQuestionRegister: widget.openQuestionGame.getGameRegister(),onDone: _changeToPlay,));
+
   }
 
   void _changeToPlay(){
-    _updateThisState(QuestionDisplayPage(statementGame: widget.statementGame, onDone: _changeToFinish));
+    _updateThisState(OpenQuestionDisplayPage(openQuestionGame: widget.openQuestionGame, onDone: _changeToFinish));
   }
 
   void _changeToFinish(){
-    _updateThisState(GameDonePage(game: widget.statementGame));
+    _updateThisState(GameDonePage(game: widget.openQuestionGame));
   }
 
   void _updateThisState(Widget widget){

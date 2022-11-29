@@ -17,9 +17,10 @@ import '../../../model/Player.dart';
 import '../../../model/exceptions/CouldNotGetQuestionException.dart';
 import '../../../model/games/StatementGame.dart';
 
-class NeverHaveIEversDisplayPage extends ConsumerStatefulWidget {
+class OpenQuestionDisplayPage extends ConsumerStatefulWidget {
 
-  NeverHaveIEversDisplayPage({required OpenQuestionGame openQuestionGame, required VoidCallback onDone ,Key? key}) : _openQuestionGame = openQuestionGame,_onDone = onDone, super(key: key){
+  OpenQuestionDisplayPage({required OpenQuestionGame openQuestionGame, required VoidCallback onDone ,Key? key})
+      : _openQuestionGame = openQuestionGame,_onDone = onDone, super(key: key){
     _openQuestionGame.getPlayerRegister().getRegisterItems().forEach((player) => playedMap[player] = false);
   }
 
@@ -38,11 +39,11 @@ class NeverHaveIEversDisplayPage extends ConsumerStatefulWidget {
   }
 
   @override
-  ConsumerState<NeverHaveIEversDisplayPage> createState() => _QuestionDisplayPageState();
+  ConsumerState<OpenQuestionDisplayPage> createState() => _QuestionDisplayPageState();
 
 }
 
-class _QuestionDisplayPageState extends ConsumerState<NeverHaveIEversDisplayPage> {
+class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
 
   late Player _currentPlayer;
 

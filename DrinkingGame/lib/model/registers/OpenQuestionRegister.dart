@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/registers/QuestionRegister.dart';
-
-import '../Player.dart';
 import '../exceptions/CouldNotGetQuestionException.dart';
 import '../questions/Question.dart';
 
