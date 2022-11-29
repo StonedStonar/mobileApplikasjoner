@@ -1,31 +1,41 @@
+
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
-import 'package:drinkinggame/model/registers/Register.dart';
+import 'package:drinkinggame/model/registers/PlayerRegister.dart';
 
-import '../registers/QuestionRegister.dart';
-
-
-/// Represents an open question game
+///Represents a game where player answer yes or no to a statement.
 class OpenQuestionGame extends Game {
   /// Makes an instannce of open question game.
   /// [gameName] the game name
   /// [shortDescription] a short description of the game.
   /// [longDescription] a longer description of the game describing it in more detail.
-  OpenQuestionGame({required super.gameName, required super.shortDescription, required super.longDescription});
+  OpenQuestionGame(
+      {required super.gameName,
+      required super.shortDescription,
+      required super.longDescription});
 
 
-  OpenQuestionRegister questionRegister = new OpenQuestionRegister();
+  OpenQuestionRegister _playerQuestionRegister = OpenQuestionRegister();
 
+  PlayerRegister _playerRegister = PlayerRegister();
 
+  ///Gets the game register.
+  ///Returns a map with the game register.
   @override
-  QuestionRegister getGameRegister() {
-    return questionRegister;
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = getGameDetails();
+    return map;
+  }
+
+  ///Gets the player register
+  ///Returns the player register
+  PlayerRegister getPlayerRegister() {
+    return _playerRegister;
   }
 
   @override
-  Map<String, dynamic> toMap() {
-    Map<String, dynamic> mapOfGame = getGameDetails();
-    return mapOfGame;
+  OpenQuestionRegister getGameRegister() {
+    return _playerQuestionRegister;
   }
 
 }

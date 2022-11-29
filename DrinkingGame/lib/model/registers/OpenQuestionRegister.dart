@@ -3,6 +3,8 @@ import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/registers/QuestionRegister.dart';
 
+import '../Player.dart';
+import '../exceptions/CouldNotGetQuestionException.dart';
 import '../questions/Question.dart';
 
 ///Represents a register for open questions which every player can answer.
@@ -25,6 +27,19 @@ class OpenQuestionRegister extends QuestionRegister<OpenQuestion>{
     }
     return used;
   }
+
+
+  ///Gets a question to display.
+  ///Returns the question
+  ///Throws [CouldNotGetQuestionException] if there is no question left for the player.
+  OpenQuestion getRandomQuestionForPlayer() {
+    if (hasQuestions()) {
+      return getRegisterItems().first; //make it random. But shuffle did not work for me.
+    } else {
+      throw CouldNotGetQuestionException("There is no more questions in the register.");
+    }
+  }
+
 
   @override
   void updateStream() {

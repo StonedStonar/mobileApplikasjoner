@@ -1,3 +1,5 @@
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
+import 'package:drinkinggame/pages/gamePages/neverHaveIEver/Inputs/InputOpenQuestionsPage.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +15,7 @@ class NeverHaveIEverPage extends ConsumerStatefulWidget {
   NeverHaveIEverPage({required this.statementGame, super.key});
 
   StatementGame statementGame;
+  //OpenQuestionGame openQuestionGame;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _NeverHaveIEverState();
@@ -49,7 +52,7 @@ class _NeverHaveIEverState extends ConsumerState<NeverHaveIEverPage> {
 
   void _changeToInputQuestions(){
     _updateThisState(InputQuestionsPage(playerRegister: widget.statementGame.getPlayerRegister(), truthOrDareRegister: widget.statementGame.getGameRegister(),onDone: _changeToPlay,));
-    //_updateThisState(InputQuestionsPage(playerRegister: widget.statementGame.getPlayerRegister(), questionRegister: widget.statementGame.getGameRegister(), onDone: _changeToPlay,))
+    //_updateThisState(InputNeverHaveIEverQuestionsPage(playerRegister: widget.statementGame.getPlayerRegister(), openQuestionRegister: widget.openQuestionGame, onDone: _changeToPlay,));
   }
 
   void _changeToPlay(){
