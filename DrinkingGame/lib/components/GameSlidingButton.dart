@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../model/games/Game.dart';
+import '../providers/DatabaseProvider.dart';
 
 class GameSlidingButton extends ConsumerWidget {
 

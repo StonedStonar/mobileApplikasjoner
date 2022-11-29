@@ -17,6 +17,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/games/Game.dart';
 import '../pages/gamePages/GameLandingPage.dart';
+import '../providers/DatabaseProvider.dart';
 
 class CustomGameAlert extends ConsumerStatefulWidget {
   CustomGameAlert({required this.game,super.key});

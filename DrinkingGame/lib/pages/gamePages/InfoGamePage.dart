@@ -13,6 +13,7 @@ import '../../model/questions/InfoContainer.dart';
 import '../../model/registers/InfoContainerRegister.dart';
 import '../../model/games/InfoGame.dart';
 import '../../model/registers/Register.dart';
+import '../../providers/DatabaseProvider.dart';
 import '../../services/database/Database.dart';
 
 ///Represents a info game that is shown.

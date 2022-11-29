@@ -11,6 +11,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../components/AppBars.dart';
 import '../../components/InfoGameCard.dart';
+import '../../providers/AuthProvider.dart';
 
 class ProfilePage extends ConsumerWidget{
 

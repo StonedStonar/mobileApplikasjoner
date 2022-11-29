@@ -13,6 +13,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../components/overlays/MainMenu.dart';
+import '../providers/DatabaseProvider.dart';
+import '../providers/GameProvider.dart';
+import '../providers/GameRegisterProvider.dart';
 
 ///TODO: Hører ikke hjemme her. Putt i egen fil.
 enum MenuItem {firstItem, secondItem, thirdItem}
@@ -147,7 +150,6 @@ class GameSelectionPage extends ConsumerWidget {
       },
     ),
     );
-
   }
 
   ///Makes the content of the game page.

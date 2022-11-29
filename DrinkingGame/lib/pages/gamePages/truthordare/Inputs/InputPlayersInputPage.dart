@@ -36,10 +36,15 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Getter for input player writes in the textfield
   String get _playerInput => _playerInputController.text;
 
+  ///Bool for verifying if a textfield is submitted
+  ///true for submitted, false if not
   bool _submitted = false;
 
+  ///Bool for verifying that there are minimally two players in the game
+  /// true for if there are more than two players, false if not
   bool atleastTwoPlayers = false;
 
+  ///integer for playerId
   int playerId = 0;
 
   ///Build the page
@@ -126,8 +131,8 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
                 ? widget.onDone
                 : () => showAlertDialog(
                 context,
-                title: "title",
-                content: "There must be two players",
+                title: "Oops!",
+                content: "There must be atleast two players in the game",
                 defaultActionText: "Ok"),
             color: const Color(0xFF000434),
     );
@@ -147,6 +152,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     _updateState();
   }
 
+  ///Validates the user input according to business logic
   bool validatePlayerInput() {
     if(widget.usernameValidator.isValid(_playerInput)) {
       return true;
@@ -162,6 +168,8 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     _updateState();
   }
 
+  ///Checks if there are atleast two players in the register,
+  ///returns true if there are two players
   bool atleastTwoPlayersAdded() {
     if(widget.playerRegister.getRegisterItems().length >= 2) {
       atleastTwoPlayers = true;
