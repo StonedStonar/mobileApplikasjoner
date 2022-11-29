@@ -1,6 +1,7 @@
 import 'package:drinkinggame/components/GameSlidingButton.dart';
 import 'package:drinkinggame/components/buttons/GameButton.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
@@ -66,5 +67,33 @@ void main() {
     expect(statementShortDescriptionFinder, findsOneWidget);
   });
 
+
+  testWidgets("A game button can be created with a new OpenQuestionGame", (widgetTester) async {
+
+    ///Create a new statement game
+    OpenQuestionGame openQuestionGame = OpenQuestionGame(
+        gameName: "OpenQuestion",
+        shortDescription: "OpenQuestionGameShortDescription",
+        longDescription: "OpenQuestionGameLongDescription");
+
+    ///create a gameButton for a statement game
+    GameButton gameButtonOpenQuestion = GameButton(game: openQuestionGame, onPressed: () {});
+
+    ///Create the statement gameButton
+    await widgetTester.pumpWidget(
+        ProviderScope(
+            child: MaterialApp(
+              home: gameButtonOpenQuestion,
+            ))
+    );
+
+    ///See if text widgets can be found
+    final openQuestionGameFinder = find.text("OpenQuestion");
+    final openQuesttionShortDescriptionFinder = find.text("OpenQuestionGameShortDescription");
+
+    ///Assert that text widgets are found
+    expect(openQuestionGameFinder, findsOneWidget);
+    expect(openQuesttionShortDescriptionFinder, findsOneWidget);
+  });
   ///TODO: create test for openQuestionGame
 }

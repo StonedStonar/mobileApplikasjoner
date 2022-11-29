@@ -41,11 +41,11 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   bool _submitted = false;
 
   ///Bool for verifying that there are minimally two players in the game
-  /// true for if there are more than two players, false if not
+  ///true for if there are more than two players, false if not
   bool atleastTwoPlayers = false;
 
-  ///integer for playerId
-  int playerId = 0;
+  ///For giving each player a unique id
+  int playerId = 1;
 
   ///Build the page
   @override
@@ -59,6 +59,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     );
   }
 
+  ///Builds the all associated widgets for the page
    List<Widget> _buildChildren(GameInputForm gameInputForm) {
     return [
         gameInputForm,
@@ -72,6 +73,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
+    ///Display error text if the form is submitted AND credentials are invalid
     bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
     String? error = null;
     if(playerErrorText){
@@ -178,7 +180,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
     return atleastTwoPlayers;
   }
 
-  ///refreshes the state - rebuilds components
+  ///Refreshes the state - rebuilds components
   void _updateState() {
     setState(() {});
   }

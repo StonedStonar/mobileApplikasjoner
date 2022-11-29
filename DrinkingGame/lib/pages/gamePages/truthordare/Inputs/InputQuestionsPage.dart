@@ -16,6 +16,7 @@ import '../../../../model/questions/TruthOrDareQuestion.dart';
 import '../../../../model/registers/PlayerRegister.dart';
 import '../../../../model/registers/TruthOrDareRegister.dart';
 
+///Page for a user to add custom questions to a game
 class InputQuestionsPage extends ConsumerStatefulWidget {
 
   InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required this.onDone, Key? key}) : super(key: key);
@@ -28,7 +29,6 @@ class InputQuestionsPage extends ConsumerStatefulWidget {
 
   ///Function to be called when all players have inputted their questions
   VoidCallback onDone;
-
 
   @override
   ConsumerState<InputQuestionsPage> createState() => _CustomQuestionInputPageState();
@@ -53,10 +53,13 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Used for merging with ALL the questions
   List<TruthOrDareQuestion> userQuestions = [];
 
+  ///The current player inputting questions
   Player? _currentPlayer;
 
+  ///For giving each question a unique ID
   int questionId = 1;
 
+  ///For giivng each player a unique ID
   int _playerId = 1;
 
   ///Build the page
@@ -76,7 +79,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       ),
     );
 
-
+    ///If there are no more players, display a button for advancing to the game.
     if(_currentPlayer == null){
       widgetToShow = Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -178,14 +181,15 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       ]);
   }
 
-
+  ///Switches between adding a truth or a dare question.
   void _switchTruthOrDare() {
       _isTruth = !_isTruth;
        print(_isTruth);
       _updateState();
   }
 
-  ///
+  ///When a player is done adding questions, add the user questions to the
+  ///general list of questions to be displayed. Then get a new player.
   void moveToNextPlayer() {
       if(_atleastOneQuestionAdded()) {
         mergePlayerQuestionsWithQuestionList();
@@ -198,7 +202,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       }
   }
 
-  ///
+  ///Merges a player´s questions to the general list of questions.
   void mergePlayerQuestionsWithQuestionList() {
     List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
     questions.addAll(userQuestions);
@@ -253,18 +257,19 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     _updateState();
   }
 
+  ///Checks if the length of a question is between 1 and 150 characters.
   bool validateUserInput() {
     return _userInput.length > 1 && _userInput.length < 150;
   }
 
-  ///Removes a question from the list
+  ///Removes a question from the list.
   void _removeQuestionFromList(Question question) {
     userQuestions.remove(question);
     questionId--;
     _updateState();
   }
 
-  ///refreshes the state - rebuilds components
+  ///refreshes the state - rebuilds components.
   void _updateState() {
     setState(() {});
   }
