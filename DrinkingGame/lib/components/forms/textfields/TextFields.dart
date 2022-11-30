@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+///A textfield for a username input
 TextField buildUsernameTextField(
     TextEditingController controller,
     FocusNode focusNode,
@@ -8,7 +9,6 @@ TextField buildUsernameTextField(
     bool errorText,
     bool isLoading,
     Function onEditingComplete) {
-
   return TextField(
       style: TextStyle(fontSize: 20),
       controller: controller,
@@ -27,6 +27,7 @@ TextField buildUsernameTextField(
   );
 }
 
+///A textfield for an email input
 TextField buildEmailTextField(
     TextEditingController controller,
     FocusNode focusNode,
@@ -34,7 +35,6 @@ TextField buildEmailTextField(
     bool errorText,
     bool isLoading,
     Function onEditingComplete) {
-
   return TextField(
       style: TextStyle(fontSize: 20),
       controller: controller,
@@ -54,6 +54,7 @@ TextField buildEmailTextField(
   );
 }
 
+///A textfield for a password input
 TextField buildPasswordTextField(
     TextEditingController controller,
     FocusNode focusNode,
@@ -81,6 +82,7 @@ TextField buildPasswordTextField(
   );
 }
 
+///A textfield for a confirm password input
 TextField buildConfirmPasswordTextField(
     TextEditingController controller,
     FocusNode focusNode,

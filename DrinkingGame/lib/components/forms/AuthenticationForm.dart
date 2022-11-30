@@ -10,6 +10,7 @@ import '../../App.dart';
 import '../../providers/AuthProvider.dart';
 import '../../services/auth/Authentication.dart';
 import '../AppBars.dart';
+import '../Dialogs.dart';
 
 ///A form for authenticating the user, by either login or signup.
 class AuthenticationForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators{
@@ -49,14 +50,33 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
   ///true for Sign up, false for login
   bool _register = false;
 
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: makeBasicAppbar(_register ? "Register" : "Login"),
+
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: _buildChildren(),
+            )
+        ),
+      ),
+    );
+  }
+
   ///Creates and returns a widget list of the
-  ///textfields for input and the submit button
+  ///textfields for input, button for switching between login and signup,
+  ///and the submit button.
   List<Widget> _buildChildren() {
     bool usernameErrorText = _submitted && !widget.usernameValidator.isValid(_username);
     bool emailErrorText = _submitted && !widget.emailValidator.isValid(_email);
     bool passwordErrorText = _submitted && !widget.passwordValidator.isValid(_password);
     bool confirmationErrorText = _submitted && !_comparePasswords();
     return [
+      ///Username textfield, only for signup
       if (_register) buildUsernameTextField(_usernameController,
           _userNameFocusNode,
           _updateState,
@@ -65,6 +85,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           _usernameEditingComplete),
       if(_register)const SizedBox(height: 8.0),
 
+      ///Email textfield, for both pages
       buildEmailTextField(_emailController,
           _emailFocusNode,
           _updateState,
@@ -73,6 +94,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           _emailEditingComplete),
       const SizedBox(height: 8.0),
 
+      ///Passowrd textfield, for both pages
       buildPasswordTextField(_passwordController,
           _passwordFocusNode,
           _updateState,
@@ -82,6 +104,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           !_register ? _submit : _passwordEditingComplete),
       const SizedBox(height: 8.0),
 
+      ///Confirm password textfield, only for signup
      if (_register) buildConfirmPasswordTextField(_confirmationPasswordController,
           _confirmPasswordFocusNode,
           _updateState,
@@ -91,6 +114,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           _submit),
       if(_register) const SizedBox(height: 25.0),
 
+      ///Button to switch between login and signup page
       TextButton(onPressed: _isLoading ? null : () => _switchPage(),
         child: Text(
         _register ?  "Already have an account?" : "Don't have an account?",
@@ -100,6 +124,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
       ),
       ),
       const SizedBox(height: 8.0),
+
+      ///Submit form button
       CustomElevatedButton(widget: Text(
         _register ? "Register User" : "Login",
         style: TextStyle(fontSize: 22),
@@ -117,24 +143,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
      _updateState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: makeBasicAppbar(_register ? "Register" : "Login"),
-      
-      body: SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _buildChildren(),
-            )
-        ),
-      ),
-    );
-  }
-
-///Submits the form
+///Submits the form for authentication
   void _submit() {
     setState(() {
       _submitted = true;
@@ -142,21 +151,31 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     _performAuthentication();
   }
 
-  ///Authenticates the user
+  ///Authenticates the user,
+  ///Throws [FirebaseAuthException] if the user does not exist, or an error
+  ///occurs while authenticating the user with firebase.
   void _performAuthentication() async {
     if(_register ? validateSignupInfo() : validateLoginInfo()) {
       setState(() {
+        ///Start authentication, app is loading while waiting for firebase.
         _isLoading = true;
       });
       try {
         Authentication authentication = ref.watch(authProvider);
+        ///If on the login page, login the user, sign up if on signup page.
         _register ? await authentication.createUserWithEmailAndPassword(_email, _password)
                   : await authentication.signInWithEmailAndPassword(_email, _password);
         _onSuccessfulAuth();
       } on FirebaseAuthException catch(e) {
-        print(e.toString());
+        ///Displays an alert dialog if an error occurs
+        showAlertDialog(context,
+            title: "Error",
+            content: "An error occured, make sure your credentials are correct,"
+                " and try again.",
+            defaultActionText: "Ok");
       } finally {
         setState(() {
+          ///Authentication is finished, thus not loading anymore.
           _isLoading = false;
         });
       }
@@ -172,23 +191,29 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     }
   }
 
+  ///Moves the focusnode to the email textfield
   void _usernameEditingComplete() {
     FocusScope.of(context).requestFocus(_emailFocusNode);
   }
 
+  ///Moves the focusnode to the password textfield
   void _emailEditingComplete() {
     FocusScope.of(context).requestFocus(_passwordFocusNode);
   }
 
+  ///Moves the focusnode to the confirm password textfield
   void _passwordEditingComplete() {
     FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
   }
 
+  ///Exits the authentication page on succesful authentication
   void _onSuccessfulAuth() {
     Navigator.of(context).pop();
     ref.watch(authProvider).currentUser!.updateDisplayName(_username);
   }
 
+  ///Checks if the email and password fields in the login form
+  ///are valid according to business logic
   bool validateLoginInfo() {
     if(widget.emailValidator.isValid(_email)
         && widget.passwordValidator.isValid(_password)) {
@@ -198,6 +223,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     }
   }
 
+  ///Checks if the username, email and password fields in the
+  ///sign up form are valid according to business logic
   bool validateSignupInfo() {
     if(widget.usernameValidator.isValid(_username)
         && widget.emailValidator.isValid(_email)
@@ -209,6 +236,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     }
   }
 
+  ///Updates the state - rebuilds components
   void _updateState() {
     setState(() {});
   }
