@@ -5,6 +5,7 @@ import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionDisplayPage.dart';
 import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart';
 import 'package:drinkinggame/pages/login/LoginPage.dart';
+import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,9 @@ class LandingPage extends ConsumerWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             User? user = snapshot.data;
             if (user == null) {
-              widgetToShow = ProfilePage();
+              widgetToShow = AboutApplicationPage();
             } else {
-              widgetToShow = ProfilePage();
+              widgetToShow = AboutApplicationPage();
             }
           }
           return widgetToShow;

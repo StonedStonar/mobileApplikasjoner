@@ -110,6 +110,7 @@ class ProfilePage extends ConsumerWidget{
     ref.read(themeProvider.notifier).state = ref.watch(themeProvider) == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
   }
 
+  ///Show the edit profile page when tapped on.
   void _showEditProfilePage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const EditProfilePage(),

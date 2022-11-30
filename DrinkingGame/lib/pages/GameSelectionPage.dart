@@ -17,10 +17,6 @@ import '../providers/DatabaseProvider.dart';
 import '../providers/GameProvider.dart';
 import '../providers/GameRegisterProvider.dart';
 
-///TODO: Hører ikke hjemme her. Putt i egen fil.
-enum MenuItem {firstItem, secondItem, thirdItem}
-
-
 class GameSelectionPage extends ConsumerWidget {
 
 

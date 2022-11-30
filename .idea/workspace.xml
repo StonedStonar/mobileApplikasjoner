@@ -12,8 +12,8 @@
       <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/neverHaveIEver/Inputs/InputOpenQuestionsPage.dart" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/neverHaveIEver/OpenQuestionDisplayPage.dart" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/App.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/App.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/CustomGameAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/CustomGameAlert.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/ContinueQuestionForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/ContinueQuestionForm.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/textfields/TextFields.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/textfields/TextFields.dart" afterDir="false" />
@@ -27,6 +27,8 @@
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/GameLandingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/GameLandingPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputPlayersInputPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputPlayersInputPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/AboutApplicationPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/AboutApplicationPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/ProfilePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/services/database/Database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/services/database/Database.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/services/database/FirestoreDatabase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/services/database/FirestoreDatabase.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/pubspec.lock" afterDir="false" />

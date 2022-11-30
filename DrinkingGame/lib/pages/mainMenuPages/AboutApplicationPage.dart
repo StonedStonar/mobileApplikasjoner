@@ -14,31 +14,41 @@ class AboutApplicationPage extends StatelessWidget {
     );
   }
 
+  ///Builds the content for the page.
+  ///Return the widget _aboutApplicationContent.
   Widget _aboutApplicationContent() {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
-        Image.asset('images/PepeLaugh.png'),
+        Image(
+          image: AssetImage('images/PepeLaugh.png'),
+          width: 200,
+          height: 200,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 16.0),
         const Text(
-          "Frequently asked questions",
+          "The Drinking game app",
           style: TextStyle(
               fontSize: 24, fontWeight: FontWeight.bold
           ),
           ),
-        const SizedBox(height: 18.0),
+        const SizedBox(height: 16.0),
         buildText(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean finibus, risus sit amet lacinia rutrum, magna velit egestas ante, vel egestas mi orci vel turpis."
-              " Proin quis odio nec urna consectetur pellentesque. Morbi pretium leo vel varius eleifend. Maecenas cursus dictum lorem, quis suscipit mauris condimentum non."
-              "Sed in neque at nisl rutrum congue vitae et magna."
+          "This is an mobile app developed by an group of 4 norwegian students."
+              "The main goal with this project is for the students to learn many aspects of creating a "
+              "mobile application form start to finish. We have used 5 months to develop this app, hope you like it! "
         ),
       ],
     );
   }
 
+  ///Used to change the text for about application description.
+  ///The title will not be altered here, only main description.
   Widget buildText(String text) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 24),
+      style: const TextStyle(fontSize: 20),
     );
   }
 }
