@@ -1,5 +1,6 @@
 import 'package:drinkinggame/model/questions/Question.dart';
 
+
 class OpenQuestion extends Question {
 
   ///Makes an instance of the open question
@@ -7,9 +8,12 @@ class OpenQuestion extends Question {
   ///[questionText] the question text
   OpenQuestion({required super.questionText, required super.questionId});
 
+
+
   ///Makes an instance of the open question with the map
   ///[map] the map
-  OpenQuestion.fromMap(Map<String, dynamic> map) : super(questionText: map["questionText"], questionId: map["questionId"]);
+  OpenQuestion.fromMap(Map<String, dynamic> map)
+      : super(questionText: map["questionText"], questionId: map["questionId"]);
 
   bool _used = false;
 
@@ -23,7 +27,6 @@ class OpenQuestion extends Question {
   bool isUsed() {
     return _used;
   }
-
 
   @override
   Map<String, dynamic> toMap() {

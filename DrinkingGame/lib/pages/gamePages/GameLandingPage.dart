@@ -1,6 +1,8 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/CustomGameAlert.dart';
 import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
+import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart';
 import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/pages/mainMenuPages/DescriptionPage.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +31,17 @@ class GameLandingPage extends ConsumerWidget{
     _database = ref.watch(databaseProvider);
     Widget widget = new CircularProgressIndicator();
     game = ref.read(gameProvider)!;
+    ref.watch(databaseProvider)?.getRulesForGame(game);
+    print("Game is ${game is OpenQuestionGame}");
     switch(game.runtimeType){
       case InfoGame:
         widget = InfoGamePage(infoGame: game as InfoGame);
         break;
       case StatementGame:
         widget = TruthOrDarePage(statementGame: game as StatementGame,);
+        break;
+      case OpenQuestionGame:
+        widget = OpenQuestionPage(openQuestionGame: game as OpenQuestionGame,);
         break;
     }
     return Scaffold(

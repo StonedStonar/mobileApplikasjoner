@@ -106,27 +106,3 @@ TextField buildConfirmPasswordTextField(
       key: const Key("confirmPassword_input")
   );
 }
-
-TextField buildGameUserTextField(
-    String hintText,
-    String errorText,
-    TextEditingController controller,
-    Function onChanged,
-    bool errorCondition,
-    Function onEditingComplete) {
-
-  return TextField(
-      style: TextStyle(fontSize: 20),
-      controller: controller,
-      textAlign: TextAlign.center,
-      onChanged: (username) => onChanged(),
-      decoration: InputDecoration(
-        hintText: hintText,
-        errorText: errorCondition ? errorText : null,
-      ),
-      autocorrect: false,
-      textInputAction: TextInputAction.done,
-      onEditingComplete: () => onEditingComplete(),
-      key: const Key("gameUser_input")
-  );
-}

@@ -33,4 +33,8 @@ abstract class Database{
   ///[game] the game.
   ///[rule] the rule
   Future<void> setRuleForGame(Game game, Rule rule);
+
+  ///Gets the rules for the game
+  ///[game] the game to get the rules for
+  Future<void> getRulesForGame(Game game);
 }

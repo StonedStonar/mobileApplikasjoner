@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/model/games/StatementGame.dart';
+import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/model/registers/RuleRegister.dart';
 
@@ -66,12 +68,14 @@ class FirestoreDatabase implements Database{
     QuerySnapshot<Map<String, dynamic>> reference = await _firestore.collection(path).get();
     reference.docs.forEach((map) {
       String type = map["gameType"];
-      Game game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
-      if(type == GameType.OPEN.name){
-        ///Todo: Change this later when open game is ready
-        game = InfoGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
-      }else if(type == GameType.TRUTHORDARE.name){
-        game = StatementGame(gameName: map["gameName"], shortDescription: map["shortDescription"], longDescription: map["longDescription"]);
+      String gameName = map["gameName"];
+      String shortD = map["shortDescription"];
+      String longD = map["longDescription"];
+      Game game = InfoGame(gameName: gameName, shortDescription: shortD, longDescription: longD);
+      if(type == GameType.TRUTHORDARE.name){
+        game = StatementGame(gameName: gameName, shortDescription: shortD, longDescription: longD);
+      }else if(type == GameType.OPEN.name){
+        game = OpenQuestionGame(gameName: gameName, shortDescription: shortD, longDescription: longD);
       }
       try{
         gameRegister.addGame(game);
@@ -89,20 +93,14 @@ class FirestoreDatabase implements Database{
   }
   @override
   Future<void> getContentsOfGame(Game game) async {
-    String rulePath = APIPath.getGameRules(game.getGameName());
-    QuerySnapshot<Map<String, dynamic>> ruleReference = await _firestore.collection(rulePath).get();
-    RuleRegister ruleRegister = game.getRules();
-    ruleReference.docs.forEach((map) { 
-      ruleRegister.addRule(Rule.fromMap(map: map.data()));
-    });
-    ruleRegister.updateStream();
-
     String questionPath = APIPath.getGameContents(game.getItemId());
     QuerySnapshot<Map<String, dynamic>> reference = await _firestore.collection(questionPath).get();
     reference.docs.forEach((map) {
       if (game is InfoGame) {
         game.getGameRegister().addInfoContainer(
             InfoContainer.fromMap(map: map.data()));
+      } else if (game is OpenQuestionGame){
+        game.getGameRegister().add(OpenQuestion.fromMap(map.data()));
       }
     });
     game.getGameRegister().updateStream();
@@ -122,5 +120,17 @@ class FirestoreDatabase implements Database{
   Future<void> setRuleForGame(Game game, Rule rule) async {
     String rulePath = APIPath.getGameRules(game.getGameName());
     await _firestore.collection(rulePath).add(rule.toMap());
+  }
+
+  @override
+  Future<void> getRulesForGame(Game game) async {
+    String rulePath = APIPath.getGameRules(game.getGameName());
+    QuerySnapshot<Map<String, dynamic>> ruleReference = await _firestore.collection(rulePath).get();
+    RuleRegister ruleRegister = game.getRules();
+    ruleReference.docs.forEach((map) {
+      ruleRegister.addRule(Rule.fromMap(map: map.data()));
+    });
+    print("Amount of rules ${ruleRegister.getRegisterItems().length}");
+    ruleRegister.updateStream();
   }
 }

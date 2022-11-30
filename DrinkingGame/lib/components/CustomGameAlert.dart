@@ -4,7 +4,9 @@ import 'package:drinkinggame/model/Rule.dart';
 import 'package:drinkinggame/model/StoreableItem.dart';
 import 'package:drinkinggame/model/enums/TruthOrDare.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/model/questions/InfoContainer.dart';
+import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/questions/QuestionType.dart';
 import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,7 +61,10 @@ class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
           widgets = makeInfoContainer();
           break;
         case TruthOrDare:
-
+          widgets = makePlayerQuestions();
+          break;
+        case OpenQuestionGame:
+          widgets = makeOpenQuestionContents();
           break;
         default:
 
@@ -96,6 +101,9 @@ class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
           Player player = Player(playerID: 1, playerName: "bjarne");
           databaseItem = TruthOrDareQuestion(questionText: title, questionId: int.parse(id), madeBy: player, truthOrDare: _isTruth ? TruthOrDare.TRUTH : TruthOrDare.DARE);
           break;
+        case OpenQuestionGame:
+          databaseItem = OpenQuestion(questionText: desc, questionId: int.parse(id));
+          break;
         default:
 
           break;
@@ -124,7 +132,6 @@ class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
   List<Widget> makeOpenQuestionContents(){
     List<Widget> widgets = [];
     widgets.add(Text("Open question"));
-    widgets.add(makeTextField(_titleController, "Title"));
     widgets.add(makeTextField(_idController, "Question id"));
     widgets.add(makeTextField(_descriptionController, "Description"));
     return widgets;

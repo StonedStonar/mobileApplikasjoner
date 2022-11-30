@@ -4,11 +4,10 @@ import 'package:drinkinggame/components/GameSlidingButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
 import 'package:drinkinggame/model/games/InfoGame.dart';
+import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/model/games/StatementGame.dart';
 import 'package:drinkinggame/model/registers/GameRegister.dart';
 import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
-import 'package:drinkinggame/pages/gamePages/InfoGamePage.dart';
-import 'package:drinkinggame/pages/gamePages/truthordare/TruthOrDarePage.dart';
 import 'package:drinkinggame/services/database/Database.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -70,10 +69,12 @@ class GameSelectionPage extends ConsumerWidget {
       Game game = InfoGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
       switch(gameType){
         case GameType.OPEN:
+          game = OpenQuestionGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
           break;
         case GameType.TRUTHORDARE:
           game = StatementGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
           break;
+
       }
       await database?.setCustomGame(game);
       gameRegister?.getRegisterItems().clear();
@@ -144,6 +145,7 @@ class GameSelectionPage extends ConsumerWidget {
       game: game,
       onPressed: () {
         widgetRef?.read(gameProvider.notifier).state = game;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
       },
     ),

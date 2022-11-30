@@ -5,12 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbd3c970-56e4-41a7-be1b-023db753fc54" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/GameInputForm.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/QuestionInputField.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/model/enums/MenuItem.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/model/games/OpenQuestionGame.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/neverHaveIEver/Inputs/InputOpenQuestionsPage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/neverHaveIEver/OpenQuestionDisplayPage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/App.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/App.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/overlays/MainMenu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/overlays/MainMenu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/CustomGameAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/CustomGameAlert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/ContinueQuestionForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/ContinueQuestionForm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/textfields/TextFields.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/components/forms/textfields/TextFields.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/model/enums/GameType.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/model/enums/GameType.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/model/games/PlayerGame.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/model/questions/OpenQuestion.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/model/questions/OpenQuestion.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/model/questions/Question.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/model/questions/Question.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/model/registers/OpenQuestionRegister.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/model/registers/OpenQuestionRegister.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/GameSelectionPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/GameSelectionPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/LandingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/LandingPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/ProfilePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/mainMenuPages/SettingsPage.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/GameLandingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/GameLandingPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputPlayersInputPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputPlayersInputPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/pages/gamePages/truthordare/Inputs/InputQuestionsPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/services/database/Database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/services/database/Database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/lib/services/database/FirestoreDatabase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/lib/services/database/FirestoreDatabase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrinkingGame/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/DrinkingGame/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

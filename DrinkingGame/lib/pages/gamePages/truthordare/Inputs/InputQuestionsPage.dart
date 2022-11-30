@@ -1,21 +1,20 @@
+
+
 import 'package:drinkinggame/components/Dialogs.dart';
-import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
-import 'package:drinkinggame/model/enums/TruthOrDare.dart';
-import 'package:drinkinggame/model/questions/OpenQuestion.dart';
-import 'package:drinkinggame/model/questions/Question.dart';
-import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
-import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
-import 'package:drinkinggame/model/registers/PlayerRegister.dart';
-import 'package:drinkinggame/model/registers/TruthOrDareRegister.dart';
-import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../components/CustomText.dart';
-import '../../../../components/forms/textfields/TextFields.dart';
+import '../../../../components/GameInputForm.dart';
+import '../../../../components/QuestionInputField.dart';
+import '../../../../components/buttons/CustomElevatedButton.dart';
 import '../../../../model/Player.dart';
+import '../../../../model/enums/TruthOrDare.dart';
+import '../../../../model/questions/Question.dart';
+import '../../../../model/questions/TruthOrDareQuestion.dart';
+import '../../../../model/registers/PlayerRegister.dart';
+import '../../../../model/registers/TruthOrDareRegister.dart';
 
 class InputQuestionsPage extends ConsumerStatefulWidget {
 
@@ -67,16 +66,16 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       getNextPlayer();
       firstTime = false;
     }
-    Widget widgetToShow = SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 45, 5, 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _buildChildren(),
-          )
 
+    Widget textField = _buildTextFieldWithButton();
+    String titleText = "Write in your ${_isTruth ? "Truth(s)" : "Dare(s)"}" ;
+    Widget widgetToShow = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: _buildContent(GameInputForm(formTitle: titleText, textField: textField, underWidget: _makeSwitchTruthOrDareButton(),)),
       ),
     );
+
 
     if(_currentPlayer == null){
       widgetToShow = Column(
@@ -87,26 +86,23 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
         ],
       );
     }
+
     return widgetToShow;
   }
 
-  List<Widget> _buildChildren() {
+  ///Makes the truth or dare switch button.
+  ///Returns the button
+  Widget _makeSwitchTruthOrDareButton(){
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: _buildElevatedButton(_isTruth ? "Change to dare" : "Change to truth",
+          _switchTruthOrDare),
+    );
+  }
+
+  List<Widget> _buildContent(GameInputForm gameInputForm) {
     return [
-      CustomText(text: _currentPlayer != null ? _currentPlayer!.getPlayerName() : "", fontSize: 35, fontWeight: FontWeight.w500),
-      const SizedBox(height: 20),
-      CustomText(text: _isTruth ? "Write in your truth(s)" : "Write in your dare(s)",
-          fontSize: 30, fontWeight: FontWeight.w600),
-      const SizedBox(height: 20),
-
-      _buildTextFieldWithButton(),
-      const SizedBox(height: 20),
-
-      Padding(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: _buildElevatedButton(_isTruth ? "Change to dare" : "Change to truth",
-            _switchTruthOrDare),
-      ),
-      SizedBox(height: 10),
+      gameInputForm,
 
       CustomText(text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
       _buildAddedPlayersList(),
@@ -126,34 +122,13 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
     ///TODO:Replace with truth validator
-    bool questionErrorText = _submitted && !validateUserInput();
-    return Container(
-      margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            ///The textfield
-            child: buildGameUserTextField(
-                "Enter question",
-                "Question must be between 1 - 150 characters",
-                _userInputController,
-                _updateState,
-                questionErrorText,
-                _addQuestionToList),
-          ),
-          ///Button to add player to the register
-          TextButton(onPressed: _addQuestionToList, child: Column(
-            children: const [
-              SizedBox(height: 11),
-              Icon(CupertinoIcons.add, size: 30,),
-              Text("Add", style: TextStyle(fontSize: 14),)
-            ],
-          ))
-        ],
-      ),
-    );
+    bool playerErrorText = _submitted && validateUserInput();
+    String? error = null;
+    if(playerErrorText){
+      String truthOrDare = _isTruth ? "truth" : "dare";
+      error = "Invalid ${truthOrDare}";
+    }
+    return QuestionInputField(errorText: error, hintTextField: _isTruth ? "truth" : "dare",fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList);
   }
 
   ///Builds a scrollable list of the existing users with a delete button
@@ -203,7 +178,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       ]);
   }
 
-  ///
+
   void _switchTruthOrDare() {
       _isTruth = !_isTruth;
        print(_isTruth);
@@ -279,11 +254,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   bool validateUserInput() {
-    if(_userInput.length > 1 && _userInput.length < 150) {
-      return true;
-    } else {
-      return false;
-    }
+    return _userInput.length > 1 && _userInput.length < 150;
   }
 
   ///Removes a question from the list

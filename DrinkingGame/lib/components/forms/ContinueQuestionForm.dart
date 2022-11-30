@@ -55,7 +55,7 @@ class ContinueQuestionForm extends StatelessWidget {
             width: 80,
           ),
           TextButton(
-              onPressed: () => noFunction,
+              onPressed: () => noFunction(),
               child: Column(
                 children: const [
                   SizedBox(height: 5),
