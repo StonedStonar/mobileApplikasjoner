@@ -205,7 +205,9 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
   ///Exits the authentication page on successful authentication
   void _onSuccessfulAuth() {
     if(_register){
+      print(ref.read(authProvider).currentUser);
       ref.watch(authProvider).currentUser!.updateDisplayName(_username);
+      print(ref.read(authProvider).currentUser);
     }
     print(ref.read(authProvider).currentUser);
     print("email: ${ref.read(authProvider).currentUser?.email}");

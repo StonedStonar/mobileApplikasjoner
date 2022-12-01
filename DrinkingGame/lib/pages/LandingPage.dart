@@ -34,9 +34,9 @@ class LandingPage extends ConsumerWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             User? user = snapshot.data;
             if (user == null) {
-              widgetToShow = AboutApplicationPage();
+              widgetToShow = LoginPage();
             } else {
-              widgetToShow = AboutApplicationPage();
+              widgetToShow = LandingPage();
             }
           }
           return widgetToShow;
