@@ -1,5 +1,7 @@
 import 'package:drinkinggame/components/CustomText.dart';
+import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,23 +16,47 @@ class GameDonePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomText(
-              text: "Game over",
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: CustomText(
+              text: "No more questions",
               fontSize: 32,
               fontWeight: FontWeight.bold
           ),
-          CustomText(
-              text: "Do you want to play again?",
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: CustomText(
+              text: "Thank you for playing ${game.getGameName()}.",
               fontSize: 24,
               fontWeight: FontWeight.normal
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: CustomElevatedButton(
+              widget: Text(
+                "Exit game",
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+              borderRadius: 4,
+              onPressed: () => _navigateToLandingPage(context),
+              color: const Color(0xFF000434)
+          ),
+        ),
+      ],
     );
+  }
+
+  ///Navigates to the landing page
+  ///[context] the build context
+  void _navigateToLandingPage(BuildContext context){
+    Navigator.pushReplacementNamed(context, "/landingPage");
   }
 }

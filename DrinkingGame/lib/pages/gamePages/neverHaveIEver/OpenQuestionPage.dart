@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../components/forms/ContinueQuestionForm.dart';
+import '../../../model/games/Game.dart';
 import '../../../providers/DatabaseProvider.dart';
 import '../FinishedGamePage.dart';
 import 'OpenQuestionDisplayPage.dart';
@@ -44,10 +45,12 @@ class _OpenQuestionPageState extends ConsumerState<OpenQuestionPage> {
 
   ///Builds a form, where players can add their own open questions.
   Widget _makeContinueForm(){
+    widget.openQuestionGame.getGameRegister().getRegisterItems().clear();
+    OpenQuestionGame game = widget.openQuestionGame;
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 70, 15, 5),
-      child: ContinueQuestionForm(mainTitle: 'Do you want to add some "Never have I Evers"?',
-        subTitle: 'No worries, we have already some statements to use if you are not so creative <3 ',
+      child: ContinueQuestionForm(mainTitle: 'Do you want to add some "${game.getStatementName()}"?',
+        subTitle: 'No worries, we have already some statements to use if you are not so creative <3',
         yesFunction: _changeToInputQuestions,
         noFunction: () => _changeToPlayWithDBQuestions(),
       ),
@@ -56,8 +59,7 @@ class _OpenQuestionPageState extends ConsumerState<OpenQuestionPage> {
 
   ///Updates state to play-mode, and redirect to game-site.
   void _changeToInputQuestions(){
-    widget.openQuestionGame.getGameRegister().getRegisterItems().clear();
-    _updateThisState(InputOpenQuestionsPage(openQuestionRegister: widget.openQuestionGame.getGameRegister(),onDone: _changeToPlay,));
+    _updateThisState(InputOpenQuestionsPage(game: widget.openQuestionGame,onDone: _changeToPlay,));
 
   }
 

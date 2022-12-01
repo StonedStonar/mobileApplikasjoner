@@ -36,8 +36,6 @@ class ProfilePage extends ConsumerWidget{
     String username = authentication?.currentUser?.displayName == null ? "No username" : authentication!.currentUser!.displayName!;
     String email = authentication?.currentUser?.displayName == null ? "No email" : authentication!.currentUser!.email!;
 
-    print(authentication?.currentUser!.displayName);
-    print(authentication!.currentUser!.email!);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -91,11 +89,12 @@ class ProfilePage extends ConsumerWidget{
         Padding(
           padding: const EdgeInsets.fromLTRB(50, 0, 50, 15),
           child: CustomElevatedButton(
-            widget: const Text(
+            widget: Text(
               "Change to darkmode",
               style: TextStyle(
                 fontSize: 20.0,
               ),
+
             ),
             borderRadius: 4.0,
             onPressed: () => ChangeTheme(ref),

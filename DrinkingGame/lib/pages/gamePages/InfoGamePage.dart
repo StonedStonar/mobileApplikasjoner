@@ -1,5 +1,6 @@
 
 
+import 'package:drinkinggame/components/CustomText.dart';
 import 'package:drinkinggame/pages/mainMenuPages/DescriptionPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -41,12 +42,14 @@ class InfoGamePage extends ConsumerWidget {
             register.updateStream();
           }
           List<Widget> widgets = [];
+          widgets.add(_makeOverviewTitle());
           if(list.hasData){
             list.data!.sort((a,b) => int.parse(a.getItemId()).compareTo(int.parse(b.getItemId())));
             list.data!.forEach((container) {
               widgets.add(InfoGameCard(infoContainer: container));
               widgets.add(SizedBox(height: 10));
             });
+            widgets.add(new SizedBox(height: 60,));
           }else{
             widgets.add(
                 Row(
@@ -57,6 +60,13 @@ class InfoGamePage extends ConsumerWidget {
           }
           return _makeContent(widgets);
         }
+    );
+  }
+
+  Widget _makeOverviewTitle(){
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+            child: CustomText(text: infoGame.getOverviewTitle(), fontSize: 24, fontWeight: FontWeight.bold),
     );
   }
 

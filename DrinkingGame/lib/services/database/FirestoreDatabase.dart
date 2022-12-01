@@ -72,11 +72,13 @@ class FirestoreDatabase implements Database{
       String gameName = map["gameName"];
       String shortD = map["shortDescription"];
       String longD = map["longDescription"];
-      Game game = InfoGame(gameName: gameName, shortDescription: shortD, longDescription: longD);
+      late Game game;
       if(type == GameType.TRUTHORDARE.name){
         game = StatementGame(gameName: gameName, shortDescription: shortD, longDescription: longD);
       }else if(type == GameType.OPEN.name){
-        game = OpenQuestionGame(gameName: gameName, shortDescription: shortD, longDescription: longD);
+        game = OpenQuestionGame(gameName: gameName, shortDescription: shortD, longDescription: longD, statementName: map["statementName"]);
+      }else if(type == GameType.INFO.name){
+        game = InfoGame(gameName: gameName, shortDescription: shortD, longDescription: longD, overviewTitle: map["overviewTitle"]);
       }
       try{
         gameRegister.addGame(game);

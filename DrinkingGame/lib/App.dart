@@ -25,14 +25,66 @@ class App extends ConsumerWidget {
       ref.read(databaseProvider.notifier).state = event != null ? FirestoreDatabase(uId: event.uid) : null;
     });
 
+    ThemeData lightTheme = new ThemeData(
+      primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
+      appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+          color: Colors.yellow,
+        ),
+      ),
+      textTheme: TextTheme(
+          bodyText1: TextStyle(color: Colors.yellow),
+          bodyText2: TextStyle(color: Colors.red),
+      ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+          ),
+        ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.orange),
+        )
+      ),
+      buttonTheme: ButtonThemeData(
+        buttonColor: Colors.green,
+      )
+    );
+
+    MaterialColor darkMode = generateMaterialColor(color: const Color(0xFF000434));
+    ThemeData darkTheme = ThemeData(
+        primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
+        scaffoldBackgroundColor: darkMode.shade900,
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(color: Colors.yellow),
+          bodyText2: TextStyle(color: Colors.white),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+            backgroundColor: MaterialStateProperty.resolveWith((states) => darkMode.shade400),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white60),
+            )
+        ),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.green,
+        )
+    );
+
     MaterialApp materialApp = MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Drinking Games',
-      darkTheme: ThemeData.dark(),
-      theme: ThemeData(
-        ///Used a library to generate the material color since it was a pain.
-        primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
-      ),
+      darkTheme: darkTheme,
+      theme: lightTheme,
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
       routes: {

@@ -17,7 +17,9 @@ void main() {
     InfoGame infoGame = InfoGame(
         gameName: "Info",
         shortDescription: "InfoGameShortDescription",
-        longDescription: "InfoGameLongDescription");
+        longDescription: "InfoGameLongDescription",
+        overviewTitle: "Halla",
+    );
 
     ///create a gameButton for a Info game
     GameButton gameButtonInfo = GameButton(game: infoGame, onPressed: () {});
@@ -69,12 +71,13 @@ void main() {
 
 
   testWidgets("A game button can be created with a new OpenQuestionGame", (widgetTester) async {
-
     ///Create a new statement game
     OpenQuestionGame openQuestionGame = OpenQuestionGame(
         gameName: "OpenQuestion",
         shortDescription: "OpenQuestionGameShortDescription",
-        longDescription: "OpenQuestionGameLongDescription");
+        longDescription: "OpenQuestionGameLongDescription",
+        statementName: "Pog",
+    );
 
     ///create a gameButton for a statement game
     GameButton gameButtonOpenQuestion = GameButton(game: openQuestionGame, onPressed: () {});

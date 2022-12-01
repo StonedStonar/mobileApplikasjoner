@@ -24,11 +24,10 @@ class CustomElevatedButton extends StatelessWidget {
       child: SizedBox(
         height: height,
         child: ElevatedButton(
-          onLongPress: (){print("PEPE");},
           style: ButtonStyle(
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
-            backgroundColor: MaterialStateColor.resolveWith((states) => color),
+            //backgroundColor:MaterialStateColor.resolveWith((states) => color),
           ),
           onPressed: onPressed,
           child: widget,

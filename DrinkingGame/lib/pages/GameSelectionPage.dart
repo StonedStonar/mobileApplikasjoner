@@ -1,5 +1,6 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
+import 'package:drinkinggame/components/CustomText.dart';
 import 'package:drinkinggame/components/GameSlidingButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
@@ -35,14 +36,15 @@ class GameSelectionPage extends ConsumerWidget {
     database = ref.watch(databaseProvider);
     gameRegister = ref.watch(gameRegisterProvider);
     widgetRef = ref;
-
     database?.getGames(gameRegister!);
     return StreamBuilder<List<Game>?>(
         stream: gameRegister?.getStream(),
         builder: (context, snapshot){
           List<Widget> widgets = [];
+          widgets.add(_makeTitle());
           if(snapshot.hasData){
             snapshot.data?.forEach((game) => addGameToList(game, widgets, context));
+            widgets.add(new SizedBox(height: 60,));
           }
           return Scaffold(
             appBar: makeNormalAppBar("Games", context),
@@ -56,16 +58,25 @@ class GameSelectionPage extends ConsumerWidget {
         });
   }
 
+  ///Makes the title over the list of games.
+  ///Returns the widget
+  Widget _makeTitle(){
+    return Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: CustomText(text: "List of games", fontSize: 24, fontWeight: FontWeight.bold),
+    );
+  }
+
   ///Adds a custom game so that the "store in database" is valid.
   ///[context] the build context.
   Future<void> addCustomGame(BuildContext context) async {
     TextEditingController controller = TextEditingController();
     await makeAlertDialog(controller, context);
     if(controller.text.isNotEmpty){
-      Game game = InfoGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
+      Game game = InfoGame(gameName: controller.text, shortDescription: "", longDescription: "Hei", overviewTitle: "");
       switch(gameType){
         case GameType.OPEN:
-          game = OpenQuestionGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");
+          game = OpenQuestionGame(gameName: controller.text, shortDescription: "", longDescription: "Hei", statementName: "");
           break;
         case GameType.TRUTHORDARE:
           game = StatementGame(gameName: controller.text, shortDescription: "", longDescription: "Hei");

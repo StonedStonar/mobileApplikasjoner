@@ -14,13 +14,14 @@ import '../providers/DatabaseProvider.dart';
 
 class GameSlidingButton extends ConsumerWidget {
 
-  GameSlidingButton({required this.game, Color textColor = Colors.black, required this.onPressed}) : _textColor = textColor;
+  ///Makes an instance of the game sliding button
+  ///[game] the game the button belongs to.
+  ///]
+  GameSlidingButton({required this.game, required this.onPressed});
 
   Game game;
 
   VoidCallback onPressed;
-
-  Color _textColor;
 
   WidgetRef? ref;
 
@@ -53,7 +54,7 @@ class GameSlidingButton extends ConsumerWidget {
   }
 
   Widget buildContent(){
-    return GameButton(game: game, onPressed: onPressed, textColor: _textColor);
+    return GameButton(game: game, onPressed: onPressed,);
   }
 
   void _updateGame(BuildContext context){

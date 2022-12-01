@@ -156,11 +156,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
 
   ///Validates the user input according to business logic
   bool validatePlayerInput() {
-    if(widget.usernameValidator.isValid(_playerInput)) {
-      return true;
-    } else {
-      return false;
-    }
+    return widget.usernameValidator.isValid(_playerInput);
   }
 
   ///Removes a player from the list
