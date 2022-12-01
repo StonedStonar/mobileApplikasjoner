@@ -146,8 +146,8 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
             "Your new password",
             passwordErrorText,
             false,
-            TextInputAction.done,
-            _updatePassword,
+            TextInputAction.go,
+            () => _moveFocusNode(_confirmPasswordFocusNode),
             "old_password"),
 
         SizedBox(height: 10,),
@@ -187,6 +187,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
       _isLoading = true;
       await ref.watch(authProvider).currentUser!.updateDisplayName(_editUsername);
       _isLoading = false;
+      _updateState();
     }
   }
 
@@ -195,7 +196,19 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
        _submittedEmail = true;
     });
     if(widget.emailValidator.isValid(_editEmail)) {
-      await ref.watch(authProvider).currentUser!.updateEmail(_editEmail);
+      try {
+        _isLoading = true;
+        await ref.watch(authProvider).currentUser!.updateEmail(_editEmail);
+      } on FirebaseAuthException catch(e) {
+        showAlertDialog(context,
+            title: "Error",
+            content: "An error occured setting a new email. "
+                "Try logging in to your account again",
+            defaultActionText: "Ok");
+      } finally {
+        _isLoading = false;
+        _updateState();
+      }
     }
   }
 
@@ -205,7 +218,13 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     });
     if(widget.passwordValidator.isValid(_editPassword) && _comparePasswords()) {
       try {
+        _isLoading = true;
         await ref.watch(authProvider).currentUser!.updatePassword(_editPassword);
+          if(!mounted) return;
+          showAlertDialog(context,
+              title: "Success",
+              content: "Your password has been updated",
+              defaultActionText: "Ok");
       } on FirebaseAuthException catch(e) {
         ///Displays an alert dialog if an error occurs
         showAlertDialog(context,
@@ -213,6 +232,9 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
             content: "An error occured setting a new password. "
                 "Try logging in to your account again",
             defaultActionText: "Ok");
+      } finally{
+        _isLoading = false;
+        _updateState();
       }
     }
   }
@@ -220,6 +242,11 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   ///Compares the two passwords input by the user
   bool _comparePasswords() {
     return _editPassword == _confirmationPassword;
+  }
+
+  ///Moves the focusnode to another textfield
+  void _moveFocusNode(FocusNode newFocus) {
+    FocusScope.of(context).requestFocus(newFocus);
   }
 
   ///Updates the state - rebuilds components
