@@ -96,7 +96,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           style: TextStyle(fontSize: 22),
         ),
           borderRadius: 10,
-          onPressed:  null ,
+          onPressed:  _isLoading ? null : _updateUserName,
           color: const Color(0xFF000434),
         )
       ],
@@ -126,7 +126,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           style: TextStyle(fontSize: 22),
         ),
           borderRadius: 10,
-          onPressed: _updateEmail,
+          onPressed: _isLoading ? null : _updateEmail,
           color: const Color(0xFF000434),
         )
       ],
@@ -171,7 +171,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           style: TextStyle(fontSize: 22),
         ),
           borderRadius: 10,
-          onPressed: _updatePassword,
+          onPressed: _isLoading ? null : _updatePassword,
           color: const Color(0xFF000434),
         ),
       ],
@@ -184,7 +184,9 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
       _submittedUser = true;
     });
     if(widget.usernameValidator.isValid(_editUsername)) {
+      _isLoading = true;
       await ref.watch(authProvider).currentUser!.updateDisplayName(_editUsername);
+      _isLoading = false;
     }
   }
 
@@ -192,7 +194,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     setState(() {
        _submittedEmail = true;
     });
-    if(widget.usernameValidator.isValid(_editEmail)) {
+    if(widget.emailValidator.isValid(_editEmail)) {
       await ref.watch(authProvider).currentUser!.updateEmail(_editEmail);
     }
   }
@@ -201,7 +203,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     setState(() {
       _submittedPassword = true;
     });
-    if(widget.usernameValidator.isValid(_editPassword) && _comparePasswords()) {
+    if(widget.passwordValidator.isValid(_editPassword) && _comparePasswords()) {
       try {
         await ref.watch(authProvider).currentUser!.updatePassword(_editPassword);
       } on FirebaseAuthException catch(e) {
