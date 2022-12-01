@@ -22,7 +22,6 @@ class LandingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Authentication authentication = ref.watch(authProvider);
-    OpenQuestionGame openQuestionGame = OpenQuestionGame(gameName: "TEst", shortDescription: "shortDescription", longDescription: "longDescription");
     return StreamBuilder<User?>(
         stream: authentication.authStateChanges(),
         builder: (context, snapshot) {
@@ -34,9 +33,9 @@ class LandingPage extends ConsumerWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             User? user = snapshot.data;
             if (user == null) {
-              widgetToShow = AboutApplicationPage();
+              widgetToShow = LoginPage();
             } else {
-              widgetToShow = AboutApplicationPage();
+              widgetToShow = GameSelectionPage();
             }
           }
           return widgetToShow;

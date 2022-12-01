@@ -13,6 +13,7 @@ import '../../App.dart';
 import '../../model/games/Game.dart';
 import '../../model/games/InfoGame.dart';
 import '../../model/games/StatementGame.dart';
+import '../../model/registers/RuleRegister.dart';
 import '../../providers/DatabaseProvider.dart';
 import '../../providers/GameProvider.dart';
 import '../../services/database/Database.dart';
@@ -31,8 +32,10 @@ class GameLandingPage extends ConsumerWidget{
     _database = ref.watch(databaseProvider);
     Widget widget = new CircularProgressIndicator();
     game = ref.read(gameProvider)!;
-    ref.watch(databaseProvider)?.getRulesForGame(game);
-    print("Game is ${game is OpenQuestionGame}");
+    RuleRegister ruleRegister = game.getRules();
+    if(!ruleRegister.hasRules()){
+      ref.watch(databaseProvider)?.getRulesForGame(game);
+    }
     switch(game.runtimeType){
       case InfoGame:
         widget = InfoGamePage(infoGame: game as InfoGame);
