@@ -7,12 +7,15 @@ import '../../model/Rule.dart';
 import '../../model/games/Game.dart';
 import '../../model/games/InfoGame.dart';
 
+///Page for displaying information about a game.
 class DescriptionPage extends StatelessWidget {
 
   DescriptionPage({required this.game});
 
+  ///The game to display information from.
   final Game game;
 
+  ///Build the page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +34,7 @@ class DescriptionPage extends StatelessWidget {
     );
   }
 
+  ///
   List<Widget> _descriptionContent(BuildContext context) {
     return [
           _about(),
