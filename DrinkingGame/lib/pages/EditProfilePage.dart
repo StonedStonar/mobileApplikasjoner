@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/ThemeProvider.dart';
 
+///Represents a page where user can edit their profile.
 class EditProfilePage extends ConsumerWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
@@ -19,6 +20,7 @@ class EditProfilePage extends ConsumerWidget {
     );
   }
 
+  ///Builds the page
   Widget _contentOfEditProfilePage(WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -84,6 +86,7 @@ class EditProfilePage extends ConsumerWidget {
 
   }
 
+  ///Changes the theme between light and dark mode.
   void ChangeTheme(WidgetRef ref) {
     ref.read(themeProvider.notifier).state =
         ref.watch(themeProvider) == ThemeMode.dark

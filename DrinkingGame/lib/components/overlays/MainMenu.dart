@@ -1,10 +1,3 @@
-
-import 'package:drinkinggame/App.dart';
-import 'package:drinkinggame/pages/mainMenuPages/AboutApplicationPage.dart';
-import 'package:drinkinggame/pages/GameSelectionPage.dart';
-import 'package:drinkinggame/pages/LandingPage.dart';
-import 'package:drinkinggame/pages/mainMenuPages/ProfilePage.dart';
-import 'package:drinkinggame/pages/mainMenuPages/SettingsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +22,6 @@ class MainMenu extends ConsumerWidget {
     return Column(
       children: [
         MenuButton(buttonText: "Games", icon: Icons.gamepad, onPressed: () => _openPage("/landingPage", context)),
-        MenuButton(buttonText: "Settings", icon: Icons.settings, onPressed: () => _openPage("/settings", context)),
         MenuButton(buttonText: "Profile", icon: Icons.person, onPressed: () => _openPage("/profile", context)),
         MenuButton(buttonText: "About app", icon: Icons.info, onPressed: () => _openPage("/aboutApp", context)),
         MenuButton(buttonText: "Logout", icon: Icons.logout, onPressed: () => _confirmSignOut(context)),
