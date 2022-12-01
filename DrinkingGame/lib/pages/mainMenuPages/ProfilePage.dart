@@ -36,7 +36,8 @@ class ProfilePage extends ConsumerWidget{
     String username = authentication?.currentUser?.displayName == null ? "No username" : authentication!.currentUser!.displayName!;
     String email = authentication?.currentUser?.displayName == null ? "No email" : authentication!.currentUser!.email!;
 
-
+    print(authentication?.currentUser!.displayName);
+    print(authentication!.currentUser!.email!);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,

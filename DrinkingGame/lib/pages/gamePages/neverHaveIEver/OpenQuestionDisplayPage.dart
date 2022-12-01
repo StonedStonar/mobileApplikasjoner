@@ -1,32 +1,30 @@
 
-
 import 'dart:collection';
-
 import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
-import 'package:drinkinggame/model/questions/TruthOrDareQuestion.dart';
 import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
-import 'package:drinkinggame/model/registers/PlayerRegister.dart';
-import 'package:drinkinggame/model/registers/TruthOrDareRegister.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../components/CustomText.dart';
 import '../../../model/Player.dart';
-import '../../../model/exceptions/CouldNotGetQuestionException.dart';
-import '../../../model/games/StatementGame.dart';
 
+///Represents open question display page, where the players are presented with questions to answer.
 class OpenQuestionDisplayPage extends ConsumerStatefulWidget {
 
+  ///Makes an instance of open question display page.
+  ///[openQuestionGame] The first page the players see when playing the game.
+  ///[onDone] Callback called when players are done with the questions.
   OpenQuestionDisplayPage({required OpenQuestionGame openQuestionGame, required VoidCallback onDone ,Key? key})
       : _openQuestionGame = openQuestionGame,_onDone = onDone, super(key: key){
     _openQuestionGame.getPlayerRegister().getRegisterItems().forEach((player) => playedMap[player] = false);
   }
 
 
+  ///The game
   OpenQuestionGame _openQuestionGame;
 
+  ///Callback for when question has been answered
   VoidCallback _onDone;
 
   HashMap<Player, bool> playedMap = new HashMap();
@@ -43,10 +41,13 @@ class OpenQuestionDisplayPage extends ConsumerStatefulWidget {
 
 }
 
+///Represents a state in question display page.
 class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
 
+  ///The current question
   late OpenQuestion _currentQuestion;
 
+  ///Boolean to show if a question has been asked before.
   bool _firstTime = true;
 
   @override
@@ -62,6 +63,7 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
     );
   }
 
+  ///Build the content of the page
   List<Widget> _buildChildren() {
     return [
       SizedBox(height: 60,),
@@ -86,11 +88,11 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
   }
 
 
+  ///Opens the next question
   void _nextQuestion(){
     OpenQuestionRegister openQuestionRegister = widget.openQuestionGame.getGameRegister();
     if(openQuestionRegister.hasQuestions()){
       _currentQuestion = openQuestionRegister.getRandomQuestion();
-      ///Change this later if you want to record the result
       _currentQuestion.setUsed();
       setState(() {});
     }else{

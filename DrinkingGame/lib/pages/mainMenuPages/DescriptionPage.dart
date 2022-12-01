@@ -10,12 +10,15 @@ import '../../model/games/Game.dart';
 import '../../model/games/InfoGame.dart';
 import '../../providers/DatabaseProvider.dart';
 
+
+///Page for displaying information about a game.
 class DescriptionPage extends ConsumerWidget {
 
   ///Makes an instance of the Description page
   ///[game] the game
   DescriptionPage({required this.game});
 
+  ///The game to display information from.
   final Game game;
 
   @override

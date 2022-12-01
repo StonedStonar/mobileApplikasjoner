@@ -4,24 +4,28 @@ import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
 import 'package:drinkinggame/model/questions/Question.dart';
 import 'package:drinkinggame/model/registers/OpenQuestionRegister.dart';
-import 'package:drinkinggame/model/registers/PlayerRegister.dart';
 import 'package:drinkinggame/services/Validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../components/CustomText.dart';
-import '../../../../components/forms/textfields/TextFields.dart';
-import '../../../../model/Player.dart';
 
+///Represents the input of open questions page, where the player write their own questions.
 class InputOpenQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
+
+  ///Makes an instance of input open questions page.
+  ///[openQuestionRegister] The register we store the questions
+  ///[onDone] Callback called when players are done with making questions.
+  ///[key]
   InputOpenQuestionsPage({required this. openQuestionRegister,required this.onDone, Key? key}) : super(key: key);
 
 
+  ///The register of questions to show players.
   OpenQuestionRegister openQuestionRegister;
 
+  ///Callback for when question is answered and done.
   VoidCallback onDone;
 
 
@@ -29,6 +33,7 @@ class InputOpenQuestionsPage extends ConsumerStatefulWidget with UsernamePasswor
   ConsumerState<InputOpenQuestionsPage> createState() => _CustomNeverHaveIEverQuestionInputPageState();
 }
 
+///Representing the state for when
 class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpenQuestionsPage> {
 
   ///Controller for the textfield
@@ -49,7 +54,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   int questionId = 1;
 
 
-  ///Build the page
+  ///Builds the page.
   @override
   Widget build(BuildContext context) {
 
@@ -66,6 +71,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     return widgetToShow;
   }
 
+  ///Builds the content of the page.
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     List<Widget> widgets = [];
     userQuestions.forEach((question) => widgets.add(_makeQuestionWidget(question)));
@@ -93,6 +99,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     ];
   }
 
+  ///Makes a questions widget
   Widget _makeQuestionWidget(OpenQuestion openQuestion){
     //Todo: STyle this you shit
     return Text(openQuestion.getQuestionText());
@@ -100,13 +107,13 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
 
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
-    //bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_userInput);
     String? error = null;
     return QuestionInputField(errorText: error, fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList, hintTextField: 'I dont know hoe',);
   }
 
 
   ///Builds a button to redirect to another page
+  ///[text] the text to write in the button
   Widget _buildElevatedButton(String text) {
     return CustomElevatedButton(widget: Text(
       text,
@@ -118,12 +125,13 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     );
   }
 
+  ///Adds questions added in list, to register of questions.
   void _addQuestionsAndPlayGame(){
     userQuestions.forEach((question) => widget.openQuestionRegister.add(question));
     widget.onDone();
   }
 
-  ///Adds a question to the register and wipes the textfield
+  ///Adds a question to a list and wipes the textfield.
   void _addQuestionToList() {
 
     OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);

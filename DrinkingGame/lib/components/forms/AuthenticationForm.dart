@@ -184,11 +184,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
 
   ///Compares the two passwords input by the user
   bool _comparePasswords() {
-    if(_password == _confirmationPassword) {
-      return true;
-    } else {
-      return false;
-    }
+    return _password == _confirmationPassword;
   }
 
   ///Moves the focusnode to the email textfield
@@ -206,34 +202,33 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
   }
 
-  ///Exits the authentication page on succesful authentication
+  ///Exits the authentication page on successful authentication
   void _onSuccessfulAuth() {
-    Navigator.of(context).pop();
-    ref.watch(authProvider).currentUser!.updateDisplayName(_username);
+    if(_register){
+      print(ref.read(authProvider).currentUser);
+      ref.watch(authProvider).currentUser!.updateDisplayName(_username);
+      print(ref.read(authProvider).currentUser);
+    }
+    print(ref.read(authProvider).currentUser);
+    print("email: ${ref.read(authProvider).currentUser?.email}");
+    print("username :${ref.read(authProvider).currentUser?.displayName}");
+    Navigator.of(context).pop;
   }
 
   ///Checks if the email and password fields in the login form
   ///are valid according to business logic
   bool validateLoginInfo() {
-    if(widget.emailValidator.isValid(_email)
-        && widget.passwordValidator.isValid(_password)) {
-      return true;
-    } else {
-      return false;
-    }
+    return widget.emailValidator.isValid(_email)
+        && widget.passwordValidator.isValid(_password);
   }
 
   ///Checks if the username, email and password fields in the
   ///sign up form are valid according to business logic
   bool validateSignupInfo() {
-    if(widget.usernameValidator.isValid(_username)
+    return widget.usernameValidator.isValid(_username)
         && widget.emailValidator.isValid(_email)
         && widget.passwordValidator.isValid(_password)
-        && _comparePasswords()) {
-      return true;
-    } else {
-      return false;
-    }
+        && _comparePasswords();
   }
 
   ///Updates the state - rebuilds components
