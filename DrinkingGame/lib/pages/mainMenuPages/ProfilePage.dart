@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../components/AppBars.dart';
 import '../../components/InfoGameCard.dart';
 import '../../providers/AuthProvider.dart';
+import '../../providers/ThemeProvider.dart';
 
 class ProfilePage extends ConsumerWidget{
 
@@ -20,7 +21,9 @@ class ProfilePage extends ConsumerWidget{
     //final user = UserPreferences.myUser;
     return Scaffold(
       appBar: makeNormalAppBar("Profile", context),
-      body: _buildContent(ref),
+      body: SingleChildScrollView(
+        child: _buildContent(ref),
+      ),
       drawer: MainMenu(),
     );
   }
@@ -28,8 +31,8 @@ class ProfilePage extends ConsumerWidget{
   ///Builds the content of the page
   ///[widgetRef] the widget ref.
   ///Returns the widget.
-  Widget _buildContent(WidgetRef widgetRef){
-    Authentication? authentication = widgetRef.watch(authProvider);
+  Widget _buildContent(WidgetRef ref){
+    Authentication? authentication = ref.watch(authProvider);
     String username = authentication?.currentUser?.displayName == null ? "No username" : authentication!.currentUser!.displayName!;
     String email = authentication?.currentUser?.displayName == null ? "No email" : authentication!.currentUser!.email!;
 
@@ -84,10 +87,30 @@ class ProfilePage extends ConsumerWidget{
             color: const Color(0xFF000434)
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(50, 0, 50, 15),
+          child: CustomElevatedButton(
+            widget: const Text(
+              "Change to darkmode",
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            borderRadius: 4.0,
+            onPressed: () => ChangeTheme(ref),
+            color: const Color(0xFF000434),
+          ),
+        ),
       ],
     );
   }
 
+  /// Changes to darkmode when tapped.
+  void ChangeTheme(WidgetRef ref) {
+    ref.read(themeProvider.notifier).state = ref.watch(themeProvider) == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+  }
+
+  ///Show the edit profile page when tapped on.
   void _showEditProfilePage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const EditProfilePage(),
