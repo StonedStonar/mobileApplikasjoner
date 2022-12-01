@@ -17,7 +17,7 @@ TextField buildUsernameTextField(
       decoration: InputDecoration(
         labelText: "Username",
         hintText: "Your username",
-        errorText: errorText ? "Invalid username" : null,
+        errorText: errorText ? "Username has to be 3-20 alphabetic characters" : null,
       ),
       enabled: !isLoading,
       autocorrect: false,

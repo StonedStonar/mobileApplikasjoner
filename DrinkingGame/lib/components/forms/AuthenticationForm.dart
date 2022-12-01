@@ -212,7 +212,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     print(ref.read(authProvider).currentUser);
     print("email: ${ref.read(authProvider).currentUser?.email}");
     print("username :${ref.read(authProvider).currentUser?.displayName}");
-    Navigator.of(context).pop;
+    Navigator.of(context).pop();
   }
 
   ///Checks if the email and password fields in the login form
