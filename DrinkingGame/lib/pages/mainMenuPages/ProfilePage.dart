@@ -88,11 +88,12 @@ class ProfilePage extends ConsumerWidget{
         Padding(
           padding: const EdgeInsets.fromLTRB(50, 0, 50, 15),
           child: CustomElevatedButton(
-            widget: const Text(
+            widget: Text(
               "Change to darkmode",
               style: TextStyle(
                 fontSize: 20.0,
               ),
+
             ),
             borderRadius: 4.0,
             onPressed: () => ChangeTheme(ref),

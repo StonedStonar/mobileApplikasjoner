@@ -59,6 +59,7 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
     }
     
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: _buildChildren(),
     );
   }
@@ -67,7 +68,7 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
   List<Widget> _buildChildren() {
     return [
       SizedBox(height: 60,),
-      CustomText(text: "Never have i ever", fontSize: 30, fontWeight: FontWeight.w600),
+      CustomText(text: widget.openQuestionGame.getStatementName(), fontSize: 30, fontWeight: FontWeight.w600),
       SizedBox(height: 30,),
       CustomText(text: _currentQuestion.getQuestionText(), fontSize: 25, fontWeight: FontWeight.w300),
       SizedBox(height: 30,),
@@ -75,7 +76,8 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
       SizedBox(height: 30,),
       CustomText(text: "Drink", fontSize: 25, fontWeight: FontWeight.w300),
       SizedBox(height: 30,),
-      TextButton(onPressed: () => _nextQuestion(),
+      TextButton(
+          onPressed: _nextQuestionUpdate,
           child: Column(
             children: const [
               SizedBox(height: 5),
@@ -94,9 +96,14 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
     if(openQuestionRegister.hasQuestions()){
       _currentQuestion = openQuestionRegister.getRandomQuestion();
       _currentQuestion.setUsed();
-      setState(() {});
     }else{
       widget.doDone();
     }
+  }
+
+  void _nextQuestionUpdate(){
+    _nextQuestion();
+    print("Update");
+    setState(() {});
   }
 }

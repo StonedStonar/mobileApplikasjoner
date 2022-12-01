@@ -59,19 +59,19 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///For giving each question a unique ID
   int questionId = 1;
 
-  ///For giivng each player a unique ID
-  int _playerId = 1;
+  late Iterator<Player> it;
 
   ///Build the page
   @override
   Widget build(BuildContext context) {
     if(firstTime){
+      it = widget.playerRegister.getIterator();
       getNextPlayer();
       firstTime = false;
     }
 
     Widget textField = _buildTextFieldWithButton();
-    String titleText = "Write in your ${_isTruth ? "Truth(s)" : "Dare(s)"}" ;
+    String titleText = "${_currentPlayer?.getPlayerName()} write in your ${_isTruth ? "Truth(s)" : "Dare(s)"}" ;
     Widget widgetToShow = SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,7 +89,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
         ],
       );
     }
-
     return widgetToShow;
   }
 
@@ -103,13 +102,12 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     );
   }
 
+  //Todo: Dokumentasjon
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     return [
       gameInputForm,
-
       CustomText(text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
       _buildAddedPlayersList(),
-
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -213,10 +211,9 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Gets the next player.
   void getNextPlayer(){
-    try{
-      _currentPlayer = widget.playerRegister.getPlayerById(_playerId);
-      _playerId++;
-    }catch(e){
+    if(it.moveNext()){
+      _currentPlayer = it.current;
+    }else{
       _currentPlayer = null;
     }
   }

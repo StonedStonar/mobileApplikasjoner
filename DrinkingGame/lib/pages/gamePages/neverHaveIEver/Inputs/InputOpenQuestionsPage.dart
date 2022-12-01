@@ -10,20 +10,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../components/CustomText.dart';
+import '../../../../model/games/OpenQuestionGame.dart';
 
 ///Represents the input of open questions page, where the player write their own questions.
 class InputOpenQuestionsPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
 
   ///Makes an instance of input open questions page.
-  ///[openQuestionRegister] The register we store the questions
+  ///[game] the open question game-
   ///[onDone] Callback called when players are done with making questions.
   ///[key]
-  InputOpenQuestionsPage({required this. openQuestionRegister,required this.onDone, Key? key}) : super(key: key);
+  InputOpenQuestionsPage({required this.game, required this.onDone, Key? key}) : super(key: key);
 
 
   ///The register of questions to show players.
-  OpenQuestionRegister openQuestionRegister;
+  OpenQuestionGame game;
 
   ///Callback for when question is answered and done.
   VoidCallback onDone;
@@ -43,8 +44,6 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   ///Getter for input player writes in the textfield
   String get _userInput => _userInputController.text;
 
-  bool _submitted = false;
-
 
 
   ///Local array for the truths and dares the user creates
@@ -59,7 +58,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   Widget build(BuildContext context) {
 
     Widget textField = _buildTextFieldWithButton();
-    String titleText = "Write in your Never Have I Ever <3 " ;
+    String titleText = "Write in your ${widget.game.getStatementName()}" ;
     Widget widgetToShow = SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -77,7 +76,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     userQuestions.forEach((question) => widgets.add(_makeQuestionWidget(question)));
     return [
       gameInputForm,
-      CustomText(text: "Never Have I Evah", fontSize: 30, fontWeight: FontWeight.w600),
+      CustomText(text: widget.game.getStatementName(), fontSize: 30, fontWeight: FontWeight.w600),
       SizedBox(
         height: 200,
         child: SingleChildScrollView(
@@ -101,7 +100,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
 
   ///Makes a questions widget
   Widget _makeQuestionWidget(OpenQuestion openQuestion){
-    //Todo: STyle this you shit
+    //Todo: Style this you trønder
     return Text(openQuestion.getQuestionText());
   }
 
@@ -127,7 +126,8 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
 
   ///Adds questions added in list, to register of questions.
   void _addQuestionsAndPlayGame(){
-    userQuestions.forEach((question) => widget.openQuestionRegister.add(question));
+    OpenQuestionRegister register = widget.game.getGameRegister();
+    userQuestions.forEach((question) => register.add(question));
     widget.onDone();
   }
 

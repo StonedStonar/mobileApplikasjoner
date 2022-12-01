@@ -13,7 +13,7 @@ class GameButton extends CustomElevatedButton {
   ///[game] the game
   ///[textColor] used to describe the color of the text used.
   ///[secondTextColor] for the color of subtext.
-  GameButton({required Game game, Color textColor = Colors.black, Color secondTextColor = Colors.black54,
+  GameButton({required Game game,
     required VoidCallback onPressed, Key? key})
       : super(
         widget: Padding(
@@ -25,7 +25,6 @@ class GameButton extends CustomElevatedButton {
               Text(
                 game.getGameName(),
                 style: TextStyle(
-                  color: textColor,
                   fontSize: 26,
                   fontWeight: FontWeight.w500,
                 ),
@@ -33,7 +32,6 @@ class GameButton extends CustomElevatedButton {
               Text(
                 game.getShortDescription(),
                 style: TextStyle(
-                  color: secondTextColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),

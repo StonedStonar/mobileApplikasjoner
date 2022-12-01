@@ -32,9 +32,9 @@ class TruthOrDareRegister extends QuestionRegister<TruthOrDareQuestion> {
   ///Returns the question
   ///Throws [CouldNotGetQuestionException] if there is no question left for the player.
   TruthOrDareQuestion getRandomQuestionForPlayer(Player player) {
-    if (hasQuestions()) {
+    try{
       return getRegisterItems().firstWhere((question) => question.getMadeBy() != player && !question.isUsed());
-    } else {
+    }catch(e){
       throw CouldNotGetQuestionException("There is no question for this user in the register.");
     }
   }

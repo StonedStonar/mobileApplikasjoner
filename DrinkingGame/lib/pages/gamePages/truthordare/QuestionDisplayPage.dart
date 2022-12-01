@@ -17,15 +17,15 @@ import '../../../model/games/StatementGame.dart';
 
 class QuestionDisplayPage extends ConsumerStatefulWidget {
 
-  QuestionDisplayPage({required StatementGame statementGame, required VoidCallback onDone ,Key? key}) : _statementGame = statementGame,_onDone = onDone, super(key: key){
-    _statementGame.getPlayerRegister().getRegisterItems().forEach((player) => playedMap[player] = false);
-  }
+  ///Makes an instance of the question display page.
+  ///[statementGame] the statement game
+  ///[onDone] the action to do when its done.
+  QuestionDisplayPage({required StatementGame statementGame, required VoidCallback onDone ,Key? key}) : _statementGame = statementGame,_onDone = onDone, super(key: key);
 
   StatementGame _statementGame;
 
   VoidCallback _onDone;
 
-  HashMap<Player, bool> playedMap = new HashMap();
 
   StatementGame get statementGame => _statementGame;
 
@@ -93,44 +93,28 @@ class _QuestionDisplayPageState extends ConsumerState<QuestionDisplayPage> {
   ///Gets the next player and sets it.
   void _getNextPlayer(){
     PlayerRegister playerRegister = widget.statementGame.getPlayerRegister();
-    HashMap<Player, bool> playedMap = widget.playedMap;
+    TruthOrDareRegister truthReg = widget.statementGame.getGameRegister();
     int amountOfPlayers = playerRegister.getRegisterItems().length;
     int i = 0;
-    bool hasQuestions = false;
-    while(!hasQuestions && i < amountOfPlayers){
+    truthOrDare = null;
+    while(i < amountOfPlayers && truthOrDare == null){
       _currentPlayer = playerRegister.getNextPlayer(_currentPlayer);
-      if(!playedMap[_currentPlayer]!){
-        hasQuestions = !_getNextQuestion();
+      try{
+        truthOrDare = truthReg.getRandomQuestionForPlayer(_currentPlayer);
+      }on CouldNotGetQuestionException {
+        truthOrDare = null;
       }
-      playedMap[_currentPlayer] = hasQuestions;
-
       i++;
     }
   }
 
-  ///Gets the next question
-  ///Returns true if the player has next question. False otherwise.
-  bool _getNextQuestion(){
-    bool done = false;
-    TruthOrDareRegister truthReg = widget.statementGame.getGameRegister();
-    try{
-
-      truthOrDare = truthReg.getRandomQuestionForPlayer(_currentPlayer);
-    }on CouldNotGetQuestionException{
-      done = true;
-      truthOrDare = null;
-    }
-    return done;
-  }
-
   ///Gets the next question and updates the page.
   void _nextQuestion() {
-    bool done = widget.playedMap.values.every((done) => done);
     truthOrDare?.answerQuestion(Response.yes, _currentPlayer);
-    if(!done){
-      _getNextPlayer();
-    }
-    if(done || truthOrDare == null){
+    _getNextPlayer();
+    print(_currentPlayer);
+
+    if(truthOrDare == null){
       widget.doDone();
     }else {
       setState(() {

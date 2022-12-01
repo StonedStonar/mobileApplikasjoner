@@ -27,13 +27,17 @@ AppBar makeNormalAppBar(String title, BuildContext context) {
   return AppBar(
     title: makeAppbarText(title),
     centerTitle: true,
-    leading: ElevatedIconButton(
-      onPressed: (context) {
-        Scaffold.of(context).openDrawer();
-      },
-      iconData: Icons.menu,
-    ),
+    leading: makeMenuButton(),
     toolbarHeight: 80,
+  );
+}
+
+Widget makeMenuButton(){
+  return ElevatedIconButton(
+    onPressed: (context) {
+      Scaffold.of(context).openDrawer();
+    },
+    iconData: Icons.menu,
   );
 }
 
@@ -44,12 +48,6 @@ AppBar makeMenuAppBar(BuildContext context, String? title) {
   return AppBar(
     title: makeAppbarText(title == null ? "Menu" : title),
     centerTitle: true,
-    leading: ElevatedIconButton(
-      onPressed: (context) {
-        Navigator.pop(context);
-      },
-      iconData: Icons.arrow_back,
-    ),
     toolbarHeight: 80,
     shadowColor: Colors.white,
   );
