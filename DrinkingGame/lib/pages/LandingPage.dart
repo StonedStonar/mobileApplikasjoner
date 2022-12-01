@@ -2,6 +2,7 @@ import 'package:drinkinggame/pages/GameSelectionPage.dart';
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/pages/GameSelectionPage.dart';
+import 'package:drinkinggame/pages/gamePages/GameLandingPage.dart';
 import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionDisplayPage.dart';
 import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart';
 import 'package:drinkinggame/pages/login/LoginPage.dart';
@@ -36,7 +37,7 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               widgetToShow = LoginPage();
             } else {
-              widgetToShow = LandingPage();
+              widgetToShow = GameSelectionPage();
             }
           }
           return widgetToShow;
