@@ -18,12 +18,14 @@ class InputOpenQuestionsPage extends ConsumerStatefulWidget with UsernamePasswor
   ///Makes an instance of input open questions page.
   ///[openQuestionRegister] The register we store the questions
   ///[onDone] Callback called when players are done with making questions.
-  ///[key] TODO what to write here
+  ///[key]
   InputOpenQuestionsPage({required this. openQuestionRegister,required this.onDone, Key? key}) : super(key: key);
 
 
+  ///The register of questions to show players.
   OpenQuestionRegister openQuestionRegister;
 
+  ///Callback for when question is answered and done.
   VoidCallback onDone;
 
 
@@ -31,7 +33,7 @@ class InputOpenQuestionsPage extends ConsumerStatefulWidget with UsernamePasswor
   ConsumerState<InputOpenQuestionsPage> createState() => _CustomNeverHaveIEverQuestionInputPageState();
 }
 
-///Class
+///Representing the state for when
 class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpenQuestionsPage> {
 
   ///Controller for the textfield
@@ -52,7 +54,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   int questionId = 1;
 
 
-  ///Builds the page
+  ///Builds the page.
   @override
   Widget build(BuildContext context) {
 
@@ -69,6 +71,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     return widgetToShow;
   }
 
+  ///Builds the content of the page.
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     List<Widget> widgets = [];
     userQuestions.forEach((question) => widgets.add(_makeQuestionWidget(question)));
@@ -122,13 +125,13 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     );
   }
 
-  ///Adds questions to
+  ///Adds questions added in list, to register of questions.
   void _addQuestionsAndPlayGame(){
     userQuestions.forEach((question) => widget.openQuestionRegister.add(question));
     widget.onDone();
   }
 
-  ///Adds a question to the register and wipes the textfield
+  ///Adds a question to a list and wipes the textfield.
   void _addQuestionToList() {
 
     OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);
