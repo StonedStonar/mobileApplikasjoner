@@ -39,7 +39,8 @@ TextField buildEmailTextField(
     String hintText,
     bool errorText,
     bool isLoading,
-    Function onEditingComplete) {
+    Function onEditingComplete,
+    String keyValue) {
   return TextField(
       style: TextStyle(fontSize: 20),
       controller: controller,
@@ -55,7 +56,7 @@ TextField buildEmailTextField(
       textInputAction: TextInputAction.go,
       enabled: !isLoading,
       onEditingComplete: () => onEditingComplete(),
-      key: const Key("email_input")
+      key: Key(keyValue)
   );
 }
 
@@ -69,7 +70,8 @@ TextField buildPasswordTextField(
     bool errorText,
     bool isLoading,
     TextInputAction textInputAction,
-    Function onEditingComplete) {
+    Function onEditingComplete,
+    String keyValue) {
   return TextField(
       style: TextStyle(fontSize: 20),
       controller: controller,
@@ -85,7 +87,7 @@ TextField buildPasswordTextField(
       textInputAction: textInputAction,
       onEditingComplete: () => onEditingComplete(),
       obscureText: true,
-      key: const Key("password_input")
+      key: Key(keyValue)
   );
 }
 
@@ -99,7 +101,8 @@ TextField buildConfirmPasswordTextField(
     bool errorText,
     bool isLoading,
     TextInputAction textInputAction,
-    Function submit) {
+    Function submit,
+    String keyValue) {
   return TextField(
       style: TextStyle(fontSize: 20),
       controller: controller,
@@ -114,6 +117,6 @@ TextField buildConfirmPasswordTextField(
       textInputAction: textInputAction,
       onEditingComplete: () => submit(),
       obscureText: true,
-      key: const Key("confirmPassword_input")
+      key: Key(keyValue)
   );
 }

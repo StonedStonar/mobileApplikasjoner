@@ -84,7 +84,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           "Your username",
           usernameErrorText,
           _isLoading,
-          _usernameEditingComplete,
+          () => _moveFocusNode(_emailFocusNode),
           "username_input"),
       if(_register)const SizedBox(height: 8.0),
 
@@ -96,7 +96,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           "Your email",
           emailErrorText,
           _isLoading,
-          _emailEditingComplete),
+              () => _moveFocusNode(_passwordFocusNode),
+          "email_input"),
       const SizedBox(height: 8.0),
 
       ///Passowrd textfield, for both pages
@@ -108,7 +109,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           passwordErrorText,
           _isLoading,
           !_register ? TextInputAction.done : TextInputAction.go,
-          !_register ? _submit : _passwordEditingComplete),
+          !_register ? _submit :  () => _moveFocusNode(_confirmPasswordFocusNode),
+          "password_input"),
       const SizedBox(height: 8.0),
 
       ///Confirm password textfield, only for signup
@@ -120,7 +122,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
           confirmationErrorText,
           _isLoading,
           _register ? TextInputAction.done : TextInputAction.go,
-          _submit),
+          _submit,
+          "confirmPassword_input"),
       if(_register) const SizedBox(height: 25.0),
 
       ///Button to switch between login and signup page
@@ -196,19 +199,9 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     return _password == _confirmationPassword;
   }
 
-  ///Moves the focusnode to the email textfield
-  void _usernameEditingComplete() {
-    FocusScope.of(context).requestFocus(_emailFocusNode);
-  }
-
-  ///Moves the focusnode to the password textfield
-  void _emailEditingComplete() {
-    FocusScope.of(context).requestFocus(_passwordFocusNode);
-  }
-
-  ///Moves the focusnode to the confirm password textfield
-  void _passwordEditingComplete() {
-    FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
+  ///Moves the focusnode to another textfield
+  void _moveFocusNode(FocusNode newFocus) {
+    FocusScope.of(context).requestFocus(newFocus);
   }
 
   ///Exits the authentication page on successful authentication
