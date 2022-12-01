@@ -1,23 +1,32 @@
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/CustomText.dart';
+import 'package:drinkinggame/model/registers/RuleRegister.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../model/Rule.dart';
 import '../../model/games/Game.dart';
 import '../../model/games/InfoGame.dart';
+import '../../providers/DatabaseProvider.dart';
+
 
 ///Page for displaying information about a game.
-class DescriptionPage extends StatelessWidget {
+class DescriptionPage extends ConsumerWidget {
 
+  ///Makes an instance of the Description page
+  ///[game] the game
   DescriptionPage({required this.game});
 
   ///The game to display information from.
   final Game game;
 
-  ///Build the page
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<Widget> widgets = _descriptionContent(context);
+    if(game.getRules().hasRules()){
+      game.getRules().updateStream();
+    }
     return Scaffold(
       appBar: makeMenuAppBar(context, "Description"),
       body: SingleChildScrollView(
@@ -26,15 +35,16 @@ class DescriptionPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:
-              _descriptionContent(context),
+            children: widgets,
           ),
         ),
       ),
     );
   }
 
-  ///
+  ///Makes the description contents.
+  ///[context] the build context
+  ///Returns a list of widgets
   List<Widget> _descriptionContent(BuildContext context) {
     return [
           _about(),
@@ -43,7 +53,14 @@ class DescriptionPage extends StatelessWidget {
       ];
   }
 
+
+  ///Makes the bout segment
+  ///Returns the about widget
   Widget _about() {
+    List<Widget> ruleWidget = [];
+    game.getRules().getRegisterItems().forEach((rule) {
+      ruleWidget.add(makeRuleWidget(rule));
+    });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -51,29 +68,18 @@ class DescriptionPage extends StatelessWidget {
         SizedBox(height: 15,),
         CustomText(text: "Rules", fontSize: 25, fontWeight: FontWeight.w500),
         SizedBox(height: 10,),
-        StreamBuilder<List<Rule>>(
-            stream: game.getRules().getStream(),
-            builder: (context, snapshot) {
-              Widget widget = Text("No rules");
-              if(snapshot.hasData){
-                List<Widget> children = [];
-                snapshot.data?.forEach((rule) {
-                  children.add(ruleWidget(rule) );
-                });
-                widget = ListView(
-                  shrinkWrap: true,
-                  children: children,
-                );
-              }
-              return widget;
-            },
-        )
-
+        ListView(
+        shrinkWrap: true,
+        children: ruleWidget,
+        ),
       ],
     );
   }
 
-  Widget ruleWidget(Rule rule) {
+  ///Makes a rule widget
+  ///[rule] the rule to make
+  ///Returns the rule widget
+  Widget makeRuleWidget(Rule rule) {
      return Row(
        mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: [

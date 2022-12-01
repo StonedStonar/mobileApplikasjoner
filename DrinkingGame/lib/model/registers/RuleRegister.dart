@@ -33,6 +33,11 @@ class RuleRegister extends Register{
     }
   }
 
+  ///Checks if the rule register has rules
+  bool hasRules(){
+    return _rules.isNotEmpty;
+  }
+
   ///Gets the rules as a map.
   ///Returns a list with all the rules as a map.
   List<Map<String, dynamic>> getRulesAsMap(){
@@ -42,7 +47,7 @@ class RuleRegister extends Register{
   }
 
   @override
-  List<DatabaseItem> getRegisterItems() {
+  List<Rule> getRegisterItems() {
     return _rules;
   }
 
@@ -55,6 +60,8 @@ class RuleRegister extends Register{
 
   @override
   Stream<List<Rule>> getStream() {
+    _streamController.close();
+    _streamController = StreamController();
     return _streamController.stream;
   }
 }

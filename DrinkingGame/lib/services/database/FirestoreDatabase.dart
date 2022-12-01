@@ -15,6 +15,7 @@ import 'package:drinkinggame/model/registers/RuleRegister.dart';
 import '../../model/Rule.dart';
 import '../../model/questions/InfoContainer.dart';
 import '../../model/StoreableItem.dart';
+import '../../model/registers/Register.dart';
 import 'APIPath.dart';
 import 'Database.dart';
 
@@ -95,6 +96,8 @@ class FirestoreDatabase implements Database{
   Future<void> getContentsOfGame(Game game) async {
     String questionPath = APIPath.getGameContents(game.getItemId());
     QuerySnapshot<Map<String, dynamic>> reference = await _firestore.collection(questionPath).get();
+    Register gameRegister = game.getGameRegister();
+    gameRegister.getRegisterItems().clear();
     reference.docs.forEach((map) {
       if (game is InfoGame) {
         game.getGameRegister().addInfoContainer(
@@ -103,7 +106,7 @@ class FirestoreDatabase implements Database{
         game.getGameRegister().add(OpenQuestion.fromMap(map.data()));
       }
     });
-    game.getGameRegister().updateStream();
+    gameRegister.updateStream();
   }
 
   @override
@@ -114,6 +117,7 @@ class FirestoreDatabase implements Database{
     game.getRules().getRegisterItems().clear();
     game.getGameRegister().getRegisterItems().clear();
     getContentsOfGame(game);
+    getRulesForGame(game);
   }
 
   @override
@@ -127,10 +131,10 @@ class FirestoreDatabase implements Database{
     String rulePath = APIPath.getGameRules(game.getGameName());
     QuerySnapshot<Map<String, dynamic>> ruleReference = await _firestore.collection(rulePath).get();
     RuleRegister ruleRegister = game.getRules();
+    ruleRegister.getRegisterItems().clear();
     ruleReference.docs.forEach((map) {
       ruleRegister.addRule(Rule.fromMap(map: map.data()));
     });
-    print("Amount of rules ${ruleRegister.getRegisterItems().length}");
     ruleRegister.updateStream();
   }
 }

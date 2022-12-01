@@ -16,13 +16,7 @@ class Rule extends DatabaseItem{
 
   ///Makes a rule from a map.
   ///[map] the map.
-  Rule.fromMap({required Map<String, dynamic> map}) : assert(map.length == 3), _ruleId = int.parse(map["ruleId"]), _ruleText = map["ruleText"], _punishment = map["punishment"];
-
-  ///Gets the rule as text with format id + ruleText
-  ///Returns the rule as text
-  String _getRuleAsText(){
-    return "$_ruleId $_ruleText";
-  }
+  Rule.fromMap({required Map<String, dynamic> map}) : assert(map.length == 3), _ruleId = map["ruleId"], _ruleText = map["ruleText"], _punishment = map["punishment"];
 
   String getRuleText() {
     return _ruleText;
