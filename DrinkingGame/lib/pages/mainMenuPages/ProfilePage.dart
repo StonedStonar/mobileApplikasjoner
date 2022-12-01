@@ -22,7 +22,7 @@ class ProfilePage extends ConsumerWidget{
     return Scaffold(
       appBar: makeNormalAppBar("Profile", context),
       body: SingleChildScrollView(
-        child: _buildContent(ref),
+        child: _buildContent(context, ref),
       ),
       drawer: MainMenu(),
     );
@@ -31,10 +31,10 @@ class ProfilePage extends ConsumerWidget{
   ///Builds the content of the page
   ///[widgetRef] the widget ref.
   ///Returns the widget.
-  Widget _buildContent(WidgetRef ref){
+  Widget _buildContent(BuildContext context, WidgetRef ref){
     Authentication? authentication = ref.watch(authProvider);
     String username = authentication?.currentUser?.displayName == null ? "No username" : authentication!.currentUser!.displayName!;
-    String email = authentication?.currentUser?.displayName == null ? "No email" : authentication!.currentUser!.email!;
+    String email = authentication?.currentUser?.email == null ? "No email" : authentication!.currentUser!.email!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -81,8 +81,7 @@ class ProfilePage extends ConsumerWidget{
               ),
             ),
             borderRadius: 4,
-            //onPressed: (context) => {_showEditProfilePage(context),},
-              onPressed: () {},
+            onPressed: () => _showEditProfilePage(context),
             color: const Color(0xFF000434)
           ),
         ),

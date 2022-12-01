@@ -6,24 +6,27 @@ TextField buildUsernameTextField(
     TextEditingController controller,
     FocusNode focusNode,
     Function onChanged,
+    String labelText,
+    String hintText,
     bool errorText,
     bool isLoading,
-    Function onEditingComplete) {
+    Function onEditingComplete,
+    String keyValue) {
   return TextField(
       style: TextStyle(fontSize: 20),
       controller: controller,
       focusNode: focusNode,
       onChanged: (username) => onChanged(),
       decoration: InputDecoration(
-        labelText: "Username",
-        hintText: "Your username",
-        errorText: errorText ? "Invalid username" : null,
+        labelText: labelText,
+        hintText: hintText,
+        errorText: errorText ? "Username has to be 3-20 alphabetic characters" : null,
       ),
       enabled: !isLoading,
       autocorrect: false,
       textInputAction: TextInputAction.go,
       onEditingComplete: () => onEditingComplete(),
-      key: const Key("username_input")
+      key: Key(keyValue)
   );
 }
 
@@ -32,6 +35,8 @@ TextField buildEmailTextField(
     TextEditingController controller,
     FocusNode focusNode,
     Function onChanged,
+    String labelText,
+    String hintText,
     bool errorText,
     bool isLoading,
     Function onEditingComplete) {
@@ -41,8 +46,8 @@ TextField buildEmailTextField(
       focusNode: focusNode,
       onChanged: (_email) => onChanged(),
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Your Email Address",
+        labelText: labelText,
+        hintText: hintText,
         errorText: errorText ? "Invalid email" : null,
       ),
       keyboardType: TextInputType.emailAddress,
@@ -59,6 +64,8 @@ TextField buildPasswordTextField(
     TextEditingController controller,
     FocusNode focusNode,
     Function onChanged,
+    String labelText,
+    String hintText,
     bool errorText,
     bool isLoading,
     TextInputAction textInputAction,
@@ -69,8 +76,8 @@ TextField buildPasswordTextField(
       focusNode: focusNode,
       onChanged: (_password) => onChanged(),
       decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Your Password",
+        labelText: labelText,
+        hintText: hintText,
         errorText: errorText ? "4-20 chars, uppercase, lowercase, digits" : null,
       ),
       enabled: !isLoading,
@@ -87,6 +94,8 @@ TextField buildConfirmPasswordTextField(
     TextEditingController controller,
     FocusNode focusNode,
     Function onChanged,
+    String labelText,
+    String hintText,
     bool errorText,
     bool isLoading,
     TextInputAction textInputAction,
@@ -96,8 +105,8 @@ TextField buildConfirmPasswordTextField(
       controller: controller,
       focusNode: focusNode,
       decoration: InputDecoration(
-        labelText: "Confirm Password",
-        hintText: "Rewrite your password",
+        labelText: labelText,
+        hintText: hintText,
         errorText: errorText ? "passwords do not match" : null,
       ),
       enabled: !isLoading,

@@ -4,7 +4,7 @@ import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/overlays/MainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../../components/forms/EditUsernameForm.dart';
 import '../providers/ThemeProvider.dart';
 
 ///Represents a page where user can edit their profile.
@@ -15,13 +15,13 @@ class EditProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: makeNormalAppBar("Edit profile", context),
-      body: _contentOfEditProfilePage(ref),
+      body: _contentOfEditProfilePage(context, ref),
       drawer: MainMenu(),
     );
   }
 
   ///Builds the page
-  Widget _contentOfEditProfilePage(WidgetRef ref) {
+  Widget _contentOfEditProfilePage(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,7 +40,7 @@ class EditProfilePage extends ConsumerWidget {
         ),
 
         Padding(
-          padding: const EdgeInsets.fromLTRB(25, 0, 25, 10),
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
           child: CustomElevatedButton(
             widget: const Text(
               "Edit name",
@@ -49,7 +49,9 @@ class EditProfilePage extends ConsumerWidget {
               ),
             ),
             borderRadius: 4.0,
-            onPressed: () {},
+            onPressed: () {
+              _showEditPage(context, EditUsernameForm());
+            },
             color: const Color(0xFF000434),
           ),
         ),
@@ -77,13 +79,20 @@ class EditProfilePage extends ConsumerWidget {
               ),
             ),
             borderRadius: 4.0,
-            onPressed: () {},
+            onPressed: () {
+            },
             color: const Color(0xFF000434),
           ),
         ),
       ],
     );
+  }
 
+  ///Show the edit profile page when tapped on.
+  void _showEditPage(BuildContext context, Widget pageToShow) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => pageToShow,
+    ));
   }
 
   ///Changes the theme between light and dark mode.

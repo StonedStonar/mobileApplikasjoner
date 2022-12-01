@@ -80,15 +80,20 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
       if (_register) buildUsernameTextField(_usernameController,
           _userNameFocusNode,
           _updateState,
+          "Username",
+          "Your username",
           usernameErrorText,
           _isLoading,
-          _usernameEditingComplete),
+          _usernameEditingComplete,
+          "username_input"),
       if(_register)const SizedBox(height: 8.0),
 
       ///Email textfield, for both pages
       buildEmailTextField(_emailController,
           _emailFocusNode,
           _updateState,
+          "Email",
+          "Your email",
           emailErrorText,
           _isLoading,
           _emailEditingComplete),
@@ -98,6 +103,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
       buildPasswordTextField(_passwordController,
           _passwordFocusNode,
           _updateState,
+          "Password",
+          "Your password",
           passwordErrorText,
           _isLoading,
           !_register ? TextInputAction.done : TextInputAction.go,
@@ -108,6 +115,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
      if (_register) buildConfirmPasswordTextField(_confirmationPasswordController,
           _confirmPasswordFocusNode,
           _updateState,
+          "Confirm password",
+          "Rewrite your password",
           confirmationErrorText,
           _isLoading,
           _register ? TextInputAction.done : TextInputAction.go,
@@ -205,14 +214,9 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
   ///Exits the authentication page on successful authentication
   void _onSuccessfulAuth() {
     if(_register){
-      print(ref.read(authProvider).currentUser);
       ref.watch(authProvider).currentUser!.updateDisplayName(_username);
-      print(ref.read(authProvider).currentUser);
     }
-    print(ref.read(authProvider).currentUser);
-    print("email: ${ref.read(authProvider).currentUser?.email}");
-    print("username :${ref.read(authProvider).currentUser?.displayName}");
-    Navigator.of(context).pop;
+    Navigator.of(context).pop();
   }
 
   ///Checks if the email and password fields in the login form
