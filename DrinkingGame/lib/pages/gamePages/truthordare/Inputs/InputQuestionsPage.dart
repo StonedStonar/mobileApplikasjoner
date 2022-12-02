@@ -135,7 +135,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Builds a scrollable list of the existing users with a delete button
   Widget _buildAddedPlayersList() {
     List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
-    print(questions.map((e) => e.getQuestionText()));
     List<Widget> questionWidgets = [];
     userQuestions.forEach((question) {
       questionWidgets.add(makeWidgetForQuestion(question));
@@ -182,7 +181,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Switches between adding a truth or a dare question.
   void _switchTruthOrDare() {
       _isTruth = !_isTruth;
-       print(_isTruth);
       _updateState();
   }
 
@@ -206,7 +204,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     questions.addAll(userQuestions);
     userQuestions.clear();
     _updateState();
-    print(questions.map((e) => e.getQuestionText()));
   }
 
   ///Gets the next player.
@@ -249,7 +246,6 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
       userQuestions.add(question);
       _submitted = false;
       _userInputController.clear();
-      print(userQuestions.length);
     }
     _updateState();
   }

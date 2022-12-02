@@ -63,6 +63,8 @@ class InfoGamePage extends ConsumerWidget {
     );
   }
 
+  ///Makes the overview title
+  ///Returns the title
   Widget _makeOverviewTitle(){
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 10),

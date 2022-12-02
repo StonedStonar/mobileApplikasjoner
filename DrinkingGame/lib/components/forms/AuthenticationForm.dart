@@ -144,7 +144,6 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
       ),
         borderRadius: 10,
         onPressed: _isLoading ? null : _submit,
-        color: const Color(0xFF000434),
       )
     ];
   }

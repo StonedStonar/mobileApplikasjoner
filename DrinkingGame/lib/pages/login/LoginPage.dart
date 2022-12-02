@@ -28,7 +28,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: makeLoginAppBar(),
-      backgroundColor: Colors.grey.shade100,
       body: makePageContent(context),
     );
   }
@@ -36,7 +35,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   ///Opens the drawer.
   void openDrawer(BuildContext context){
     Scaffold.of(context).openDrawer();
-    //ScaffoldState.openDrawer();
   }
 
 
@@ -54,7 +52,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         SignInButton(
             text: "Sign in with email",
             onPressed: () => _isLoading ? null : _loginWithEmail(context)),
-        Padding(
+        const Padding(
           padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: Text(
             "Don't want to login?",
@@ -106,6 +104,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     }
   }
 
+  ///Logs the user into an anonymous account
+  ///[context] the build context
   void _loginWithAnonymous(BuildContext context) async {
     Authentication authentication = ref.watch(authProvider);
     try {

@@ -103,7 +103,6 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
 
   void _nextQuestionUpdate(){
     _nextQuestion();
-    print("Update");
     setState(() {});
   }
 }

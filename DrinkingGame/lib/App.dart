@@ -49,6 +49,20 @@ class App extends ConsumerWidget {
   ThemeData _makeLightTheme(){
     return ThemeData(
       primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold
+        ),
+      ),
+      dialogTheme: DialogTheme(
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+          )
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Colors.blue,
+      )
     );
   }
 
@@ -57,10 +71,10 @@ class App extends ConsumerWidget {
   ThemeData _makeDarkTheme(){
     Color darkTextColor = Color(0xFFFFF4FF);
     Color darkTextButton = Color(0xFF0E0F1E);
-    ///0xFF565FFF
     Color ligtherDarkBlue = Color(0xFF9EA5FF);
     Color darkBaseColor = Color(0xFF000426);
     MaterialColor darkMode = generateMaterialColor(color: darkBaseColor);
+    TextStyle darkTextStyle = TextStyle(color: darkTextColor);
     return ThemeData(
         dialogTheme: DialogTheme(
           backgroundColor: darkMode.shade400,
@@ -75,12 +89,13 @@ class App extends ConsumerWidget {
         popupMenuTheme: PopupMenuThemeData(
           color: darkMode.shade400,
         ),
-
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(
+          labelStyle: TextStyle(
             color: darkTextColor,
+            fontSize: 20,
+            fontWeight: FontWeight.bold
           ),
-
+          hintStyle: darkTextStyle,
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: darkTextColor)
           ),
@@ -102,9 +117,9 @@ class App extends ConsumerWidget {
             )
         ),
         textTheme: TextTheme(
-            bodyText1: TextStyle(color: darkTextColor),
-            bodyText2: TextStyle(color: darkTextColor),
-            subtitle1: TextStyle(color: darkTextColor)
+            bodyText1: darkTextStyle,
+            bodyText2: darkTextStyle,
+            subtitle1: darkTextStyle,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -116,7 +131,10 @@ class App extends ConsumerWidget {
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.resolveWith((states) => darkTextColor),
             )
-        )
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: darkMode.shade200,
+        ),
     );
   }
 }

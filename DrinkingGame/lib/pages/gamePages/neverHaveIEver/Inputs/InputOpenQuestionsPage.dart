@@ -107,7 +107,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   ///Builds an Textfield for userinput and an add button for the user
   Widget _buildTextFieldWithButton() {
     String? error = null;
-    return QuestionInputField(errorText: error, fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList, hintTextField: 'I dont know hoe',);
+    return QuestionInputField(errorText: error, fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList, hintTextField: widget.game.getStatementName(),);
   }
 
 
@@ -119,15 +119,16 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
       style: TextStyle(fontSize: 22),
     ),
       borderRadius: 10,
-      onPressed: () => _addQuestionsAndPlayGame(), //TODO redirect.
-      color: const Color(0xFF000434),
+      onPressed: () => _addQuestionsAndPlayGame(),
     );
   }
 
   ///Adds questions added in list, to register of questions.
   void _addQuestionsAndPlayGame(){
     OpenQuestionRegister register = widget.game.getGameRegister();
-    userQuestions.forEach((question) => register.add(question));
+    for (var question in userQuestions) {
+      register.add(question);
+    }
     widget.onDone();
   }
 
@@ -138,14 +139,6 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
     questionId++;
     userQuestions.add(question);
     _userInputController.clear();
-    _updateState();
-  }
-
-
-  ///Removes a question from the list
-  void _removeQuestionFromList(Question question) {
-    userQuestions.remove(question);
-    questionId--;
     _updateState();
   }
 

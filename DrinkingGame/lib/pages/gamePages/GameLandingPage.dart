@@ -58,6 +58,7 @@ class GameLandingPage extends ConsumerWidget{
     );
   }
 
+  ///Makes an custom item for that page.
   Future<void> makeCustomItem(BuildContext context) async {
     await makeAlertDialog(context);
   }

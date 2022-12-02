@@ -82,7 +82,6 @@ class ProfilePage extends ConsumerWidget{
             ),
             borderRadius: 4,
             onPressed: () => _showEditProfilePage(context),
-            color: const Color(0xFF000434)
           ),
         ),
         Padding(
@@ -97,7 +96,6 @@ class ProfilePage extends ConsumerWidget{
             ),
             borderRadius: 4.0,
             onPressed: () => ChangeTheme(ref),
-            color: const Color(0xFF000434),
           ),
         ),
       ],
