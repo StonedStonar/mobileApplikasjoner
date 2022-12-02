@@ -11,6 +11,7 @@ import '../providers/ThemeProvider.dart';
 class EditProfilePage extends ConsumerWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
+  ///Builds the edit profile page
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(

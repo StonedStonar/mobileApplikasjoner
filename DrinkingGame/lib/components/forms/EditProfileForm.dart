@@ -11,7 +11,7 @@ import '../AppBars.dart';
 import '../Dialogs.dart';
 import '../buttons/CustomElevatedButton.dart';
 
-
+///Form for editing values of a user
 class EditProfileForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
   EditProfileForm({Key? key}) : super(key: key);
 
@@ -27,6 +27,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   final TextEditingController _editPasswordController = TextEditingController();
   final TextEditingController _confirmationPasswordController = TextEditingController();
 
+  ///Focusnodes for changing textfields efficiently using the mobile keyboard
   final FocusNode _editUsernameFocusNode = FocusNode();
   final FocusNode _editEmailFocusNode = FocusNode();
   final FocusNode _editPasswordFocusNode = FocusNode();
@@ -38,12 +39,19 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   String get _editPassword => _editPasswordController.text;
   String get _confirmationPassword => _confirmationPasswordController.text;
 
-  ///True when the user has clicked submit atleast once
+  ///Bool to see if the user has submitted the associated form atleast once
   bool _submittedUser = false;
+
+  ///Bool to see if the user has submitted the associated form atleast once
   bool _submittedEmail = false;
+
+  ///Bool to see if the user has submitted the associated form atleast once
   bool _submittedPassword = false;
+
+  ///Bool to disable buttons while the application is loading data
   bool _isLoading = false;
 
+  ///Builds the page
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -59,6 +67,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     );
   }
 
+  ///Combines all widgets in the form and returns them as a list
   List<Widget> _buildChildren() {
     return [
       CustomText(text: "Current username: ${ref.watch(authProvider).currentUser?.displayName}",
@@ -75,6 +84,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   ];
 }
 
+  ///Builds associated textfield and submit button required for editing a password
   Widget _buildEditUsernameWidget() {
     bool usernameErrorText = _submittedUser && !widget.usernameValidator.isValid(_editUsername);
     return Column(
@@ -103,6 +113,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     );
   }
 
+  ///Builds associated textfield and submit button required for editing an email
   Widget _buildEditEmailWidget() {
     bool emailErrorText = _submittedEmail && !widget.emailValidator.isValid(_editEmail);
     return Column(
@@ -133,9 +144,10 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     );
   }
 
+  ///Builds associated textfields and submit button required for editing a password
   Widget _buildEditPasswordWidget() {
     bool passwordErrorText = _submittedPassword && !widget.passwordValidator.isValid(_editPassword);
-    bool confirmationErrorText = _submittedPassword && !_comparePasswords();
+    bool confirmationErrorText = _submittedPassword && !_comparePasswords(_editPassword, _confirmationPassword);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -146,8 +158,8 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
             "Your new password",
             passwordErrorText,
             false,
-            TextInputAction.done,
-            _updatePassword,
+            TextInputAction.go,
+            () => _moveFocusNode(_confirmPasswordFocusNode),
             "old_password"),
 
         SizedBox(height: 10,),
@@ -178,7 +190,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     );
   }
 
-  ///Sets the new username in firebase
+  ///Sets the a new username for a user in firebase
   void _updateUserName() async {
     setState(() {
       _submittedUser = true;
@@ -187,25 +199,53 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
       _isLoading = true;
       await ref.watch(authProvider).currentUser!.updateDisplayName(_editUsername);
       _isLoading = false;
+      _updateState();
     }
   }
 
+  ///Updates the current email address with a new one
+  ///throws [FirebaseAuthException] if :
+  /// - the email is invalid,
+  /// - the email exists,
+  /// - the user is not recently authenticated,
   void _updateEmail() async {
     setState(() {
        _submittedEmail = true;
     });
     if(widget.emailValidator.isValid(_editEmail)) {
-      await ref.watch(authProvider).currentUser!.updateEmail(_editEmail);
+      try {
+        _isLoading = true;
+        await ref.watch(authProvider).currentUser!.updateEmail(_editEmail);
+      } on FirebaseAuthException catch(e) {
+        showAlertDialog(context,
+            title: "Error",
+            content: "An error occured setting a new email. "
+                "Try logging in to your account again",
+            defaultActionText: "Ok");
+      } finally {
+        _isLoading = false;
+        _updateState();
+      }
     }
   }
 
+  ///Updates the current password with a new one
+  ///throws [FirebaseAuthException] if :
+  /// - the password is weak
+  /// - the user is not recently authenticated
   void _updatePassword() async {
     setState(() {
       _submittedPassword = true;
     });
-    if(widget.passwordValidator.isValid(_editPassword) && _comparePasswords()) {
+    if(widget.passwordValidator.isValid(_editPassword) && _comparePasswords(_editPassword, _confirmationPassword)) {
       try {
+        _isLoading = true;
         await ref.watch(authProvider).currentUser!.updatePassword(_editPassword);
+          if(!mounted) return;
+          showAlertDialog(context,
+              title: "Success",
+              content: "Your password has been updated",
+              defaultActionText: "Ok");
       } on FirebaseAuthException catch(e) {
         ///Displays an alert dialog if an error occurs
         showAlertDialog(context,
@@ -213,13 +253,21 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
             content: "An error occured setting a new password. "
                 "Try logging in to your account again",
             defaultActionText: "Ok");
+      } finally{
+        _isLoading = false;
+        _updateState();
       }
     }
   }
 
-  ///Compares the two passwords input by the user
-  bool _comparePasswords() {
-    return _editPassword == _confirmationPassword;
+  ///Compares two password inputs by the user, true if they match
+  bool _comparePasswords(String password1, String password2) {
+    return password1 == password2;
+  }
+
+  ///Moves the focusnode to another textfield
+  void _moveFocusNode(FocusNode newFocus) {
+    FocusScope.of(context).requestFocus(newFocus);
   }
 
   ///Updates the state - rebuilds components
