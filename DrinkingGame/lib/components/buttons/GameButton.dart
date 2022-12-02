@@ -41,7 +41,6 @@ class GameButton extends CustomElevatedButton {
         ),
         borderRadius:8.0,
         onPressed: onPressed,
-        color: const Color(0xFFD9D9D9),
         height: 70,
         key: key,
   );

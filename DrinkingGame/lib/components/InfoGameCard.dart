@@ -1,4 +1,5 @@
 import 'package:drinkinggame/model/questions/InfoContainer.dart';
+import 'package:drinkinggame/providers/ThemeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 ///Represents a info game card.
 class InfoGameCard extends ConsumerWidget {
+
   ///Makes an instance of the info game card.
   ///[infoContainer] the info container.
   InfoGameCard({required this.infoContainer,});
@@ -15,16 +17,17 @@ class InfoGameCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Widget background = Text("Hei");
-    return buildContent();
+    return buildContent(context, ref);
   }
 
-
-  Widget buildContent(){
+  ///Makes the content of the info card
+  ///[context] the build context
+  ///[ref] the ref
+  Widget buildContent(BuildContext context, WidgetRef ref){
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Color(0xFFD9D9D9),
+        color: ref.watch(themeProvider) == ThemeMode.dark ? Theme.of(context).cardColor : Colors.grey.shade400
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),

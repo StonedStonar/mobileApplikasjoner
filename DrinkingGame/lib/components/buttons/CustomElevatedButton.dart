@@ -5,30 +5,40 @@ class CustomElevatedButton extends StatelessWidget {
   /// [widget] is the content of the button.
   /// [borderRadius] is the radius the edges should have.
   /// [onPressed] the function of the button.
-  /// [color] the color of the button.
   /// [height] the height of the button.
   CustomElevatedButton(
-      {required this.widget, required this.borderRadius, required this.onPressed, required this.color, this.height = 50, Key? key})
+      {required this.widget, required this.borderRadius, required this.onPressed, this.height = 50, this.color, Key? key})
       : super(key: key);
 
   final Widget widget;
   final double borderRadius;
   final VoidCallback? onPressed;
-  final Color color;
   final double height;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
+    late ButtonStyle buttonStyle;
+    if(color == null){
+      buttonStyle = ButtonStyle(
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
+        //backgroundColor:MaterialStateColor.resolveWith((states) => color),
+      );
+    }else{
+      buttonStyle = ButtonStyle(
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)))
+        ),
+        backgroundColor: MaterialStateProperty.resolveWith((states) => color!),
+      );
+    }
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 2.5, 10, 2.5),
       child: SizedBox(
         height: height,
         child: ElevatedButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
-            //backgroundColor:MaterialStateColor.resolveWith((states) => color),
-          ),
+          style: buttonStyle,
           onPressed: onPressed,
           child: widget,
         ),

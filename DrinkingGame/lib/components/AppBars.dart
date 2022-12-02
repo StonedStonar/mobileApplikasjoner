@@ -49,7 +49,6 @@ AppBar makeMenuAppBar(BuildContext context, String? title) {
     title: makeAppbarText(title == null ? "Menu" : title),
     centerTitle: true,
     toolbarHeight: 80,
-    shadowColor: Colors.white,
   );
 }
 
