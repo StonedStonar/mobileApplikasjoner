@@ -1,4 +1,5 @@
-import 'package:drinkinggame/components/GameInputForm.dart';
+import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/components/forms/GameInputForm.dart';
 import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
@@ -56,7 +57,6 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   ///Builds the page.
   @override
   Widget build(BuildContext context) {
-
     Widget textField = _buildTextFieldWithButton();
     String titleText = "Write in your ${widget.game.getStatementName()}" ;
     Widget widgetToShow = SingleChildScrollView(
@@ -65,12 +65,12 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
         children: _buildContent(GameInputForm(formTitle: titleText, textField: textField)),
       ),
     );
-
-    print(userQuestions.length);
     return widgetToShow;
   }
 
   ///Builds the content of the page.
+  ///[gameInputForm] the game input form
+  ///Returns the widgets
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     List<Widget> widgets = [];
     userQuestions.forEach((question) => widgets.add(_makeQuestionWidget(question)));
@@ -99,12 +99,14 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   }
 
   ///Makes a questions widget
+  ///Returns the make questions widget
   Widget _makeQuestionWidget(OpenQuestion openQuestion){
     //Todo: Style this you trønder
     return Text(openQuestion.getQuestionText());
   }
 
   ///Builds an Textfield for userinput and an add button for the user
+  ///Returns the text field with button
   Widget _buildTextFieldWithButton() {
     String? error = null;
     return QuestionInputField(errorText: error, fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList, hintTextField: widget.game.getStatementName(),);
@@ -113,28 +115,30 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
 
   ///Builds a button to redirect to another page
   ///[text] the text to write in the button
+  ///Returns the widget.
   Widget _buildElevatedButton(String text) {
     return CustomElevatedButton(widget: Text(
       text,
-      style: TextStyle(fontSize: 22),
     ),
-      borderRadius: 10,
       onPressed: () => _addQuestionsAndPlayGame(),
     );
   }
 
   ///Adds questions added in list, to register of questions.
   void _addQuestionsAndPlayGame(){
-    OpenQuestionRegister register = widget.game.getGameRegister();
-    for (var question in userQuestions) {
-      register.add(question);
+    if(userQuestions.isNotEmpty){
+      OpenQuestionRegister register = widget.game.getGameRegister();
+      for (var question in userQuestions) {
+        register.add(question);
+      }
+      widget.onDone();
+    }else{
+      showAlertDialog(context, title: "Atleast one statement", content: "You need to input atleast one \"${widget.game.getStatementName()}\"", defaultActionText: "Ok");
     }
-    widget.onDone();
   }
 
   ///Adds a question to a list and wipes the textfield.
   void _addQuestionToList() {
-
     OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);
     questionId++;
     userQuestions.add(question);

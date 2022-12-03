@@ -4,6 +4,7 @@ import 'package:drinkinggame/model/registers/RuleRegister.dart';
 import '../Rule.dart';
 import '../StoreableItem.dart';
 
+///Represents a general game
 abstract class Game extends DatabaseItem {
 
   ///Makes an instance of the game.

@@ -68,6 +68,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   }
 
   ///Combines all widgets in the form and returns them as a list
+  ///Returns the children.
   List<Widget> _buildChildren() {
     return [
       CustomText(text: "Current username: ${ref.watch(authProvider).currentUser?.displayName}",
@@ -85,6 +86,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
 }
 
   ///Builds associated textfield and submit button required for editing a password
+  ///Returns the widget
   Widget _buildEditUsernameWidget() {
     bool usernameErrorText = _submittedUser && !widget.usernameValidator.isValid(_editUsername);
     return Column(
@@ -105,7 +107,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           "Change username",
           style: TextStyle(fontSize: 22),
         ),
-          borderRadius: 10,
           onPressed:  _isLoading ? null : _updateUserName,
           color: const Color(0xFF000434),
         )
@@ -114,6 +115,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   }
 
   ///Builds associated textfield and submit button required for editing an email
+  ///Returns the widget
   Widget _buildEditEmailWidget() {
     bool emailErrorText = _submittedEmail && !widget.emailValidator.isValid(_editEmail);
     return Column(
@@ -136,7 +138,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           "Change email",
           style: TextStyle(fontSize: 22),
         ),
-          borderRadius: 10,
           onPressed: _isLoading ? null : _updateEmail,
           color: const Color(0xFF000434),
         )
@@ -145,6 +146,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
   }
 
   ///Builds associated textfields and submit button required for editing a password
+  ///Returns the widget
   Widget _buildEditPasswordWidget() {
     bool passwordErrorText = _submittedPassword && !widget.passwordValidator.isValid(_editPassword);
     bool confirmationErrorText = _submittedPassword && !_comparePasswords(_editPassword, _confirmationPassword);
@@ -182,7 +184,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           "Change password",
           style: TextStyle(fontSize: 22),
         ),
-          borderRadius: 10,
           onPressed: _isLoading ? null : _updatePassword,
           color: const Color(0xFF000434),
         ),
@@ -260,7 +261,8 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
     }
   }
 
-  ///Compares two password inputs by the user, true if they match
+  ///Compares two password inputs by the user.
+  ///Returns true if the passwords match. False otherwise.
   bool _comparePasswords(String password1, String password2) {
     return password1 == password2;
   }

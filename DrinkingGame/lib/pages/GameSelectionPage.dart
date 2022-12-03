@@ -1,6 +1,7 @@
 import 'package:drinkinggame/App.dart';
 import 'package:drinkinggame/components/AppBars.dart';
 import 'package:drinkinggame/components/CustomText.dart';
+import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/components/GameSlidingButton.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
@@ -20,7 +21,8 @@ import '../providers/GameRegisterProvider.dart';
 
 class GameSelectionPage extends ConsumerWidget {
 
-
+  ///Makes an instance of teh game selection page
+  ///[key] the key
   GameSelectionPage({Key? key}) : super(key: key);
 
   Database? database;
@@ -36,7 +38,11 @@ class GameSelectionPage extends ConsumerWidget {
     database = ref.watch(databaseProvider);
     gameRegister = ref.watch(gameRegisterProvider);
     widgetRef = ref;
-    database?.getGames(gameRegister!);
+    try{
+      database?.getGames(gameRegister!);
+    }on Exception catch (e){
+      showExceptionAlertDialog(context, title: "Error loading games", exception: e);
+    }
     return StreamBuilder<List<Game>?>(
         stream: gameRegister?.getStream(),
         builder: (context, snapshot){
@@ -83,9 +89,15 @@ class GameSelectionPage extends ConsumerWidget {
           break;
 
       }
-      await database?.setCustomGame(game);
-      gameRegister?.getRegisterItems().clear();
-      Navigator.pushNamed(context, "/landingPage");
+      try{
+        await database?.setCustomGame(game);
+        gameRegister?.getRegisterItems().clear();
+        Navigator.pushNamed(context, "/landingPage");
+      }on StateError catch(e){
+        Exception exception =  Exception(e.message);
+        showExceptionAlertDialog(context, title: "Could not add game", exception: exception);
+      }
+
     }
   }
 
@@ -112,12 +124,13 @@ class GameSelectionPage extends ConsumerWidget {
           return AlertDialog(
             title: Text("Make custom game"),
             content: SizedBox(
-              height: 100,
+              height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
 
                 children: [
+                  Text("Make new game"),
                   TextField(
                     controller: contoller,
                     decoration: InputDecoration(

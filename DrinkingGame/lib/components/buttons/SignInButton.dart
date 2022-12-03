@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'CustomElevatedButton.dart';
 
 class SignInButton extends CustomElevatedButton {
+
   /// Makes an instance of the sign in button
   /// [text] the text of the button
   /// [backgroundColor] the background color.
@@ -29,7 +30,6 @@ class SignInButton extends CustomElevatedButton {
               ),
             ],
           ),
-          borderRadius: 4,
           onPressed: onPressed,
           color: backgroundColor,
           height: 80,

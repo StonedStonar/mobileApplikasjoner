@@ -12,6 +12,11 @@ class ContinueQuestionForm extends StatelessWidget {
 
   Function noFunction;
 
+  ///Makes an instance of the continue question form.
+  ///[mainTitle] the main title
+  ///[subTitle] the sub title
+  ///[yesFunction] the yes function
+  ///[noFunction] the no function
   ContinueQuestionForm(
       {required this.mainTitle,
       required this.subTitle,
@@ -26,6 +31,9 @@ class ContinueQuestionForm extends StatelessWidget {
     );
   }
 
+  ///Gets the form items
+  ///[context] the build context
+  ///Returns the form items
   List<Widget> getFormItems(BuildContext context) {
     return [
       CustomText(text: mainTitle, fontSize: 30, fontWeight: FontWeight.w500),

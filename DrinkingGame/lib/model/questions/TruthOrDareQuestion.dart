@@ -13,7 +13,11 @@ import '../enums/TruthOrDare.dart';
 class TruthOrDareQuestion extends Question {
 
   ///Makes an instance of playerQuestions.
-  ///[playerQuestions] the playerQuestions.
+  ///[questionText] the question text
+  ///[questionId] the id of the question
+  ///[response] the default response
+  ///[madeBy] who the question is made by
+  ///[truthOrDare] the enum that tells if this is a truth or dare.
   TruthOrDareQuestion({required super.questionText, required super.questionId, Response response = Response.undefined, required Player madeBy, required TruthOrDare truthOrDare})
       : _response = response, _madeBy = madeBy, _truthOrDare = truthOrDare;
 
@@ -37,12 +41,14 @@ class TruthOrDareQuestion extends Question {
     return _response;
   }
 
-  ///Gets made by
+  ///Gets who the truth or dare is made by.
+  ///Returns the player.
   Player getMadeBy() {
     return _madeBy;
   }
 
   ///Gets respondant
+  ///Returns null if there is no respondant. Otherwise returns the player who responded
   Player? getRespondant() {
     return _respondant;
   }
@@ -54,8 +60,6 @@ class TruthOrDareQuestion extends Question {
   }
 
 
-  ///Checks if a question is already used.
-  ///Returns true if the question is used.
   @override
   bool isUsed() {
     return _response != Response.undefined;

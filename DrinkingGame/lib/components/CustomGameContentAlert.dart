@@ -1,4 +1,5 @@
 import 'package:drinkinggame/App.dart';
+import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/model/Player.dart';
 import 'package:drinkinggame/model/Rule.dart';
 import 'package:drinkinggame/model/StoreableItem.dart';
@@ -19,17 +20,20 @@ import '../model/games/Game.dart';
 import '../pages/gamePages/GameLandingPage.dart';
 import '../providers/DatabaseProvider.dart';
 
-class CustomGameAlert extends ConsumerStatefulWidget {
-  CustomGameAlert({required this.game,super.key});
+class CustomGameContentAlert extends ConsumerStatefulWidget {
+
+  ///Makes an instance of custom game alert
+  ///[game] the game to add content to.
+  CustomGameContentAlert({required this.game,super.key});
 
   Game game;
 
 
   @override
-  ConsumerState<CustomGameAlert> createState() => _CustomGameAlertState();
+  ConsumerState<CustomGameContentAlert> createState() => _CustomGameAlertState();
 }
 
-class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
+class _CustomGameAlertState extends ConsumerState<CustomGameContentAlert> {
 
   TextEditingController _titleController = TextEditingController();
 
@@ -108,9 +112,17 @@ class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
 
           break;
       }
-      ref?.watch(databaseProvider)?.setItemForGame(widget.game, databaseItem!);
+      try{
+        ref?.watch(databaseProvider)?.setItemForGame(widget.game, databaseItem!);
+      }on Exception catch(e){
+        showExceptionAlertDialog(context, title: "Could not add game content", exception: e);
+      }
     }else{
-      ref?.watch(databaseProvider)?.setRuleForGame(widget.game, Rule(ruleId: int.parse(_idController.text), ruleText: _titleController.text, punishment: _descriptionController.text));
+      try{
+        ref?.watch(databaseProvider)?.setRuleForGame(widget.game, Rule(ruleId: int.parse(_idController.text), ruleText: _titleController.text, punishment: _descriptionController.text));
+      }on Exception catch(e){
+        showExceptionAlertDialog(context, title: "Rule", exception: e);
+      }
     }
     Navigator.of(context).pop(false);
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
@@ -137,7 +149,7 @@ class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
     return widgets;
   }
 
-  ///Makes the conents for info container
+  ///Makes the contents for info container
   ///Returns the list with widgets
   List<Widget> makeInfoContainer(){
     List<Widget> widgets = [];
@@ -166,7 +178,7 @@ class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
   ///Makes an textfield.
   ///[controller] the controller of textfield
   ///[textFieldLabel] the label of the text field.
-  ///REturns the textfield
+  ///Returns the text field
   TextField makeTextField(TextEditingController controller, String textFieldLabel ){
     return TextField(
       controller: controller,

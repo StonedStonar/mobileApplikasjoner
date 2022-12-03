@@ -15,7 +15,6 @@ class MenuButton extends StatelessWidget{
 
   IconData icon;
 
-
   double spaceBetween;
 
   VoidCallback onPressed;

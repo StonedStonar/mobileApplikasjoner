@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'CustomElevatedButton.dart';
 
 class SocialSignInButton extends CustomElevatedButton {
+
   /// Makes an instance of the sign in button
   /// [assetName] the file path to the image.
   /// [text] the text of the button
@@ -42,7 +43,6 @@ class SocialSignInButton extends CustomElevatedButton {
                 )
               ],
             ),
-            borderRadius: 4,
             onPressed: onPressed,
             color: color,
             height: 80);

@@ -29,39 +29,41 @@ class QuestionInputField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(55, 0, 0, 0),
-      child: Row(
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: TextField(
-                style: TextStyle(fontSize: 20),
-                controller: fieldController,
-                textAlign: TextAlign.center,
-                onChanged: (username) => onTextFieldChanged(),
-                decoration: InputDecoration(
-                  hintText: "Enter ${hintTextField}",
-                  errorText: errorText,
-                ),
-                autocorrect: false,
-                textInputAction: TextInputAction.done,
-                onEditingComplete: () => onEditingComplete(),
-                key: const Key("gameUser_input")),
+          TextField(
+              style: TextStyle(fontSize: 20),
+              controller: fieldController,
+              textAlign: TextAlign.center,
+              onChanged: (username) => onTextFieldChanged(),
+              decoration: InputDecoration(
+                hintText: "Enter ${hintTextField}",
+                errorText: errorText,
+              ),
+              autocorrect: false,
+              textInputAction: TextInputAction.done,
+              onEditingComplete: () => onEditingComplete(),
+              key: const Key("gameUser_input"),
           ),
-          TextButton(
+          SizedBox(
+            height: 15,
+          ),
+          ElevatedButton(
               onPressed: onButtonPress,
-              child: Column(
-                children: const [
-                  SizedBox(height: 11),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                   Icon(
                     CupertinoIcons.add,
-                    size: 30,
+                    size: 24,
                   ),
                   Text(
                     "Add",
-                    style: TextStyle(fontSize: 14),
                   )
                 ],
               ))

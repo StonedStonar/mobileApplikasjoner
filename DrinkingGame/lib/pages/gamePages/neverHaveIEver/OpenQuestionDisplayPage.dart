@@ -65,6 +65,7 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
   }
 
   ///Build the content of the page
+  ///Returns the widgets.
   List<Widget> _buildChildren() {
     return [
       SizedBox(height: 60,),
@@ -101,6 +102,7 @@ class _QuestionDisplayPageState extends ConsumerState<OpenQuestionDisplayPage> {
     }
   }
 
+  ///Gets the next question to display.
   void _nextQuestionUpdate(){
     _nextQuestion();
     setState(() {});

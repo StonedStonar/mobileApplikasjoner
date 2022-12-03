@@ -45,6 +45,7 @@ class AboutApplicationPage extends StatelessWidget {
 
   ///Used to change the text for about application description.
   ///The title will not be altered here, only main description.
+  ///Returns a text widget
   Widget buildText(String text) {
     return Text(
       text,

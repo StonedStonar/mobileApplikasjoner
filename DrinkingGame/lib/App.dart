@@ -16,14 +16,20 @@ import 'pages/EditProfilePage.dart';
 
 ///Represents the main class of the app.
 class App extends ConsumerWidget {
-
   App({Key? key}) : super(key: key);
+
+  final defaultShape = MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))));
+
+  final minButtonSize = MaterialStateProperty.resolveWith((states) => Size(20, 50));
+
+  final textButtonStyle = MaterialStateProperty.resolveWith((states) => TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Authentication auth = ref.watch(authProvider);
     auth.authStateChanges().listen((event) {
-      ref.read(databaseProvider.notifier).state = event != null ? FirestoreDatabase(uId: event.uid) : null;
+      ref.read(databaseProvider.notifier).state =
+          event != null ? FirestoreDatabase(uId: event.uid) : null;
     });
 
     MaterialApp materialApp = MaterialApp(
@@ -33,42 +39,49 @@ class App extends ConsumerWidget {
       theme: _makeLightTheme(),
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
+
+      ///Has the named routes of the application
       routes: {
-        "/landingPage" : (context) => LandingPage(),
-        "/profile" : (context) => ProfilePage(),
-        "/editProfile" : (context) => EditProfilePage(),
-        "/aboutApp" : (context) => AboutApplicationPage(),
-        "/displayGame" : (context) =>  GameLandingPage(),
+        "/landingPage": (context) => LandingPage(),
+        "/profile": (context) => ProfilePage(),
+        "/editProfile": (context) => EditProfilePage(),
+        "/aboutApp": (context) => AboutApplicationPage(),
+        "/displayGame": (context) => GameLandingPage(),
       },
-      );
+    );
     return materialApp;
   }
 
   ///Makes the light theme
   ///Returns the light theme
-  ThemeData _makeLightTheme(){
+  ThemeData _makeLightTheme() {
     return ThemeData(
       primarySwatch: generateMaterialColor(color: const Color(0xFF000434)),
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-        ),
+        labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       dialogTheme: DialogTheme(
           titleTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-          )
-      ),
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      )),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: Colors.blue,
-      )
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          minimumSize: minButtonSize,
+          textStyle: textButtonStyle,
+          shape: defaultShape,
+        ),
+      ),
+
     );
   }
 
   ///Makes the dark theme
   ///Returns the dark theme
-  ThemeData _makeDarkTheme(){
+  ThemeData _makeDarkTheme() {
     Color darkTextColor = Color(0xFFFFF4FF);
     Color darkTextButton = Color(0xFF0E0F1E);
     Color ligtherDarkBlue = Color(0xFF9EA5FF);
@@ -76,65 +89,59 @@ class App extends ConsumerWidget {
     MaterialColor darkMode = generateMaterialColor(color: darkBaseColor);
     TextStyle darkTextStyle = TextStyle(color: darkTextColor);
     return ThemeData(
-        dialogTheme: DialogTheme(
+      dialogTheme: DialogTheme(
           backgroundColor: darkMode.shade400,
-          contentTextStyle: TextStyle(
-            color: darkTextColor,
-          ),
+          contentTextStyle: darkTextStyle,
           titleTextStyle: TextStyle(
             color: darkTextColor,
             fontWeight: FontWeight.bold,
-          )
-        ),
-        popupMenuTheme: PopupMenuThemeData(
-          color: darkMode.shade400,
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(
+          )),
+      popupMenuTheme: PopupMenuThemeData(
+        color: darkMode.shade400,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(
+            color: darkTextColor, fontSize: 20, fontWeight: FontWeight.bold),
+        hintStyle: darkTextStyle,
+        enabledBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: darkTextColor)),
+        focusedBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: darkTextColor)),
+      ),
+      cardColor: darkMode.shade300,
+      primarySwatch: darkMode,
+      scaffoldBackgroundColor: darkMode.shade900,
+      appBarTheme: AppBarTheme(
+          shadowColor: darkMode.shade500,
+          titleTextStyle:
+              TextStyle(color: darkTextColor, fontWeight: FontWeight.bold),
+          iconTheme: IconThemeData(
             color: darkTextColor,
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-          ),
-          hintStyle: darkTextStyle,
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: darkTextColor)
-          ),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: darkTextColor)
-          ),
+          )),
+      textTheme: TextTheme(
+        bodyText1: darkTextStyle,
+        bodyText2: darkTextStyle,
+        subtitle1: darkTextStyle,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor:
+              MaterialStateProperty.resolveWith((states) => darkTextButton),
+          backgroundColor:
+              MaterialStateProperty.resolveWith((states) => ligtherDarkBlue),
+          minimumSize: minButtonSize,
+          textStyle: textButtonStyle,
+          shape: defaultShape,
         ),
-        cardColor: darkMode.shade300,
-        primarySwatch: darkMode,
-        scaffoldBackgroundColor: darkMode.shade900,
-        appBarTheme: AppBarTheme(
-            shadowColor: darkMode.shade500,
-            titleTextStyle: TextStyle(
-                color: darkTextColor,
-                fontWeight: FontWeight.bold
-            ),
-            iconTheme: IconThemeData(
-              color: darkTextColor,
-            )
-        ),
-        textTheme: TextTheme(
-            bodyText1: darkTextStyle,
-            bodyText2: darkTextStyle,
-            subtitle1: darkTextStyle,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
+      ),
+      textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.resolveWith((states) => darkTextButton),
-            backgroundColor: MaterialStateProperty.resolveWith((states) => ligtherDarkBlue),
-          ),
-        ),
-        textButtonTheme: TextButtonThemeData(
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.resolveWith((states) => darkTextColor),
-            )
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: darkMode.shade200,
-        ),
+        foregroundColor:
+            MaterialStateProperty.resolveWith((states) => darkTextColor),
+      )),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: darkMode.shade200,
+      ),
     );
   }
 }

@@ -33,6 +33,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   ///Opens the drawer.
+  ///[context] the build context
   void openDrawer(BuildContext context){
     Scaffold.of(context).openDrawer();
   }
@@ -40,6 +41,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   ///Makes the main content of the page.
   /// [context] the build context
+  ///Returns the page content
   Widget makePageContent(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -89,19 +91,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => SignUpPage())
     );
-  }
-
-  ///Logs the user in with email
-  ///[context] the build context
-  void _loginWithEmail2(BuildContext context) async {
-    Authentication authentication = ref.watch(authProvider);
-    try {
-      _isLoading = true;
-    } on Exception catch (e) {
-      print(e.toString());
-    } finally {
-      _setLoadingState(false);
-    }
   }
 
   ///Logs the user into an anonymous account

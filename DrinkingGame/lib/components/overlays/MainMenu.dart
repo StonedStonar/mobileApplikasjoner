@@ -18,6 +18,7 @@ class MainMenu extends ConsumerWidget {
 
   ///Builds the content of the main menu.
   ///[context] the build context
+  ///Retuurns the widget
   Widget buildContent(BuildContext context){
     return Column(
       children: [

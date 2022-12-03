@@ -45,7 +45,6 @@ class GameDonePage extends ConsumerWidget {
                   fontSize: 20.0,
                 ),
               ),
-              borderRadius: 4,
               onPressed: () => _navigateToLandingPage(context),
               color: const Color(0xFF000434)
           ),

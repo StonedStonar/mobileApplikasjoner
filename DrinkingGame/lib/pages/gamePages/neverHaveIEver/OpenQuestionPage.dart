@@ -23,7 +23,6 @@ class OpenQuestionPage extends ConsumerStatefulWidget {
 
 }
 
-///Represents TODO
 class _OpenQuestionPageState extends ConsumerState<OpenQuestionPage> {
 
   int number = 0;
@@ -44,6 +43,7 @@ class _OpenQuestionPageState extends ConsumerState<OpenQuestionPage> {
   }
 
   ///Builds a form, where players can add their own open questions.
+  ///Returns the continue form.
   Widget _makeContinueForm(){
     widget.openQuestionGame.getGameRegister().getRegisterItems().clear();
     OpenQuestionGame game = widget.openQuestionGame;

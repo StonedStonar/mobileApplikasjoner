@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'CustomText.dart';
+import '../CustomText.dart';
 
 ///Represents a game input form.
 class GameInputForm extends ConsumerWidget{

@@ -75,11 +75,7 @@ class ProfilePage extends ConsumerWidget{
           child: CustomElevatedButton(
             widget: Text(
               "Edit profile",
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
             ),
-            borderRadius: 4,
             onPressed: () => _showEditProfilePage(context),
           ),
         ),
@@ -88,12 +84,7 @@ class ProfilePage extends ConsumerWidget{
           child: CustomElevatedButton(
             widget: Text(
               "Change to darkmode",
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-
             ),
-            borderRadius: 4.0,
             onPressed: () => ChangeTheme(ref),
           ),
         ),
@@ -109,7 +100,7 @@ class ProfilePage extends ConsumerWidget{
   ///Show the edit profile page when tapped on.
   void _showEditProfilePage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const EditProfilePage(),
+      builder: (context) => EditProfilePage(),
     ));
   }
 

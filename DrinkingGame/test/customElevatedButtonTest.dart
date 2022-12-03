@@ -8,7 +8,6 @@ void main() {
     await tester.pumpWidget(
         MaterialApp(home: CustomElevatedButton(
             widget: Text(""),
-            borderRadius: 4.0,
             onPressed: () {},
             color: Colors.white70,
         ),
@@ -23,7 +22,6 @@ void main() {
     await tester.pumpWidget(
         MaterialApp(home: CustomElevatedButton(
           widget: Text("Smash that like button"),
-          borderRadius: 4.0,
           onPressed: () {},
           color: Colors.white70,
         ),
@@ -38,7 +36,6 @@ void main() {
     await tester.pumpWidget(
         MaterialApp(home: CustomElevatedButton(
           widget: Text("Smash that like button"),
-          borderRadius: 4.0,
           onPressed: () => pressed = true,
           color: Colors.white70,
         ),

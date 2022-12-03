@@ -14,6 +14,8 @@ import '../Dialogs.dart';
 
 ///A form for authenticating the user, by either login or signup.
 class AuthenticationForm extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators{
+  ///Makes an instance of the authentication form
+  ///[key] the key
   AuthenticationForm({Key? key}) : super(key: key);
 
   @override
@@ -70,6 +72,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
   ///Creates and returns a widget list of the
   ///textfields for input, button for switching between login and signup,
   ///and the submit button.
+  ///Returns a list with its contents
   List<Widget> _buildChildren() {
     bool usernameErrorText = _submitted && !widget.usernameValidator.isValid(_username);
     bool emailErrorText = _submitted && !widget.emailValidator.isValid(_email);
@@ -142,7 +145,6 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
         _register ? "Register User" : "Login",
         style: TextStyle(fontSize: 22),
       ),
-        borderRadius: 10,
         onPressed: _isLoading ? null : _submit,
       )
     ];
@@ -194,6 +196,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
   }
 
   ///Compares the two passwords input by the user
+  ///Returns true if the passwords match. False otherwise
   bool _comparePasswords() {
     return _password == _confirmationPassword;
   }
@@ -213,6 +216,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
 
   ///Checks if the email and password fields in the login form
   ///are valid according to business logic
+  ///Returns true if the email and password is valid. False otherwise.
   bool validateLoginInfo() {
     return widget.emailValidator.isValid(_email)
         && widget.passwordValidator.isValid(_password);
@@ -220,6 +224,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
 
   ///Checks if the username, email and password fields in the
   ///sign up form are valid according to business logic
+  ///Returns true if the username, email and password is valid. False otherwise.
   bool validateSignupInfo() {
     return widget.usernameValidator.isValid(_username)
         && widget.emailValidator.isValid(_email)

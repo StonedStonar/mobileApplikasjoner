@@ -9,9 +9,10 @@ import '../providers/ThemeProvider.dart';
 
 ///Represents a page where user can edit their profile.
 class EditProfilePage extends ConsumerWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
 
-  ///Builds the edit profile page
+  ///Makes an instance of the edit profile page
+  EditProfilePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(

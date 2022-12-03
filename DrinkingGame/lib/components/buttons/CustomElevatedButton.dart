@@ -7,29 +7,19 @@ class CustomElevatedButton extends StatelessWidget {
   /// [onPressed] the function of the button.
   /// [height] the height of the button.
   CustomElevatedButton(
-      {required this.widget, required this.borderRadius, required this.onPressed, this.height = 50, this.color, Key? key})
+      {required this.widget, required this.onPressed, this.height = 50, this.color, Key? key})
       : super(key: key);
 
   final Widget widget;
-  final double borderRadius;
   final VoidCallback? onPressed;
   final double height;
   Color? color;
 
   @override
   Widget build(BuildContext context) {
-    late ButtonStyle buttonStyle;
-    if(color == null){
+    late ButtonStyle buttonStyle = ButtonStyle();
+    if(color != null){
       buttonStyle = ButtonStyle(
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
-        //backgroundColor:MaterialStateColor.resolveWith((states) => color),
-      );
-    }else{
-      buttonStyle = ButtonStyle(
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)))
-        ),
         backgroundColor: MaterialStateProperty.resolveWith((states) => color!),
       );
     }

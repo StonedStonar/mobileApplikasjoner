@@ -1,5 +1,5 @@
 import 'package:drinkinggame/components/AppBars.dart';
-import 'package:drinkinggame/components/CustomGameAlert.dart';
+import 'package:drinkinggame/components/CustomGameContentAlert.dart';
 import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/model/games/OpenQuestionGame.dart';
 import 'package:drinkinggame/pages/gamePages/neverHaveIEver/OpenQuestionPage.dart';
@@ -34,7 +34,12 @@ class GameLandingPage extends ConsumerWidget{
     game = ref.read(gameProvider)!;
     RuleRegister ruleRegister = game.getRules();
     if(!ruleRegister.hasRules()){
-      ref.watch(databaseProvider)?.getRulesForGame(game);
+      try{
+        ref.watch(databaseProvider)?.getRulesForGame(game);
+      }on StateError catch (e){
+        Exception exception =  Exception(e.message);
+        showExceptionAlertDialog(context, title: "Error loading game rules", exception: exception);
+      }
     }
     switch(game.runtimeType){
       case InfoGame:
@@ -71,8 +76,8 @@ class GameLandingPage extends ConsumerWidget{
         builder: (context) {
           return AlertDialog(
             content: SizedBox(
-              height: 300,
-              child: CustomGameAlert(game: game,),
+              height: 400,
+              child: CustomGameContentAlert(game: game,),
             ),
           );
         });

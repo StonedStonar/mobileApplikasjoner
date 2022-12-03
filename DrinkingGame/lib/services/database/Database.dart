@@ -6,6 +6,7 @@ import 'package:drinkinggame/model/StoreableItem.dart';
 import '../../model/games/Game.dart';
 import '../../model/registers/GameRegister.dart';
 
+///Represents a basic database needed for the app
 abstract class Database{
 
   ///Creates a new game.

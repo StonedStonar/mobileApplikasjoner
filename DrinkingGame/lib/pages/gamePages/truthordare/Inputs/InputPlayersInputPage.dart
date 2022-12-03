@@ -1,5 +1,5 @@
 import 'package:drinkinggame/components/Dialogs.dart';
-import 'package:drinkinggame/components/GameInputForm.dart';
+import 'package:drinkinggame/components/forms/GameInputForm.dart';
 import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
@@ -17,9 +17,15 @@ import '../../../../components/forms/textfields/TextFields.dart';
 
 class InputPlayersInputPage extends ConsumerStatefulWidget with UsernamePasswordAndEmailValidators {
 
-  InputPlayersInputPage({required this.playerRegister, required this.onDone, Key? key}) : super(key: key);
+  ///Makes an instance of the players input page
+  ///[playerRegister] the player register
+  ///[onDone] the function to do when its done.
+  InputPlayersInputPage({required this.playerRegister, required VoidCallback onDone, Key? key}) : _onDone = onDone,super(key: key);
 
-  VoidCallback onDone;
+  VoidCallback _onDone;
+
+  ///Gets the on done function
+  VoidCallback get onDone => _onDone;
 
   ///Register of players
   PlayerRegister playerRegister;
@@ -47,7 +53,6 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///For giving each player a unique id
   int playerId = 1;
 
-  ///Build the page
   @override
   Widget build(BuildContext context) {
     GameInputForm gameInputForm = GameInputForm(formTitle: "Write in the name of the players", textField: _buildTextFieldWithButton());
@@ -60,6 +65,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   }
 
   ///Builds the all associated widgets for the page
+  ///Returns the children
    List<Widget> _buildChildren(GameInputForm gameInputForm) {
     return [
         gameInputForm,
@@ -72,6 +78,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   }
 
   ///Builds an Textfield for userinput and an add button for the user
+  ///Returns the widget
   Widget _buildTextFieldWithButton() {
     ///Display error text if the form is submitted AND credentials are invalid
     bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
@@ -84,6 +91,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   }
 
   ///Builds a scrollable list of the existing users with a delete button
+  ///Returns the added player list
   Widget _buildAddedPlayersList() {
     List<Player> players = widget.playerRegister.getRegisterItems();
     return Padding(
@@ -123,12 +131,12 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   }
 
   ///Builds a button to redirect to another page
+  ///Returns the next page button
   Widget _buildNextPageButton() {
     return CustomElevatedButton(widget: Text(
             "Next page",
             style: TextStyle(fontSize: 22),
           ),
-            borderRadius: 10,
             onPressed: atleastTwoPlayersAdded()
                 ? widget.onDone
                 : () => showAlertDialog(
@@ -136,7 +144,6 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
                 title: "Oops!",
                 content: "There must be atleast two players in the game",
                 defaultActionText: "Ok"),
-            color: const Color(0xFF000434),
     );
   }
 
@@ -155,6 +162,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   }
 
   ///Validates the user input according to business logic
+  ///Returns true if the username is valid. False otherwise
   bool validatePlayerInput() {
     return widget.usernameValidator.isValid(_playerInput);
   }
@@ -167,7 +175,7 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   }
 
   ///Checks if there are atleast two players in the register,
-  ///returns true if there are two players
+  ///Returns true if there are two players
   bool atleastTwoPlayersAdded() {
     if(widget.playerRegister.getRegisterItems().length >= 2) {
       atleastTwoPlayers = true;
