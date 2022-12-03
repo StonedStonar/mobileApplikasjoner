@@ -81,10 +81,10 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Returns the widget
   Widget _buildTextFieldWithButton() {
     ///Display error text if the form is submitted AND credentials are invalid
-    bool playerErrorText = _submitted && !widget.usernameValidator.isValid(_playerInput);
+    bool playerErrorText = _submitted && !validatePlayerInput();
     String? error = null;
     if(playerErrorText){
-      error = "playername";
+      error = "A name with maximum 20 characters";
     }
     return QuestionInputField(errorText: error, hintTextField: "playername",fieldController: _playerInputController,
         onTextFieldChanged: _updateState, onEditingComplete: _addPlayerToList, onButtonPress: _addPlayerToList);
@@ -164,8 +164,9 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
   ///Validates the user input according to business logic
   ///Returns true if the username is valid. False otherwise
   bool validatePlayerInput() {
-    return widget.usernameValidator.isValid(_playerInput);
+    return _playerInput.isNotEmpty && _playerInput.length <= 20;
   }
+
 
   ///Removes a player from the list
   void _removePlayerFromList(Player player) {

@@ -289,7 +289,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Checks if the length of a question is between 1 and 150 characters.
   /// Returns true if the input is larger than 1 and below 150. False otherwise
   bool validateUserInput() {
-    return _userInput.length > 1 && _userInput.length <= 150;
+    return _userInput.isNotEmpty && _userInput.length <= 150;
   }
 
   ///Removes a question from the list.
