@@ -1,4 +1,5 @@
-import 'package:drinkinggame/components/GameInputForm.dart';
+import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/components/forms/GameInputForm.dart';
 import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/model/questions/OpenQuestion.dart';
@@ -118,25 +119,26 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   Widget _buildElevatedButton(String text) {
     return CustomElevatedButton(widget: Text(
       text,
-      style: TextStyle(fontSize: 22),
     ),
-      borderRadius: 10,
       onPressed: () => _addQuestionsAndPlayGame(),
     );
   }
 
   ///Adds questions added in list, to register of questions.
   void _addQuestionsAndPlayGame(){
-    OpenQuestionRegister register = widget.game.getGameRegister();
-    for (var question in userQuestions) {
-      register.add(question);
+    if(userQuestions.isNotEmpty){
+      OpenQuestionRegister register = widget.game.getGameRegister();
+      for (var question in userQuestions) {
+        register.add(question);
+      }
+      widget.onDone();
+    }else{
+      showAlertDialog(context, title: "Atleast one statement", content: "You need to input atleast one \"${widget.game.getStatementName()}\"", defaultActionText: "Ok");
     }
-    widget.onDone();
   }
 
   ///Adds a question to a list and wipes the textfield.
   void _addQuestionToList() {
-
     OpenQuestion question = OpenQuestion(questionId: questionId, questionText: _userInput);
     questionId++;
     userQuestions.add(question);

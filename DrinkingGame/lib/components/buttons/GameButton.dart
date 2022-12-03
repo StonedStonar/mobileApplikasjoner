@@ -39,7 +39,6 @@ class GameButton extends CustomElevatedButton {
             ],
           ),
         ),
-        borderRadius:8.0,
         onPressed: onPressed,
         height: 70,
         key: key,

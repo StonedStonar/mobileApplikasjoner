@@ -1,12 +1,10 @@
-
-
 import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../components/CustomText.dart';
-import '../../../../components/GameInputForm.dart';
+import '../../../../components/forms/GameInputForm.dart';
 import '../../../../components/QuestionInputField.dart';
 import '../../../../components/buttons/CustomElevatedButton.dart';
 import '../../../../model/Player.dart';
@@ -18,12 +16,17 @@ import '../../../../model/registers/TruthOrDareRegister.dart';
 
 ///Page for a user to add custom questions to a game
 class InputQuestionsPage extends ConsumerStatefulWidget {
-
   ///Makes an instance of the input questions page.
   ///[playerRegister] the player register
   ///[truthOrDareRegister] the truth or dare register
   ///[onDone] the on done function
-  InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required VoidCallback onDone, Key? key}) : _onDone = onDone,super(key: key);
+  InputQuestionsPage(
+      {required this.playerRegister,
+      required this.truthOrDareRegister,
+      required VoidCallback onDone,
+      Key? key})
+      : _onDone = onDone,
+        super(key: key);
 
   ///Register for all players
   PlayerRegister playerRegister;
@@ -38,11 +41,11 @@ class InputQuestionsPage extends ConsumerStatefulWidget {
   VoidCallback get onDone => _onDone;
 
   @override
-  ConsumerState<InputQuestionsPage> createState() => _CustomQuestionInputPageState();
+  ConsumerState<InputQuestionsPage> createState() =>
+      _CustomQuestionInputPageState();
 }
 
 class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
-
   ///Controller for the textfield
   final TextEditingController _userInputController = TextEditingController();
 
@@ -71,23 +74,28 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Build the page
   @override
   Widget build(BuildContext context) {
-    if(firstTime){
+    if (firstTime) {
       it = widget.playerRegister.getIterator();
       getNextPlayer();
       firstTime = false;
     }
 
     Widget textField = _buildTextFieldWithButton();
-    String titleText = "${_currentPlayer?.getPlayerName()} write in your ${_isTruth ? "Truth(s)" : "Dare(s)"}" ;
+    String titleText =
+        "${_currentPlayer?.getPlayerName()} write in your ${_isTruth ? "Truth(s)" : "Dare(s)"}";
     Widget widgetToShow = SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _buildContent(GameInputForm(formTitle: titleText, textField: textField, underWidget: _makeSwitchTruthOrDareButton(),)),
+        children: _buildContent(GameInputForm(
+          formTitle: titleText,
+          textField: textField,
+          underWidget: _makeSwitchTruthOrDareButton(),
+        )),
       ),
     );
 
     ///If there are no more players, display a button for advancing to the game.
-    if(_currentPlayer == null){
+    if (_currentPlayer == null) {
       widgetToShow = Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -101,12 +109,9 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
 
   ///Makes the truth or dare switch button.
   ///Returns the button
-  Widget _makeSwitchTruthOrDareButton(){
-    return Padding(
-      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: _buildElevatedButton(_isTruth ? "Change to dare" : "Change to truth",
-          _switchTruthOrDare),
-    );
+  Widget _makeSwitchTruthOrDareButton() {
+    return _buildElevatedButton(
+        _isTruth ? "Change to dare" : "Change to truth", _switchTruthOrDare);
   }
 
   ///Builds the content
@@ -115,7 +120,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     return [
       gameInputForm,
-      CustomText(text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
+      CustomText(
+          text: "Truth or dare", fontSize: 30, fontWeight: FontWeight.w600),
       _buildAddedPlayersList(),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -135,11 +141,17 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     ///TODO:Replace with truth validator
     bool playerErrorText = _submitted && validateUserInput();
     String? error = null;
-    if(playerErrorText){
+    if (playerErrorText) {
       String truthOrDare = _isTruth ? "truth" : "dare";
       error = "Invalid ${truthOrDare}";
     }
-    return QuestionInputField(errorText: error, hintTextField: _isTruth ? "truth" : "dare",fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList);
+    return QuestionInputField(
+        errorText: error,
+        hintTextField: _isTruth ? "truth" : "dare",
+        fieldController: _userInputController,
+        onTextFieldChanged: _updateState,
+        onEditingComplete: _addQuestionToList,
+        onButtonPress: _addQuestionToList);
   }
 
   ///Builds a scrollable list of the existing users with a delete button
@@ -152,62 +164,73 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     return Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Center(
-          ///A fixed size for the scrollable list
+
+            ///A fixed size for the scrollable list
             child: SizedBox(
-              height: 165,
-              ///Scrollable list for displaying users
-              child: userQuestions.isNotEmpty ?
-              ListView(
-                shrinkWrap: true,
-                children: questionWidgets,) :
-              SizedBox(
+          height: 165,
+
+          ///Scrollable list for displaying users
+          child: userQuestions.isNotEmpty
+              ? ListView(
+                  shrinkWrap: true,
+                  children: questionWidgets,
+                )
+              : SizedBox(
                   height: 10,
-                  child: CustomText(text: "No questions", fontSize: 20, fontWeight: FontWeight.w300)),
-            )
-        )
-    );
+                  child: CustomText(
+                      text: "No questions",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300)),
+        )));
   }
 
   ///Makes a widget for a question with a button to remove it
   ///[question] the truth or dare question
   ///Returns the question widget.
-  Widget makeWidgetForQuestion(TruthOrDareQuestion question){
+  Widget makeWidgetForQuestion(TruthOrDareQuestion question) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(width: 35),
-        Expanded(child:
-        Text("${question.getTruthOrDare().name.toLowerCase()}: ${question.getQuestionText()}",
-          style: TextStyle(fontSize: 20),
-          overflow: TextOverflow.clip,)),
-        TextButton(onPressed: () => _removeQuestionFromList(question), child: Column(
-          children: const [
-            SizedBox(height: 5),
-            Icon(CupertinoIcons.minus, size: 30,),
-          ],
-        )),
-      ]);
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(width: 35),
+          Expanded(
+              child: Text(
+            "${question.getTruthOrDare().name.toLowerCase()}: ${question.getQuestionText()}",
+            style: TextStyle(fontSize: 20),
+            overflow: TextOverflow.clip,
+          )),
+          TextButton(
+              onPressed: () => _removeQuestionFromList(question),
+              child: Column(
+                children: const [
+                  SizedBox(height: 5),
+                  Icon(
+                    CupertinoIcons.minus,
+                    size: 30,
+                  ),
+                ],
+              )),
+        ]);
   }
 
   ///Switches between adding a truth or a dare question.
   void _switchTruthOrDare() {
-      _isTruth = !_isTruth;
-      _updateState();
+    _isTruth = !_isTruth;
+    _updateState();
   }
 
   ///When a player is done adding questions, add the user questions to the
   ///general list of questions to be displayed. Then get a new player.
   void moveToNextPlayer() {
-      if(_atleastOneQuestionAdded()) {
-        mergePlayerQuestionsWithQuestionList();
-        getNextPlayer();
-      } else {
-        showAlertDialog(context,
-            title: "Oops!",
-            content: "Every player must add atleast 1 question",
-            defaultActionText: "Ok");
-      }
+    if (_atleastOneQuestionAdded()) {
+      mergePlayerQuestionsWithQuestionList();
+      getNextPlayer();
+    } else {
+      showAlertDialog(context,
+          title: "Oops!",
+          content: "Every player must add atleast 1 question",
+          defaultActionText: "Ok");
+    }
   }
 
   ///Merges a player´s questions to the general list of questions.
@@ -219,10 +242,10 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   ///Gets the next player.
-  void getNextPlayer(){
-    if(it.moveNext()){
+  void getNextPlayer() {
+    if (it.moveNext()) {
       _currentPlayer = it.current;
-    }else{
+    } else {
       _currentPlayer = null;
     }
   }
@@ -232,13 +255,11 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///[onPressed] the on pressed function
   ///Returns the widget
   Widget _buildElevatedButton(String text, Function onPressed) {
-    return CustomElevatedButton(widget: Text(
-      text,
-      style: TextStyle(fontSize: 22),
-    ),
-      borderRadius: 10,
+    return CustomElevatedButton(
+      widget: Text(
+        text,
+      ),
       onPressed: () => onPressed(),
-      color: const Color(0xFF000434),
     );
   }
 
@@ -251,14 +272,12 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Adds a question to the register and wipes the textfield
   void _addQuestionToList() {
     _submitted = true;
-    if(validateUserInput()) {
+    if (validateUserInput()) {
       TruthOrDareQuestion question = TruthOrDareQuestion(
           questionId: questionId,
           questionText: _userInput,
           madeBy: _currentPlayer!,
-          truthOrDare: _isTruth ?
-          TruthOrDare.TRUTH :
-          TruthOrDare.DARE);
+          truthOrDare: _isTruth ? TruthOrDare.TRUTH : TruthOrDare.DARE);
       questionId++;
       userQuestions.add(question);
       _submitted = false;
@@ -284,5 +303,4 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   void _updateState() {
     setState(() {});
   }
-
 }

@@ -1,4 +1,5 @@
 import 'package:drinkinggame/App.dart';
+import 'package:drinkinggame/components/Dialogs.dart';
 import 'package:drinkinggame/model/Player.dart';
 import 'package:drinkinggame/model/Rule.dart';
 import 'package:drinkinggame/model/StoreableItem.dart';
@@ -111,9 +112,17 @@ class _CustomGameAlertState extends ConsumerState<CustomGameContentAlert> {
 
           break;
       }
-      ref?.watch(databaseProvider)?.setItemForGame(widget.game, databaseItem!);
+      try{
+        ref?.watch(databaseProvider)?.setItemForGame(widget.game, databaseItem!);
+      }on Exception catch(e){
+        showExceptionAlertDialog(context, title: "Could not add game content", exception: e);
+      }
     }else{
-      ref?.watch(databaseProvider)?.setRuleForGame(widget.game, Rule(ruleId: int.parse(_idController.text), ruleText: _titleController.text, punishment: _descriptionController.text));
+      try{
+        ref?.watch(databaseProvider)?.setRuleForGame(widget.game, Rule(ruleId: int.parse(_idController.text), ruleText: _titleController.text, punishment: _descriptionController.text));
+      }on Exception catch(e){
+        showExceptionAlertDialog(context, title: "Rule", exception: e);
+      }
     }
     Navigator.of(context).pop(false);
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameLandingPage()));
@@ -140,7 +149,7 @@ class _CustomGameAlertState extends ConsumerState<CustomGameContentAlert> {
     return widgets;
   }
 
-  ///Makes the conents for info container
+  ///Makes the contents for info container
   ///Returns the list with widgets
   List<Widget> makeInfoContainer(){
     List<Widget> widgets = [];
@@ -169,7 +178,7 @@ class _CustomGameAlertState extends ConsumerState<CustomGameContentAlert> {
   ///Makes an textfield.
   ///[controller] the controller of textfield
   ///[textFieldLabel] the label of the text field.
-  ///REturns the textfield
+  ///Returns the text field
   TextField makeTextField(TextEditingController controller, String textFieldLabel ){
     return TextField(
       controller: controller,

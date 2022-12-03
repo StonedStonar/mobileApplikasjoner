@@ -1,5 +1,5 @@
 import 'package:drinkinggame/components/Dialogs.dart';
-import 'package:drinkinggame/components/GameInputForm.dart';
+import 'package:drinkinggame/components/forms/GameInputForm.dart';
 import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
 import 'package:drinkinggame/components/buttons/ElevatedIconButton.dart';
@@ -137,7 +137,6 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
             "Next page",
             style: TextStyle(fontSize: 22),
           ),
-            borderRadius: 10,
             onPressed: atleastTwoPlayersAdded()
                 ? widget.onDone
                 : () => showAlertDialog(
@@ -145,7 +144,6 @@ class _CustomPlayerInputPageState extends ConsumerState<InputPlayersInputPage> {
                 title: "Oops!",
                 content: "There must be atleast two players in the game",
                 defaultActionText: "Ok"),
-            color: const Color(0xFF000434),
     );
   }
 

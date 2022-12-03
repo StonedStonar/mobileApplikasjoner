@@ -145,7 +145,6 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
         _register ? "Register User" : "Login",
         style: TextStyle(fontSize: 22),
       ),
-        borderRadius: 10,
         onPressed: _isLoading ? null : _submit,
       )
     ];

@@ -107,7 +107,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           "Change username",
           style: TextStyle(fontSize: 22),
         ),
-          borderRadius: 10,
           onPressed:  _isLoading ? null : _updateUserName,
           color: const Color(0xFF000434),
         )
@@ -139,7 +138,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           "Change email",
           style: TextStyle(fontSize: 22),
         ),
-          borderRadius: 10,
           onPressed: _isLoading ? null : _updateEmail,
           color: const Color(0xFF000434),
         )
@@ -186,7 +184,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           "Change password",
           style: TextStyle(fontSize: 22),
         ),
-          borderRadius: 10,
           onPressed: _isLoading ? null : _updatePassword,
           color: const Color(0xFF000434),
         ),

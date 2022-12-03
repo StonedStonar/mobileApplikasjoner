@@ -30,6 +30,7 @@ class _TruthOrDareState extends ConsumerState<TruthOrDarePage> {
   @override
   Widget build(BuildContext context) {
     if(_firstTime){
+      widget.statementGame.getPlayerRegister().getRegisterItems().clear();
       widgetToShow = InputPlayersInputPage(playerRegister:widget.statementGame.getPlayerRegister(), onDone: _changeToInputQuestions);
       _firstTime = false;
     }
