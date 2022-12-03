@@ -20,7 +20,8 @@ import '../providers/GameRegisterProvider.dart';
 
 class GameSelectionPage extends ConsumerWidget {
 
-
+  ///Makes an instance of teh game selection page
+  ///[key] the key
   GameSelectionPage({Key? key}) : super(key: key);
 
   Database? database;

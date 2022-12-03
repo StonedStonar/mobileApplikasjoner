@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drinkinggame/model/games/Game.dart';
 import 'package:drinkinggame/model/enums/GameType.dart';
@@ -18,6 +14,7 @@ import '../../model/StoreableItem.dart';
 import '../../model/registers/Register.dart';
 import 'APIPath.dart';
 import 'Database.dart';
+
 
 class FirestoreDatabase implements Database{
 

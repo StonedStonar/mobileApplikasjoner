@@ -112,7 +112,6 @@ class _QuestionDisplayPageState extends ConsumerState<QuestionDisplayPage> {
   void _nextQuestion() {
     truthOrDare?.answerQuestion(Response.yes, _currentPlayer);
     _getNextPlayer();
-    print(_currentPlayer);
 
     if(truthOrDare == null){
       widget.doDone();

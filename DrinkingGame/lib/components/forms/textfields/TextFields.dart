@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 ///A textfield for a username input
+///Returns the textfield
 TextField buildUsernameTextField(
     TextEditingController controller,
     FocusNode focusNode,
@@ -31,6 +32,7 @@ TextField buildUsernameTextField(
 }
 
 ///A textfield for an email input
+///Returns the textfield
 TextField buildEmailTextField(
     TextEditingController controller,
     FocusNode focusNode,
@@ -60,7 +62,8 @@ TextField buildEmailTextField(
   );
 }
 
-///A textfield for a password input
+///A textfield for a password input'
+///Returns the textfield
 TextField buildPasswordTextField(
     TextEditingController controller,
     FocusNode focusNode,
@@ -92,6 +95,7 @@ TextField buildPasswordTextField(
 }
 
 ///A textfield for a confirm password input
+///Returns the textfield
 TextField buildConfirmPasswordTextField(
     TextEditingController controller,
     FocusNode focusNode,

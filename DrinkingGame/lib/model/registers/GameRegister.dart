@@ -6,6 +6,7 @@ import 'package:drinkinggame/model/registers/Register.dart';
 
 import '../games/Game.dart';
 
+///Represents a game register. It holds all the games that is loaded into the application.
 class GameRegister extends Register{
 
   List<Game> _games = [];

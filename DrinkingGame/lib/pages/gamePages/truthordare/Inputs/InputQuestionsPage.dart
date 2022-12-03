@@ -19,7 +19,11 @@ import '../../../../model/registers/TruthOrDareRegister.dart';
 ///Page for a user to add custom questions to a game
 class InputQuestionsPage extends ConsumerStatefulWidget {
 
-  InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required this.onDone, Key? key}) : super(key: key);
+  ///Makes an instance of the input questions page.
+  ///[playerRegister] the player register
+  ///[truthOrDareRegister] the truth or dare register
+  ///[onDone] the on done function
+  InputQuestionsPage({required this.playerRegister, required this.truthOrDareRegister, required VoidCallback onDone, Key? key}) : _onDone = onDone,super(key: key);
 
   ///Register for all players
   PlayerRegister playerRegister;
@@ -28,7 +32,10 @@ class InputQuestionsPage extends ConsumerStatefulWidget {
   TruthOrDareRegister truthOrDareRegister;
 
   ///Function to be called when all players have inputted their questions
-  VoidCallback onDone;
+  VoidCallback _onDone;
+
+  ///Gets the on done function.
+  VoidCallback get onDone => _onDone;
 
   @override
   ConsumerState<InputQuestionsPage> createState() => _CustomQuestionInputPageState();
@@ -102,7 +109,9 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     );
   }
 
-  //Todo: Dokumentasjon
+  ///Builds the content
+  ///[gameInputForm] the game input form.
+  ///Returns the content
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     return [
       gameInputForm,
@@ -121,6 +130,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   ///Builds an Textfield for userinput and an add button for the user
+  ///Returns the textfield with button
   Widget _buildTextFieldWithButton() {
     ///TODO:Replace with truth validator
     bool playerErrorText = _submitted && validateUserInput();
@@ -133,8 +143,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   ///Builds a scrollable list of the existing users with a delete button
+  ///Returns the widget.
   Widget _buildAddedPlayersList() {
-    List<Question> questions = widget.truthOrDareRegister.getRegisterItems();
     List<Widget> questionWidgets = [];
     userQuestions.forEach((question) {
       questionWidgets.add(makeWidgetForQuestion(question));
@@ -159,6 +169,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   ///Makes a widget for a question with a button to remove it
+  ///[question] the truth or dare question
+  ///Returns the question widget.
   Widget makeWidgetForQuestion(TruthOrDareQuestion question){
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -216,6 +228,9 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   ///Builds a button to redirect to another page
+  ///[text] the text of the elevated button
+  ///[onPressed] the on pressed function
+  ///Returns the widget
   Widget _buildElevatedButton(String text, Function onPressed) {
     return CustomElevatedButton(widget: Text(
       text,
@@ -227,6 +242,8 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
     );
   }
 
+  ///Checks if there is atleast one question added.
+  ///Returns true if there is atleast one question added. False otherwise
   bool _atleastOneQuestionAdded() {
     return userQuestions.isNotEmpty;
   }
@@ -251,6 +268,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   }
 
   ///Checks if the length of a question is between 1 and 150 characters.
+  /// Returns true if the input is larger than 1 and below 150. False otherwise
   bool validateUserInput() {
     return _userInput.length > 1 && _userInput.length < 150;
   }

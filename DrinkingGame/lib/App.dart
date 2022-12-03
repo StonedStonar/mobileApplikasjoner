@@ -33,6 +33,7 @@ class App extends ConsumerWidget {
       theme: _makeLightTheme(),
       themeMode: ref.watch(themeProvider),
       initialRoute: "/landingPage",
+      ///Has the named routes of the application
       routes: {
         "/landingPage" : (context) => LandingPage(),
         "/profile" : (context) => ProfilePage(),

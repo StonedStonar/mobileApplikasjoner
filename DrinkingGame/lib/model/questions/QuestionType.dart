@@ -8,7 +8,7 @@ enum QuestionType{
   OPEN,
 
   ///Is a player question
-  PLAYER,
+  TRUTHORDARE,
 }
 
 ///Extends the enum to introduce a method that identify the question.
@@ -20,7 +20,7 @@ extension QuestionIdentifier on QuestionType{
   static QuestionType getQuestionType(Question question){
     QuestionType type = QuestionType.OPEN;
     if(question is Player){
-      type = QuestionType.PLAYER;
+      type = QuestionType.TRUTHORDARE;
     }
     return type;
   }

@@ -72,7 +72,7 @@ class GameLandingPage extends ConsumerWidget{
           return AlertDialog(
             content: SizedBox(
               height: 300,
-              child: CustomGameAlert(game: game,),
+              child: CustomGameContentAlert(game: game,),
             ),
           );
         });

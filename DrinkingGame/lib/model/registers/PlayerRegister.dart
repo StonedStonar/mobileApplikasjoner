@@ -60,6 +60,7 @@ class PlayerRegister extends Register {
   }
 
   ///Gets an iterator to go through players
+  ///Returns the iterator of the players
   Iterator<Player> getIterator() {
     return _players.iterator;
   }

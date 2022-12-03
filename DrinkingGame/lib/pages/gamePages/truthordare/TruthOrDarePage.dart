@@ -30,22 +30,10 @@ class _TruthOrDareState extends ConsumerState<TruthOrDarePage> {
   @override
   Widget build(BuildContext context) {
     if(_firstTime){
-      widgetToShow = InputPlayersInputPage(playerRegister:widget.statementGame.getPlayerRegister(), onDone: _makeContinueForm);
+      widgetToShow = InputPlayersInputPage(playerRegister:widget.statementGame.getPlayerRegister(), onDone: _changeToInputQuestions);
       _firstTime = false;
     }
     return widgetToShow;
-  }
-
-  ///Makes the continue form
-  void _makeContinueForm(){
-    _updateThisState(Padding(
-      padding: const EdgeInsets.fromLTRB(15, 70, 15, 5),
-      child: ContinueQuestionForm(mainTitle: 'Do you want to add truth(s) or dare(s)?',
-        subTitle: 'If nor truth or dares is added only a default question set will be used',
-        yesFunction: _changeToInputQuestions,
-        noFunction: _changeToPlay,
-      ),
-    ));
   }
 
   ///Changes to input questions.

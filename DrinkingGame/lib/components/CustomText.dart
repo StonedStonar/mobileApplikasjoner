@@ -10,6 +10,11 @@ class CustomText extends StatelessWidget{
 
   FontWeight fontWeight;
 
+  ///Makes an instance of custom texxt
+  ///[text] the text to show
+  ///[fontSize] the font size
+  ///[fontWeight] the font weight
+  ///[key] the key.
   CustomText({required this.text, required this.fontSize, required this.fontWeight, super.key});
 
   @override
@@ -17,6 +22,8 @@ class CustomText extends StatelessWidget{
     return buildHeadLineText();
   }
 
+  ///Builds the headline text
+  ///Returns the headline text
   Widget buildHeadLineText() {
     return Text(
       text,

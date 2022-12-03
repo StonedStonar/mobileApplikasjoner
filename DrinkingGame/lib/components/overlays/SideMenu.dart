@@ -7,6 +7,7 @@ class SideMenu extends StatelessWidget {
 
   ///Makes an insance of the side menu.
   ///[child] the content of the menu.
+  ///[title] the title of the side menu
   SideMenu({required this.child, this.title, Key? key}) : super(key: key);
 
   final String? title;

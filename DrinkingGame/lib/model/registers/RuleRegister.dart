@@ -14,7 +14,7 @@ class RuleRegister extends Register{
   StreamController<List<Rule>> _streamController = StreamController();
 
   ///Adds a rule to the register.
-  ///[rule] the rule
+  ///[rule] the rule to add
   ///Throws [CouldNotAddRuleException] if the rule could not be added.
   void addRule(Rule rule){
     if(!_rules.contains(rule)){
@@ -34,6 +34,7 @@ class RuleRegister extends Register{
   }
 
   ///Checks if the rule register has rules
+  ///Returns true if there is rules in register. Otherwise false.
   bool hasRules(){
     return _rules.isNotEmpty;
   }

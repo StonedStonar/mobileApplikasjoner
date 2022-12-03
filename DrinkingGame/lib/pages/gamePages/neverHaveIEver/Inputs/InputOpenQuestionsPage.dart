@@ -56,7 +56,6 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   ///Builds the page.
   @override
   Widget build(BuildContext context) {
-
     Widget textField = _buildTextFieldWithButton();
     String titleText = "Write in your ${widget.game.getStatementName()}" ;
     Widget widgetToShow = SingleChildScrollView(
@@ -65,12 +64,12 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
         children: _buildContent(GameInputForm(formTitle: titleText, textField: textField)),
       ),
     );
-
-    print(userQuestions.length);
     return widgetToShow;
   }
 
   ///Builds the content of the page.
+  ///[gameInputForm] the game input form
+  ///Returns the widgets
   List<Widget> _buildContent(GameInputForm gameInputForm) {
     List<Widget> widgets = [];
     userQuestions.forEach((question) => widgets.add(_makeQuestionWidget(question)));
@@ -99,12 +98,14 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   }
 
   ///Makes a questions widget
+  ///Returns the make questions widget
   Widget _makeQuestionWidget(OpenQuestion openQuestion){
     //Todo: Style this you trønder
     return Text(openQuestion.getQuestionText());
   }
 
   ///Builds an Textfield for userinput and an add button for the user
+  ///Returns the text field with button
   Widget _buildTextFieldWithButton() {
     String? error = null;
     return QuestionInputField(errorText: error, fieldController: _userInputController, onTextFieldChanged: _updateState, onEditingComplete: _addQuestionToList, onButtonPress: _addQuestionToList, hintTextField: widget.game.getStatementName(),);
@@ -113,6 +114,7 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
 
   ///Builds a button to redirect to another page
   ///[text] the text to write in the button
+  ///Returns the widget.
   Widget _buildElevatedButton(String text) {
     return CustomElevatedButton(widget: Text(
       text,

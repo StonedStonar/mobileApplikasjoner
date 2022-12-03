@@ -30,6 +30,7 @@ abstract class Question extends DatabaseItem{
   }
 
   ///Check to see if the question is used or not.
+  ///Returns true if the question is used. False otherwise
   bool isUsed();
 
   @override

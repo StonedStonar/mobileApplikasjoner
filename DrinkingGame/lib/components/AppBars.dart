@@ -6,9 +6,10 @@ import 'package:flutter/services.dart';
 import '../model/games/Game.dart';
 import 'buttons/ElevatedIconButton.dart';
 
+enum MenuItem { firstItem, secondItem }
+
 ///Makes the login app bar.
 ///Returns the appbar.
-
 AppBar makeLoginAppBar() {
   return AppBar(
     title: makeAppbarText("Sign in"),
@@ -16,8 +17,6 @@ AppBar makeLoginAppBar() {
     centerTitle: true,
   );
 }
-
-enum MenuItem { firstItem, secondItem }
 
 ///Makes the normal app bar for the pages.
 ///[title] the title of the page.
@@ -32,6 +31,8 @@ AppBar makeNormalAppBar(String title, BuildContext context) {
   );
 }
 
+///Makes the menu button.
+///Returns the widget
 Widget makeMenuButton(){
   return ElevatedIconButton(
     onPressed: (context) {
@@ -44,6 +45,7 @@ Widget makeMenuButton(){
 ///Makes the menus appbar.
 ///[context] the build context
 ///[title] the title of the appbar.
+///Returns the appbar
 AppBar makeMenuAppBar(BuildContext context, String? title) {
   return AppBar(
     title: makeAppbarText(title == null ? "Menu" : title),
@@ -69,6 +71,7 @@ AppBar makeGameAppBar(BuildContext context, Game game) {
 }
 
 ///Makes a basic appbar only containing a title
+///Returns the basic app bar
 AppBar makeBasicAppbar(String title) {
   return AppBar(
     title: makeAppbarText(title),
@@ -79,6 +82,7 @@ AppBar makeBasicAppbar(String title) {
 
 ///Makes the heading for the appbar.
 ///[text] the text to make into a heading.
+///Returns the appbar text
 Text makeAppbarText(String text) {
   return Text(
     text,

@@ -110,7 +110,7 @@ class ProfilePage extends ConsumerWidget{
   ///Show the edit profile page when tapped on.
   void _showEditProfilePage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const EditProfilePage(),
+      builder: (context) => EditProfilePage(),
     ));
   }
 

@@ -19,17 +19,20 @@ import '../model/games/Game.dart';
 import '../pages/gamePages/GameLandingPage.dart';
 import '../providers/DatabaseProvider.dart';
 
-class CustomGameAlert extends ConsumerStatefulWidget {
-  CustomGameAlert({required this.game,super.key});
+class CustomGameContentAlert extends ConsumerStatefulWidget {
+
+  ///Makes an instance of custom game alert
+  ///[game] the game to add content to.
+  CustomGameContentAlert({required this.game,super.key});
 
   Game game;
 
 
   @override
-  ConsumerState<CustomGameAlert> createState() => _CustomGameAlertState();
+  ConsumerState<CustomGameContentAlert> createState() => _CustomGameAlertState();
 }
 
-class _CustomGameAlertState extends ConsumerState<CustomGameAlert> {
+class _CustomGameAlertState extends ConsumerState<CustomGameContentAlert> {
 
   TextEditingController _titleController = TextEditingController();
 

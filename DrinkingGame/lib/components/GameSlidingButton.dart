@@ -35,7 +35,9 @@ class GameSlidingButton extends ConsumerWidget {
     );
   }
 
-
+  ///Builds the content behind the main content.
+  ///[context] the context
+  ///Returns the action pane.
   ActionPane buildBehindMenu(BuildContext context){
     Text text = Text(
         "Update game",
@@ -53,10 +55,14 @@ class GameSlidingButton extends ConsumerWidget {
     );
   }
 
+  ///Builds the main content of the widget
+  ///Returns the widget
   Widget buildContent(){
     return GameButton(game: game, onPressed: onPressed,);
   }
 
+  ///Updates the game from firebase.
+  ///[context] the build context
   void _updateGame(BuildContext context){
     ref?.watch(databaseProvider)?.updateGame(game);
     Navigator.pushNamed(context, "/landingPage");
