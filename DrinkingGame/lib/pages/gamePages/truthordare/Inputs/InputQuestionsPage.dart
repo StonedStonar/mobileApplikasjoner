@@ -139,11 +139,11 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Returns the textfield with button
   Widget _buildTextFieldWithButton() {
     ///TODO:Replace with truth validator
-    bool playerErrorText = _submitted && validateUserInput();
+    bool playerErrorText = _submitted && !validateUserInput();
     String? error = null;
     if (playerErrorText) {
       String truthOrDare = _isTruth ? "truth" : "dare";
-      error = "Invalid ${truthOrDare}";
+      error = "From 1 to 150 characters. Current length: ${_userInput.length}";
     }
     return QuestionInputField(
         errorText: error,
@@ -289,7 +289,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///Checks if the length of a question is between 1 and 150 characters.
   /// Returns true if the input is larger than 1 and below 150. False otherwise
   bool validateUserInput() {
-    return _userInput.length > 1 && _userInput.length < 150;
+    return _userInput.length > 1 && _userInput.length <= 150;
   }
 
   ///Removes a question from the list.
