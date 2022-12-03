@@ -220,7 +220,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
         showAlertDialog(context,
             title: "Error",
             content: "An error occured setting a new email. "
-                "Try logging in to your account again",
+                "Try logging out and in again",
             defaultActionText: "Ok");
       } finally {
         _isLoading = false;
@@ -251,7 +251,7 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
         showAlertDialog(context,
             title: "Error",
             content: "An error occured setting a new password. "
-                "Try logging in to your account again",
+                "Try logging out and in again",
             defaultActionText: "Ok");
       } finally{
         _isLoading = false;
