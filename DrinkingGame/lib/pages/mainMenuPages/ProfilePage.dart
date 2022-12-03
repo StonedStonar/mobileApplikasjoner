@@ -41,14 +41,13 @@ class ProfilePage extends ConsumerWidget{
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
+          padding: EdgeInsets.fromLTRB(50, 50, 50, 15),
           child: Image.asset(
-              'images/face.jpg',
-            width: 400,
-            height: 200,
+              'images/default_user_icon.png',
+            width: 300,
+            height: 150,
             fit: BoxFit.contain,
           ),
-
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
