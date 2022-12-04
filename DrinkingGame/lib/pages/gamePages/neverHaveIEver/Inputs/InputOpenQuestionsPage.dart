@@ -1,4 +1,5 @@
 import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/components/QuestionWidget.dart';
 import 'package:drinkinggame/components/forms/GameInputForm.dart';
 import 'package:drinkinggame/components/QuestionInputField.dart';
 import 'package:drinkinggame/components/buttons/CustomElevatedButton.dart';
@@ -102,7 +103,13 @@ class _CustomNeverHaveIEverQuestionInputPageState extends ConsumerState<InputOpe
   ///Returns the make questions widget
   Widget _makeQuestionWidget(OpenQuestion openQuestion){
     //Todo: Style this you trønder
-    return Text(openQuestion.getQuestionText());
+    return QuestionWidget(question: openQuestion, onPressed: _removeQuestion);
+  }
+  /// Removes a question
+  /// [openQuestion] the open question
+  void _removeQuestion(Question openQuestion){
+    userQuestions.remove(openQuestion);
+    _updateState();
   }
 
   ///Builds an Textfield for userinput and an add button for the user
