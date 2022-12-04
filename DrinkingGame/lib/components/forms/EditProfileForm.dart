@@ -108,7 +108,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           style: TextStyle(fontSize: 22),
         ),
           onPressed:  _isLoading ? null : _updateUserName,
-          color: const Color(0xFF000434),
         )
       ],
     );
@@ -139,7 +138,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           style: TextStyle(fontSize: 22),
         ),
           onPressed: _isLoading ? null : _updateEmail,
-          color: const Color(0xFF000434),
         )
       ],
     );
@@ -185,7 +183,6 @@ class EditProfileFormState extends ConsumerState<EditProfileForm>{
           style: TextStyle(fontSize: 22),
         ),
           onPressed: _isLoading ? null : _updatePassword,
-          color: const Color(0xFF000434),
         ),
       ],
     );
