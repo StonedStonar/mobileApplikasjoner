@@ -5,10 +5,10 @@ abstract class StringValidator {
 }
 
 ///Validates a username
-///The username is valid if it only contains characters,
+///The username is valid if it only contains alphanumeric characters
 ///with a minimum length of 3, and max length of 20
 class UsernameValidator implements StringValidator {
-  final usernameRegexp = RegExp(r"^[a-zA-Z]{3,20}$");
+  final usernameRegexp = RegExp(r"^(?=[a-zA-Z0-9._]{3,20}$)(?!.*[_.]{2})[^_.].*[^_.]$");
 
   @override
   bool isValid(String value) {
