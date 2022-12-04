@@ -1,4 +1,5 @@
 import 'package:drinkinggame/components/Dialogs.dart';
+import 'package:drinkinggame/components/QuestionWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -188,29 +189,7 @@ class _CustomQuestionInputPageState extends ConsumerState<InputQuestionsPage> {
   ///[question] the truth or dare question
   ///Returns the question widget.
   Widget makeWidgetForQuestion(TruthOrDareQuestion question) {
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(width: 35),
-          Expanded(
-              child: Text(
-            "${question.getTruthOrDare().name.toLowerCase()}: ${question.getQuestionText()}",
-            style: TextStyle(fontSize: 20),
-            overflow: TextOverflow.clip,
-          )),
-          TextButton(
-              onPressed: () => _removeQuestionFromList(question),
-              child: Column(
-                children: const [
-                  SizedBox(height: 5),
-                  Icon(
-                    CupertinoIcons.minus,
-                    size: 30,
-                  ),
-                ],
-              )),
-        ]);
+    return QuestionWidget(question: question, onPressed: _removeQuestionFromList);
   }
 
   ///Switches between adding a truth or a dare question.
