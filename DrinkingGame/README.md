@@ -1,16 +1,14 @@
 # drinkinggame
 
-A new Flutter project.
+A flutter project which contain popular drinking games.
+Never google search again! this application contains fan favorite drinking games like truth or dare,
+ring of fire, paranoia, and many more! Didn´t find your favorite drinking game? create your own!
 
 ## Getting Started
+Prerequisites ; 
+Have flutter installed in your PATH.
+Have an emulator ready started and ready for usage. 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In the command line, write:
+- flutter pub get
+- flutter run

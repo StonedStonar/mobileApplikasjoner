@@ -77,7 +77,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     bool usernameErrorText = _submitted && !widget.usernameValidator.isValid(_username);
     bool emailErrorText = _submitted && !widget.emailValidator.isValid(_email);
     bool passwordErrorText = _submitted && !widget.passwordValidator.isValid(_password);
-    bool confirmationErrorText = _submitted && !_comparePasswords();
+    bool confirmationErrorText = _submitted && !_comparePasswords(_password, _confirmationPassword);
     return [
       ///Username textfield, only for signup
       if (_register) buildUsernameTextField(_usernameController,
@@ -195,10 +195,10 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     }
   }
 
-  ///Compares the two passwords input by the user
-  ///Returns true if the passwords match. False otherwise
-  bool _comparePasswords() {
-    return _password == _confirmationPassword;
+  ///Compares two password inputs by the user.
+  ///Returns true if the passwords match. False otherwise.
+  bool _comparePasswords(String password1, String password2) {
+    return password1 == password2;
   }
 
   ///Moves the focusnode to another textfield
@@ -229,7 +229,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
     return widget.usernameValidator.isValid(_username)
         && widget.emailValidator.isValid(_email)
         && widget.passwordValidator.isValid(_password)
-        && _comparePasswords();
+        && _comparePasswords(_password, _confirmationPassword);
   }
 
   ///Updates the state - rebuilds components
