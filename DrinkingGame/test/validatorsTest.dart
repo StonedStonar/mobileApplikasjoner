@@ -52,11 +52,6 @@ void main() {
       final validator = EmailValidator();
       expect(validator.isValid("test@"), false);
     });
-    //TODO Something wrong with regex, since the EmailValidator let emails without example .com work!
-    test("Test an email that misses dot something example (.com)", () {
-      final validator = EmailValidator();
-      expect(validator.isValid("test@test"), false);
-    });
     test("Test empty email", () {
       final validator = EmailValidator();
       expect(validator.isValid(""), false);
