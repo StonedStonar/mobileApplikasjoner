@@ -46,7 +46,6 @@ class GameDonePage extends ConsumerWidget {
                 ),
               ),
               onPressed: () => _navigateToLandingPage(context),
-              color: const Color(0xFF000434)
           ),
         ),
       ],

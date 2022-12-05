@@ -10,10 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../components/AppBars.dart';
+import '../../components/CustomText.dart';
 import '../../components/InfoGameCard.dart';
 import '../../providers/AuthProvider.dart';
 import '../../providers/ThemeProvider.dart';
 
+///Page to show a user profile
 class ProfilePage extends ConsumerWidget{
 
   @override
@@ -21,8 +23,10 @@ class ProfilePage extends ConsumerWidget{
     //final user = UserPreferences.myUser;
     return Scaffold(
       appBar: makeNormalAppBar("Profile", context),
-      body: SingleChildScrollView(
-        child: _buildContent(context, ref),
+      body: Center(
+        child: SingleChildScrollView(
+          child: _buildContent(context, ref),
+        ),
       ),
       drawer: MainMenu(),
     );
@@ -38,12 +42,38 @@ class ProfilePage extends ConsumerWidget{
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+
+        ///Display the page according to if the user is anonymous or not
+        authentication?.currentUser?.isAnonymous != true
+            ? _buildLoggedInUserWidget(context, username, email)
+            : _buildAnonymousWidget(),
+
+        Padding(
+          padding: const EdgeInsets.fromLTRB(50, 0, 50, 15),
+          child: CustomElevatedButton(
+            widget: Text(
+              "Change to darkmode",
+            ),
+            onPressed: () => ChangeTheme(ref),
+          ),
+        ),
+      ],
+    );
+  }
+
+  ///Widget for displaying user attributes
+  ///BuildContext [context] context of the page
+  ///String [username] the username of the user
+  ///String [email] the email of the user
+  Widget _buildLoggedInUserWidget(BuildContext context, String username, String email) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(50, 50, 50, 15),
+          padding: EdgeInsets.fromLTRB(50, 10, 50, 15),
           child: Image.asset(
-              'images/default_user_icon.png',
+            'images/default_user_icon.png',
             width: 300,
             height: 150,
             fit: BoxFit.contain,
@@ -52,7 +82,7 @@ class ProfilePage extends ConsumerWidget{
         Padding(
           padding: EdgeInsets.fromLTRB(50, 20, 50, 15),
           child: Text(
-              "Your username: $username",
+            "Your username: $username",
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
@@ -79,16 +109,21 @@ class ProfilePage extends ConsumerWidget{
             onPressed: () => _showEditProfilePage(context),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(50, 0, 50, 15),
-          child: CustomElevatedButton(
-            widget: Text(
-              "Change to darkmode",
-            ),
-            onPressed: () => ChangeTheme(ref),
-          ),
-        ),
       ],
+    );
+  }
+
+  ///Widget for informing the user is anonymously logged in
+  Widget _buildAnonymousWidget() {
+    return Padding(
+        padding: EdgeInsets.fromLTRB(50, 0, 50, 25),
+        child: Align(
+          alignment: Alignment.center,
+          child: CustomText(
+          text: "You are not logged in",
+          fontSize: 20,
+          fontWeight: FontWeight.w400),
+        ),
     );
   }
 
