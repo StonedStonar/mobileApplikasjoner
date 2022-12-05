@@ -83,7 +83,7 @@ TextField buildPasswordTextField(
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        errorText: errorText ? "4-20 chars, uppercase, lowercase, digits" : null,
+        errorText: errorText ? "8-20 chars, uppercase, lowercase, digits" : null,
       ),
       enabled: !isLoading,
       autocorrect: false,

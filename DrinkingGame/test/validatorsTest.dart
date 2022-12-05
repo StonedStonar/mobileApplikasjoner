@@ -23,7 +23,7 @@ void main() {
   });
   test("Test Username with numbers", () {
     final validator = UsernameValidator();
-    expect(validator.isValid("007"), false);
+    expect(validator.isValid("007"), true);
   });
   test("Test Username with less than 3 characters", () {
     final validator = UsernameValidator();
@@ -86,6 +86,11 @@ void main() {
       test("Test password with a length of more than 20", () {
         final validator = PasswordValidator();
         expect(validator.isValid("ChuckNorrisNorris123123123"), false);
+      });
+
+      test("Test password with a length of 6", () {
+        final validator = PasswordValidator();
+        expect(validator.isValid("Ch1choo"), false);
       });
     });
 

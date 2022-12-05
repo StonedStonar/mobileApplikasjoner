@@ -28,10 +28,10 @@ class EmailValidator implements StringValidator {
 
 ///Validates a password
 ///The password must contain: One uppercase letter, one lower case letter,
-///one number, a minimum of totally 4 letters, and maximum of 20.
+///one number, a minimum of totally 8 letters, and maximum of 20.
 ///TODO: Possibly add lighten up criteria to not have capital letter and numbers
 class PasswordValidator implements StringValidator {
-  final passwordRegexp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{4,20}$");
+  final passwordRegexp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$");
 
   @override
   bool isValid(String value) {
